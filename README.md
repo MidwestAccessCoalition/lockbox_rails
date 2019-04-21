@@ -1,24 +1,8 @@
-# README
+# MAC Lockbox
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The MAC clinic lockbox is a system for tracking MAC cash at clinics across the Midwest. This is a system of google forms and sheets that work together to keep accurate accounting of MAC cash box funds as well as notify MAC client coordinators, finance team, and clinic partners of events.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Local dev setup
+## Requirements
+* Ruby v2.6.2
+* Rails 6.0.0.beta3
