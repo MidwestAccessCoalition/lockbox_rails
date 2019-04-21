@@ -4,5 +4,8 @@ The MAC clinic lockbox is a system for tracking MAC cash at clinics across the M
 
 # Local dev setup
 ## Requirements
-* Ruby v2.6.2
-* Rails 6.0.0.beta3
+* Ruby  v2.6.2
+* Rails v6.0.0.beta3
+* Node  v11.14.0
+
+##
