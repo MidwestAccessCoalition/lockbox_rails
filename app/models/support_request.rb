@@ -2,6 +2,7 @@ class SupportRequest < ApplicationRecord
   belongs_to :lockbox_partner
   belongs_to :user
   has_many :lockbox_actions
+  has_many :notes, as: :notable
 
   validates :client_ref_id, presence: true
   validates :name_or_alias, presence: true

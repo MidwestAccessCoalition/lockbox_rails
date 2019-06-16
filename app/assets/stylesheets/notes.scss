@@ -1,0 +1,36 @@
+.notes-area {
+  position: relative;
+  margin-top: 45px;
+  max-height: 600px;
+  .notes-river {
+    overflow: scroll;
+    max-height: 465px;
+    .note {
+      margin-bottom: 7px;
+      border-radius: 3px;
+      padding: 10px;
+      background: #eee;
+      p {
+        margin: 0;
+      }
+      p.note-timestamp {
+        color: #777777;
+        text-align: right;
+      }
+    }
+  }
+  .notes-form {
+    width: 100%;
+    height: 135px;
+    bottom: 0;
+    textarea {
+      width: 100%;
+      height: 80px;
+      resize: none;
+    }
+    input[type='submit'] {
+      width: 100%;
+      margin-top: 5px;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<div class="notes-form">
+  <%= form_for [notable, notable.notes.build], remote: true do |f|%>
+    <%= f.text_area :text %>
+    <%= f.submit data: { disable: true } %>
+  <% end %>
+</div>

@@ -9,3 +9,4 @@ require('@rails/activestorage').start();
 require('channels');
 require('../src/alerts');
 require('../src/transactions');
+require('../src/notes');

@@ -1,0 +1,6 @@
+<div class="notes-area">
+  <div class="notes-river">
+    <%= render notable.notes.order(created_at: :asc) %>
+  </div>
+  <%= render partial: 'notes/form', locals: { notable: notable } %>
+</div>

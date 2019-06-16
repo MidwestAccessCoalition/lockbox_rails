@@ -1,0 +1,5 @@
+<p>Client Ref Id: <%= @support_request.client_ref_id %></p>
+<p>Name or alias: <%= @support_request.name_or_alias %></p>
+<p>Urgency flag: <%= @support_request.urgency_flag %></p>
+
+<%= render partial: 'notes/area', locals: { notable: @support_request } %>

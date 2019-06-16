@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :support_requests, only: [:new, :create]
+  resources :support_requests, only: [:index, :show, :new, :create] do
+    resources :notes, only: [:create]
+  end
 
   root to: 'dashboard#index'
 

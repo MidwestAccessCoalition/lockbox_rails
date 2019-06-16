@@ -1,0 +1,9 @@
+<div class="note">
+  <p class="note-text">
+    <%= note.text %>
+  </p>
+  <p class="note-timestamp">
+    <% # note.author.person ? note.author.person.name : "User #{note.author.id}" %>
+    <%= note.created_at.strftime('%Y/%m/%d %I:%M %p') %>
+  </p>
+</div>

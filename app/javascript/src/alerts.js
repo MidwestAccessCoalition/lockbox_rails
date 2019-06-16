@@ -6,7 +6,10 @@ const fadeAlert = () => {
 const setupAlerts = () => {
   window.setTimeout(fadeAlert, 3000);
   document.addEventListener('ajax:success', response => {
-    document.getElementById('errors').innerHTML = response.detail[0];
+    const data = response.detail[0];
+    if (data.error) {
+      console.log(data.error);
+    }
   });
 };
 

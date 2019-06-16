@@ -1,0 +1,5 @@
+<% @support_requests.each do |support_request| %>
+  <p>
+    <%= link_to support_request.client_ref_id, support_request_path(support_request) %>
+  </p>
+<% end %>
