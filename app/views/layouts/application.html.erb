@@ -13,14 +13,16 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="usa-grid">
-      <div id="errors">
-        <% flash.each do |key, value| %>
-          <div class="fade">
-            <%= render partial: 'shared/error', locals: { key: key, value: value } %>
-          </div>
-        <% end %>
+      <div class="container">
+        <div id="errors">
+          <% flash.each do |key, value| %>
+            <div class="fade">
+              <%= render partial: 'shared/error', locals: { key: key, value: value } %>
+            </div>
+          <% end %>
+        </div>
+        <%= yield %>
       </div>
-      <%= yield %>
     </div>
   </body>
 </html>

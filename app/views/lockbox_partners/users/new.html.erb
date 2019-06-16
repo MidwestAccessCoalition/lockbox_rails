@@ -1,26 +1,24 @@
-<div class="container">
-  <h3>Invite new user to <%= @lockbox_partner.name %></h3>
-  <%= form_for @user, url: lockbox_partner_users_path(@lockbox_partner), html: { class: 'form' } do |f| %>
-    <div class="form-group">
-      <%= f.label :name do %>
-        Name <span class="usa-input-label-helper">(optional)</span>
-      <% end %>
-      <%= f.text_field :name, class: 'form-control' %>
-    </div>
-    <div class=<%= @user.errors[:email].present? ? "form-group usa-input-error" : "form-group" %>>
-      <%= f.label :email %>
-      <% if @user.errors[:email].present? %>
-        <span class="usa-input-error-message" id="input-error-message" role="alert">
-          Email <%= @user.errors[:email].join(', ') %>
-        </span>
-      <% end %>
-      <%= f.text_field :email,
-        class: 'form-control',
-        required: true,
-        type: 'email',
-        pattern:'^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$',
-        title: 'valid email address' %>
-    </div>
-    <%= f.submit 'Invite user to Lockbox Partner', class: 'btn btn-primary' %>
-  <% end %>
-</div>
+<h3>Invite new user to <%= @lockbox_partner.name %></h3>
+<%= form_for @user, url: lockbox_partner_users_path(@lockbox_partner), html: { class: 'form' } do |f| %>
+  <div class="form-group">
+    <%= f.label :name do %>
+      Name <span class="usa-input-label-helper">(optional)</span>
+    <% end %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class=<%= @user.errors[:email].present? ? "form-group usa-input-error" : "form-group" %>>
+    <%= f.label :email %>
+    <% if @user.errors[:email].present? %>
+      <span class="usa-input-error-message" id="input-error-message" role="alert">
+        Email <%= @user.errors[:email].join(', ') %>
+      </span>
+    <% end %>
+    <%= f.text_field :email,
+      class: 'form-control',
+      required: true,
+      type: 'email',
+      pattern:'^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$',
+      title: 'valid email address' %>
+  </div>
+  <%= f.submit 'Invite user to Lockbox Partner', class: 'btn btn-primary' %>
+<% end %>

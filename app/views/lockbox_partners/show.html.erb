@@ -1,37 +1,35 @@
-<div class="container">
-  <div>
-    <p><strong><%= @lockbox_partner.city %></strong></p>
-  </div>
-  <h3>
-    <%= @lockbox_partner.name %><span class="pull-right">$ <%= @lockbox_partner.balance %></span>
-  </h3>
+<div>
+  <p><strong><%= @lockbox_partner.city %></strong></p>
+</div>
+<h3>
+  <%= @lockbox_partner.name %><span class="pull-right">$ <%= @lockbox_partner.balance %></span>
+</h3>
 
-  <hr />
+<hr />
 
-  <div class="lockbox-activity">
-    <table class="table">
-      <thead>
+<div class="lockbox-activity">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Activity</th>
+        <th>Status</th>
+        <th>Client</th>
+        <th>Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @lockbox_partner.historical_actions.each do |action| %>
         <tr>
-          <th>Date</th>
-          <th>Activity</th>
-          <th>Status</th>
-          <th>Client</th>
-          <th>Amount</th>
-          <th>Actions</th>
+          <td><%= action.eff_date %></td>
+          <td><%= action.action_type.humanize %></td>
+          <td><%= action.status %></td>
+          <td><%= action.support_request&.name_or_alias %></td>
+          <td><%= action.amount %></td>
+          <td>Placeholder Link to Case</td>
         </tr>
-      </thead>
-      <tbody>
-        <% @lockbox_partner.historical_actions.each do |action| %>
-          <tr>
-            <td><%= action.eff_date %></td>
-            <td><%= action.action_type.humanize %></td>
-            <td><%= action.status %></td>
-            <td><%= action.support_request&.name_or_alias %></td>
-            <td><%= action.amount %></td>
-            <td>Placeholder Link to Case</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
 </div>
