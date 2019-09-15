@@ -1,5 +1,6 @@
 <div class="container">
-  <%= form_for :add_cash, class: "form", url: lockbox_partners_add_cash_path do |f| %>
+  <%= render partial: 'lockbox_partners/header', locals: { lockbox_partner: @lockbox_partner } %>
+  <%= form_for :add_cash, html: { class: "form add-cash-form" }, url: lockbox_partners_add_cash_path do |f| %>
     <h2>Add Cash to Lockbox</h2>
     <p>Complete this form when you have put the check in the mail</p>
     <div class="form-group">

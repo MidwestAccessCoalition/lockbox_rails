@@ -1,0 +1,25 @@
+.lockbox-partner-header {
+  margin: 0px auto;
+  margin-top: 50px;
+  border-bottom: solid 2px black;
+
+  .lockbox-partner-info {
+    p {
+      width: 300px;
+      vertical-align: top;
+      display: inline-block;
+    }
+  }
+}
+
+.lockbox-activity {
+  table {
+    margin-top: 0;
+  }
+}
+
+.add-cash-form,
+.new-user-form {
+  padding: 20px;
+}
+

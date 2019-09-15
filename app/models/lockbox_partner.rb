@@ -35,6 +35,10 @@ class LockboxPartner < ApplicationRecord
     balance < MINIMUM_ACCEPTABLE_BALANCE
   end
 
+  def cash_addition_confirmation_pending?
+    lockbox_actions.pending_cash_additions.any?
+  end
+
   def relevant_transactions_for_balance(exclude_pending: false)
     excluded_statuses = [ LockboxAction::CANCELED ]
     excluded_statuses << LockboxAction::PENDING if exclude_pending

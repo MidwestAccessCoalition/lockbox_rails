@@ -1,47 +1,52 @@
-<div id="support-request-form" class="container">
-  <% form_post_path = @lockbox_partner ? lockbox_partner_support_requests_path(@lockbox_partner) : support_requests_path %>
+<div class="container">
   <% unless @lockbox_partner.nil? || @lockbox_partner.active? %>
     <p class="text-center">Lockbox partner not yet active. There must be an active user and a completed cash addition.</p>
   <% else %>
-    <%= form_with model: @support_request, url: form_post_path, class: 'form' do |f| %>
-      <h2>File a support request</h2>
-      <div class="form-group">
-        <%= label_tag 'lockbox_action[eff_date]', 'Pick-up Date' %>
-        <%= date_field_tag 'lockbox_action[eff_date]', nil, class: 'form-control' %>
-      </div>
-      <% if @lockbox_partner.nil? %>
-        <div class="form-group">
-          <%= f.label :lockbox_partner %>
-          <%= f.select :lockbox_partner_id, options_for_select(active_lockbox_partner_select_options), {}, class: 'form-control' %>
-        </div>
+    <div id="support-request-form" class="container">
+      <% if @lockbox_partner %>
+        <%= render partial: 'lockbox_partners/header', locals: { lockbox_partner: @lockbox_partner } %>
       <% end %>
-      <div class="form-group">
-        <%= f.label :name_or_alias, 'Client Alias' %>
-        <small class="form-text text-muted">Please do not use legal name</small>
-        <%= f.text_field :name_or_alias, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :client_ref_id, 'Client Reference ID' %>
-        <%= f.text_field :client_ref_id, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :amount_breakdown %>
-        <div class="support_case_transactions">
-          <div class="entries">
-            <% 3.times do %>
-              <%= render partial: 'lockbox_partners/support_requests/lockbox_transaction_form' %>
-            <% end %>
-          </div>
-          <%= link_to 'Add more values +', '#', id: 'add_transaction' %>
+      <% form_post_path = @lockbox_partner ? lockbox_partner_support_requests_path(@lockbox_partner) : support_requests_path %>
+      <%= form_with model: @support_request, url: form_post_path, class: 'form' do |f| %>
+        <h2>File a support request</h2>
+        <div class="form-group">
+          <%= label_tag 'lockbox_action[eff_date]', 'Pick-up Date' %>
+          <%= date_field_tag 'lockbox_action[eff_date]', nil, class: 'form-control' %>
         </div>
-      </div>
-      <legend id="total">Total: $0.00</legend>
-      <div class="form-group">
-        <%= f.label :urgency_flag %>
-        <%= f.text_field :urgency_flag, class: 'form-control' %>
-      </div>
-      <%= f.submit "Submit", class: 'btn btn-primary' %>
-    <% end %>
-    <script id="transaction_template" type="text/template"><%= render partial: 'lockbox_partners/support_requests/lockbox_transaction_form' %></script>
+        <% if @lockbox_partner.nil? %>
+          <div class="form-group">
+            <%= f.label :lockbox_partner %>
+            <%= f.select :lockbox_partner_id, options_for_select(active_lockbox_partner_select_options), {}, class: 'form-control' %>
+          </div>
+        <% end %>
+        <div class="form-group">
+          <%= f.label :name_or_alias, 'Client Alias' %>
+          <small class="form-text text-muted">Please do not use legal name</small>
+          <%= f.text_field :name_or_alias, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :client_ref_id, 'Client Reference ID' %>
+          <%= f.text_field :client_ref_id, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :amount_breakdown %>
+          <div class="support_case_transactions">
+            <div class="entries">
+              <% 3.times do %>
+                <%= render partial: 'lockbox_partners/support_requests/lockbox_transaction_form' %>
+              <% end %>
+            </div>
+            <%= link_to 'Add more values +', '#', id: 'add_transaction' %>
+          </div>
+        </div>
+        <legend id="total">Total: $0.00</legend>
+        <div class="form-group">
+          <%= f.label :urgency_flag %>
+          <%= f.text_field :urgency_flag, class: 'form-control' %>
+        </div>
+        <%= f.submit "Submit", class: 'btn btn-primary' %>
+      <% end %>
+      <script id="transaction_template" type="text/template"><%= render partial: 'lockbox_partners/support_requests/lockbox_transaction_form' %></script>
+    </div>
   <% end %>
 </div>

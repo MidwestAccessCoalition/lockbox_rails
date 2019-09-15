@@ -1,27 +1,19 @@
 <div class="container">
-  <div class="lockbox-partner-header">
-    <strong><%= @support_request&.lockbox_partner&.city %></strong>
-    <%= link_to lockbox_partner_path(@support_request.lockbox_partner), class: 'float-right' do %>
-      <i class="fa fa-long-arrow-left" aria-hidden="true"></i> View All Activity
+  <%= render partial: 'lockbox_partners/header', locals: { lockbox_partner: @lockbox_partner } %>
+  <div class="support-request-container">
+    <% if current_user.admin? %>
+      <%= render partial: 'details_admin', locals: { support_request: @support_request } %>
+      <%= link_to 'Edit Support Request', 'TODO', class: 'btn btn-primary' %>
+      <%= link_to 'Add Note', '#', class: 'btn btn-secondary', id: 'new-note' %>
+    <% else %>
+      <%= render partial: 'details_partner', locals: { support_request: @support_request } %>
+      <%= link_to 'Add Note', '#', class: 'btn btn-primary', id: 'new-note' %>
     <% end %>
-    <h2><%= @support_request&.lockbox_partner&.name %> <span class="float-right"><%= @support_request&.lockbox_partner&.balance %></span></h2>
-  </div>
-  <div class="header-separator"></div>
-    <div class="support-request-container">
-      <% if current_user.admin? %>
-        <%= render partial: 'details_admin', locals: { support_request: @support_request } %>
-        <%= link_to 'Edit Support Request', 'TODO', class: 'btn btn-primary' %>
-        <%= link_to 'Add Note', '#', class: 'btn btn-secondary', id: 'new-note' %>
-      <% else %>
-        <%= render partial: 'details_partner', locals: { support_request: @support_request } %>
-        <%= link_to 'Add Note', '#', class: 'btn btn-primary', id: 'new-note' %>
-      <% end %>
 
-      <%= render partial: 'lockbox_partners/notes/notes', locals: { notable: @support_request } %>
+    <%= render partial: 'lockbox_partners/notes/notes', locals: { notable: @support_request } %>
 
-      <div class="support-request-nav">
-        TODO MAKE THIS NAV - https://github.com/MidwestAccessCoalition/lockbox_rails/issues/121
-      </div>
+    <div class="support-request-nav">
+      TODO MAKE THIS NAV - https://github.com/MidwestAccessCoalition/lockbox_rails/issues/121
     </div>
   </div>
 </div>

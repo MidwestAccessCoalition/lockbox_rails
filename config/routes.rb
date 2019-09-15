@@ -27,4 +27,6 @@ Rails.application.routes.draw do
   namespace :lockbox_partners do
     resource :add_cash, only: [:new, :create], controller: 'add_cash'
   end
+
+  resources :lockbox_actions, only: [:update]
 end

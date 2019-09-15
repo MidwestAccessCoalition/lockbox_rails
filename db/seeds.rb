@@ -20,8 +20,9 @@ LOCKBOX_PARTNERS = [
 
 LOCKBOX_PARTNERS.map do |partner_name, partner_user_email|
   lockbox_partner = LockboxPartner.where(name: partner_name).first_or_create!(
+    street_address: Faker::Address.street_address,
     city: Faker::Address.city,
-    state: Faker::Address.state,
+    state: Faker::Address.state_abbr,
     zip_code: Faker::Address.zip_code,
     phone_number: Faker::PhoneNumber.phone_number
   )
@@ -50,10 +51,11 @@ LOCKBOX_PARTNERS.map do |partner_name, partner_user_email|
     lockbox_partner: lockbox_partner,
     user: User.first
   ).tap do |sup_req|
-    action = sup_req.lockbox_actions.create!(
+    action = LockboxAction.create(
       eff_date: Date.current + (1..10).to_a.sample.days,
       action_type: LockboxAction::SUPPORT_CLIENT,
-      lockbox_partner: lockbox_partner
+      lockbox_partner: lockbox_partner,
+      support_request_id: sup_req.id
     )
 
     categories = LockboxTransaction::EXPENSE_CATEGORIES.sample((1..3).to_a.sample)

@@ -5,6 +5,23 @@ describe LockboxPartner, type: :model do
   it { is_expected.to have_many(:users) }
   it { is_expected.to have_many(:lockbox_actions) }
 
+  describe '#cash_addition_confirmation_pending?' do
+    it "is true if the partner has a pending cash addition" do
+      lp = FactoryBot.create(:lockbox_partner)
+      expect(lp).not_to be_cash_addition_confirmation_pending
+
+      AddCashToLockbox.call(lockbox_partner: lp, eff_date: Date.today, amount: 100)
+
+      expect(lp).to be_cash_addition_confirmation_pending
+
+      lp.lockbox_actions.pending_cash_additions.each do |la|
+        la.complete!
+      end
+
+      expect(lp).not_to be_cash_addition_confirmation_pending
+    end
+  end
+
   describe '#balance' do
     let(:lockbox) { FactoryBot.create(:lockbox_partner) }
 

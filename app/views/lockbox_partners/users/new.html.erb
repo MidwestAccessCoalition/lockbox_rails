@@ -1,6 +1,7 @@
 <div class="container">
-  <h3>Invite new user to <%= @lockbox_partner.name %></h3>
-  <%= form_for @user, url: lockbox_partner_users_path(@lockbox_partner), html: { class: 'form' } do |f| %>
+  <%= render partial: 'lockbox_partners/header', locals: { lockbox_partner: @lockbox_partner } %>
+  <%= form_for @user, url: lockbox_partner_users_path(@lockbox_partner), html: { class: "form new-user-form" } do |f| %>
+    <h3>Invite new user to <%= @lockbox_partner.name %></h3>
     <div class=<%= @user.errors[:email].present? ? "form-group usa-input-error" : "form-group" %>>
       <%= f.label :email %>
       <% if @user.errors[:email].present? %>

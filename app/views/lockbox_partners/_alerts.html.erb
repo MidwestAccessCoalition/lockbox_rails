@@ -8,7 +8,24 @@
       <div>It's been <%= days_since_last_reconciliation %> days since the lockbox has been reconciled. Please count the cash in the box and record the total.</div>
     </div>
     <div class="p-2">
-      <%= link_to "Reconcile budget", new_lockbox_partner_reconciliation_path(lockbox_partner), class: 'btn btn-danger' %>
+      <%= link_to "Reconcile Budget", new_lockbox_partner_reconciliation_path(lockbox_partner), class: 'btn btn-danger' %>
     </div>
   </div>
+<% end %>
+
+<% if lockbox_partner.cash_addition_confirmation_pending? %>
+  <% lockbox_partner.lockbox_actions.pending_cash_additions.each do |cash_action| %>
+    <div class="alert alert-warning d-flex">
+      <div class="p-2">
+        <i class="fa fa-exclamation-circle alert-primary-icon" aria-hidden="true"></i>
+      </div>
+      <div class="p-2 flex-grow-1">
+        <h4 class="alert-heading">Cash Sent</h4>
+        <div>A $<%= cash_action.amount %> check was mailed on <%= cash_action.eff_date.try(:strftime, "%B %-d") %>, please confirm it was received.</div>
+      </div>
+      <div class="p-2">
+        <%= link_to "Confirm Cash Addition", lockbox_action_path(cash_action, {lockbox_action: {status: :complete}}), method: :put, class: 'btn btn-warning' %>
+      </div>
+    </div>
+  <% end %>
 <% end %>

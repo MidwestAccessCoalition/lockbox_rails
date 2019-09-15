@@ -4,4 +4,11 @@
     <%= link_to 'Back to dashboard', lockbox_partners_path, class: 'float-right' %>
   <% end %>
   <h2><%= lockbox_partner.name %> <span class="float-right"><%= lockbox_partner.balance %></span></h2>
+  <div class="lockbox-partner-info">
+    <p class="address">
+      <%= lockbox_partner.street_address %></br>
+      <%= lockbox_partner.city %>, <%= lockbox_partner.state %> <%= lockbox_partner.zip_code %>
+    </p>
+    <p class="phone_number"><%= lockbox_partner.phone_number %></p>
+  </div>
 </div>

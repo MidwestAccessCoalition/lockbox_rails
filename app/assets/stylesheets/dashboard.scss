@@ -50,6 +50,9 @@
 
     .lockbox-activity {
       margin-bottom: 50px;
+      .table {
+        border-top: solid 2px black;
+      }
     }
 
     .view-full {
@@ -146,11 +149,6 @@
 
 hr {
   border-width: 2px;
-}
-
-.lockbox-partner-header {
-  margin: 0px auto;
-  margin-top: 50px;
 }
 
 .header-separator {
