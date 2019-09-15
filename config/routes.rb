@@ -20,8 +20,11 @@ Rails.application.routes.draw do
         post 'update_status', to: 'support_requests#update_status', as: 'update_status'
         resources :notes, only: [:create]
       end
-      resource :add_cash, only: [:new, :create], controller: 'add_cash'
       resource :reconciliation, only: [:new, :create], controller: 'reconciliation'
     end
+  end
+
+  namespace :lockbox_partners do
+    resource :add_cash, only: [:new, :create], controller: 'add_cash'
   end
 end

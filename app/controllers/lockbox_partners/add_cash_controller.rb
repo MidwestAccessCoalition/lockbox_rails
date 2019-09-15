@@ -1,7 +1,8 @@
 require 'add_cash_to_lockbox'
 
 class LockboxPartners::AddCashController < ApplicationController
-  before_action :set_lockbox_partner, :require_admin_or_ownership
+  before_action :set_lockbox_partner, only: :create
+  before_action :require_admin_or_ownership
 
   def new
   end
@@ -13,9 +14,11 @@ class LockboxPartners::AddCashController < ApplicationController
       eff_date: Date.current
     )
     if action.succeeded?
-      # TODO figure out what should happen
+      formatted_amount = "%0.2f" % action.value.amount.to_f
+      flash[:notice] = "$#{formatted_amount} added to lockbox"
       redirect_to lockbox_partner_path(@lockbox_partner)
     else
+      flash[:alert] = "Sorry, there was a problem."
       render 'new'
     end
   end
@@ -24,7 +27,7 @@ class LockboxPartners::AddCashController < ApplicationController
 
   # TODO refactor this into a module
   def set_lockbox_partner
-    @lockbox_partner = LockboxPartner.find(params[:lockbox_partner_id])
+    @lockbox_partner = LockboxPartner.find(add_cash_params[:lockbox_partner_id])
   end
 
   def add_cash_params

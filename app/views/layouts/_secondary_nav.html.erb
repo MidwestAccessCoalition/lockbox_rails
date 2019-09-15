@@ -11,7 +11,7 @@
       } %>
       <%= render partial: 'layouts/secondary_tab', locals: {
         tab_name: 'Add cash to lockbox',
-        tab_path: new_lockbox_partner_add_cash_path(@lockbox_partner)
+        tab_path: new_lockbox_partners_add_cash_path(lockbox_partner_id: @lockbox_partner)
       } %>
       <%= render partial: 'layouts/secondary_tab', locals: {
         tab_name: 'Manage lockbox partner',

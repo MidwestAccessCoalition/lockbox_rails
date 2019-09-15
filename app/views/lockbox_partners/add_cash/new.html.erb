@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_for :add_cash, class: "form", url: lockbox_partner_add_cash_path do |f| %>
+  <%= form_for :add_cash, class: "form", url: lockbox_partners_add_cash_path do |f| %>
     <h2>Add Cash to Lockbox</h2>
     <p>Complete this form when you have put the check in the mail</p>
     <div class="form-group">
@@ -8,7 +8,7 @@
     </div>
     <div class="form-group">
       <%= f.label "Partner Clinic" %>
-      <%= f.select :lockbox_partner_id, options_for_select(lockbox_partner_select_options, @lockbox_partner.id), {}, class: 'form-control' %>
+      <%= f.select :lockbox_partner_id, options_for_select(lockbox_partner_select_options, params[:lockbox_partner_id]), {}, class: 'form-control' %>
     </div>
     <%= f.submit "Submit", class: "btn btn-primary" %>
   <% end %>
