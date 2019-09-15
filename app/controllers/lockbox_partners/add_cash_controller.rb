@@ -2,7 +2,7 @@ require 'add_cash_to_lockbox'
 
 class LockboxPartners::AddCashController < ApplicationController
   before_action :set_lockbox_partner, only: :create
-  before_action :require_admin_or_ownership
+  before_action :require_admin
 
   def new
   end

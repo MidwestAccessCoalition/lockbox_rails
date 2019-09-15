@@ -1,3 +1,3 @@
 Heads up! The lockbox balance at <%= @lockbox_partner.name %> is at $<%= @lockbox_partner.balance.to_s %> when taking into account all pending support requests. 
 
-Please add cash to the lockbox here: <%= new_lockbox_partner_add_cash_url(@lockbox_partner) %>
+Please add cash to the lockbox here: <%= new_lockbox_partners_add_cash_url(lockbox_partner_id: @lockbox_partner.id) %>
