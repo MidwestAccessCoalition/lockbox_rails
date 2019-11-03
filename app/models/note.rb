@@ -16,7 +16,7 @@ class Note < ApplicationRecord
   private
 
   def notify_partner
-    SupportRequestMailer.with(note: self).note_creation_alert.deliver_now
+    NoteMailer.with(note: self).single_note.deliver_now
   end
 
   def should_notify_partner?

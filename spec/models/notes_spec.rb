@@ -15,10 +15,10 @@ describe Note, type: :model do
         )
       end
 
-      let(:mailer) { double(note_creation_alert: delivery) }
+      let(:mailer) { double(single_note: delivery) }
 
       before do
-        allow(SupportRequestMailer).to receive(:with).and_return(mailer)
+        allow(NoteMailer).to receive(:with).and_return(mailer)
         note.save
       end
 
