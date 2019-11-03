@@ -86,7 +86,7 @@ describe CreateSupportRequest do
     end
 
     it 'goes to the finance team when balance is below $300' do
-      ENV['LOW_BALANCE_ALERT_EMAIL'] ||= 'lowbalance@alert.com'
+      ENV['LOW_BALANCE_ALERT_EMAIL'] = 'lowbalance@alert.com'
 
       result = nil
 
@@ -113,7 +113,7 @@ describe CreateSupportRequest do
     end
 
     it 'is not sent when the balance remains above $300' do
-      ENV['LOW_BALANCE_ALERT_EMAIL'] ||= 'lowbalance@alert.com'
+      ENV['LOW_BALANCE_ALERT_EMAIL'] = 'lowbalance@alert.com'
 
       AddCashToLockbox.call!(lockbox_partner: lockbox_partner, eff_date: 1.day.ago, amount: LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE + Money.new(15000)).complete!
 
