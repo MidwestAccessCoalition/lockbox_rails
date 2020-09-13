@@ -161,13 +161,13 @@ $note-form-color: #d6d7d9;
   .support-request-details > div {
     margin-bottom: 13px;
   }
-  .lockbox-activity {
-    margin-top: -30px;
-  }
   .status-label {
     font-size: 1.5em;
   }
   @media screen and (min-width: 768px) {
+    .lockbox-activity {
+      margin-top: -30px;
+    }
     .dropdown {
       text-align: right;
     }

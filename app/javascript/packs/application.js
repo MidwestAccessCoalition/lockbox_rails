@@ -17,9 +17,10 @@ window.$ = $
 require('imports-loader?define=>false!datatables.net')(window, $)
 require('imports-loader?define=>false!datatables.net-bs4')(window, $)
 
-require('../src/alerts');
-require('../src/notes');
 require('../src/admin_dashboard');
+require('../src/alerts');
+require('../src/info_expander');
+require('../src/notes');
 require('../src/pending_support_requests_table');
 require('../src/transactions');
 require('../src/url_switching_select');

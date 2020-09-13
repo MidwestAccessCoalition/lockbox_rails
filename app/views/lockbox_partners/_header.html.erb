@@ -3,23 +3,51 @@
   <% if current_user.admin? %>
     <%= render partial: 'lockbox_partners/back_to_dashboard', locals: {:alignment => 'right'} %>
   <% end %>
-  <h2>
-    <%= lockbox_partner.name %>
-    <span class="float-right">
-      <%= lockbox_partner.balance %>
-    </span>
-  </h2>
-  <div class="lockbox-partner-info">
-    <p class="address">
-      <% if lockbox_partner.street_address %>
-        <%= lockbox_partner.street_address %>
-        <br>
-      <% end %>
-      <%= lockbox_partner.city %>, <%= lockbox_partner.state %> <%= lockbox_partner.zip_code %>
-    </p>
-    <p class="phone_number">
-      <%= lockbox_partner.phone_number %>
-    </p>
-  </div>
+  <span class="header-desktop">
+    <h2>
+      <%= lockbox_partner.name %>
+      <span class="float-right">
+        <%= lockbox_partner.balance %>
+      </span>
+    </h2>
+    <div class="lockbox-partner-info">
+      <p class="address">
+        <% if lockbox_partner.street_address %>
+          <%= lockbox_partner.street_address %>
+          <br>
+        <% end %>
+        <%= lockbox_partner.city %>, <%= lockbox_partner.state %> <%= lockbox_partner.zip_code %>
+      </p>
+      <p class="phone_number">
+        <%= lockbox_partner.phone_number %>
+      </p>
+    </div>
+  </span>
+  <span class="header-mobile">
+    <div class="info-expander closed">
+      <div class="info-expander-header">
+        <h2>
+          <span class="info-expander-header-text">
+            <%= lockbox_partner.name %>: <%= lockbox_partner.balance %>
+          </span>
+        </h2>
+      </div>
+      <div class="info-expander-content" style="display: none">
+        <% if lockbox_partner.street_address %>
+          <%= lockbox_partner.street_address %>
+          <br>
+        <% end %>
+        <%= lockbox_partner.city %>, <%= lockbox_partner.state %> <%= lockbox_partner.zip_code %>
+        <p class="phone_number">
+          <%= link_to lockbox_partner.phone_number, "tel:#{lockbox_partner.phone_number}" %>
+        </p>
+      </div>
+    </div>
+  </span>
   <div class="horizontal-rule"></div>
+  <span class="header-mobile">
+    <%= link_to(lockbox_partners_path) do |link| %>
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> View All Activity
+    <% end %>
+  </span>
 </div>

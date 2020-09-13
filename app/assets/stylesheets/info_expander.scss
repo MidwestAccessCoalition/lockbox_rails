@@ -1,0 +1,15 @@
+.info-expander {
+  .info-expander-header {
+  color: $color-primary;
+  }
+  .info-expander-header-text::after {
+    font-family: 'FontAwesome';
+    content: '\f106';
+  }
+
+  &.closed {
+    .info-expander-header-text::after {
+      content: '\f107';
+    }
+  }
+}
