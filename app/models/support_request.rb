@@ -47,6 +47,10 @@ class SupportRequest < ApplicationRecord
     lockbox_action.eff_date
   end
 
+  def date_submitted
+    created_at.to_date
+  end
+
   alias_method :pickup_date, :eff_date
 
   def most_recent_note
@@ -94,7 +98,7 @@ class SupportRequest < ApplicationRecord
     attributes[:status] = 'Status'
     attributes[:name] = 'Partner'
     attributes[:client_ref_id] = 'Client Reference ID'
-    attributes[:created_at] = 'Date submitted'
+    attributes[:date_submitted] = 'Date submitted'
     attributes[:eff_date] = 'Date of expense'
 
     CSV.generate(headers: true) do |csv|
