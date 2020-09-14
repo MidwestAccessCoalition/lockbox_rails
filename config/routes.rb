@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   match 'support_requests/new', to: 'lockbox_partners/support_requests#new', via: [:get]
   resources :support_requests, only: [:index, :create]
+  get 'support_requests_export', to: 'support_requests#export', as:'support_requests_export'
 
   resources :lockbox_partners, only: [:new, :create, :show, :edit, :update] do
     scope module: 'lockbox_partners' do

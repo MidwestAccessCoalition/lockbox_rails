@@ -67,6 +67,7 @@
               <p><a href="<%= lockbox_partners_path %>">View all lockboxes</a></p>
               <p><a href="<%= support_requests_new_path %>">File a support request</a></p>
               <p><a href="<%= new_lockbox_partner_path %>">Add a new lockbox partner</a></p>
+              <p><a href="<%= support_requests_export_path(:format => "csv") %>">Financial Export</a></p>
             <% end %>
             <p><%= link_to "Get Support", support_path %></p>
           </div>

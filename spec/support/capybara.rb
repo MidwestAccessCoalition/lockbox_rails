@@ -1,7 +1,12 @@
 # Register firefox driver; all others are included by default
 # https://github.com/teamcapybara/capybara/blob/master/README.md#selenium
 Capybara.register_driver :selenium_firefox do |app|
-  Capybara::Selenium::Driver.new(app, browser: :firefox)
+  profile = Selenium::WebDriver::Firefox::Profile.new
+  profile['browser.download.dir'] = Rails.root.join("tmp/downloads").to_s
+  profile['browser.download.folderList'] = 2
+  # Suppress "open with" dialog
+  profile['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv'
+  Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => profile)
 end
 
 Capybara.disable_animation = true # disables CSS animations in test suite
