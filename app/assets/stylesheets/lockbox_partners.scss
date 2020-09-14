@@ -1,6 +1,11 @@
 .lockbox-partner-header {
   margin: 0px auto;
 
+  .tooltip-icon {
+    color: $color-primary;
+    font-size: 0.6em;
+  }
+
   .lockbox-partner-info {
     p {
       width: 300px;

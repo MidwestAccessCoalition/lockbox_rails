@@ -21,5 +21,6 @@ require('../src/alerts');
 require('../src/notes');
 require('../src/admin_dashboard');
 require('../src/pending_support_requests_table');
+require('../src/tooltips');
 require('../src/transactions');
 require('../src/url_switching_select');

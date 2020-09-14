@@ -77,3 +77,10 @@ a {
 .alert {
   margin-top: 1rem;
 }
+
+.tooltip > .tooltip-inner {
+  background-color: white;
+  color: black;
+  border: 1px solid $color-primary;
+  text-align: left;
+}
