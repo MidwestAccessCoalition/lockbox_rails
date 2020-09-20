@@ -5,6 +5,18 @@
   <% end %>
   <h2>
     <%= lockbox_partner.name %>
+    <button
+      class="btn btn-light mobile-button"
+      id="lockbox-partner-info-show"
+    >
+      <i class="fa fa-angle-down"></i>
+    </button>
+    <button
+      class="btn btn-light mobile-button hidden-button"
+      id="lockbox-partner-info-hide"
+    >
+      <i class="fa fa-angle-up"></i>
+    </button>
     <span class="float-right">
       <i
         class="fa fa-info-circle tooltip-icon"
@@ -18,7 +30,7 @@
       $<%= lockbox_partner.balance %>
     </span>
   </h2>
-  <div class="lockbox-partner-info">
+  <div class="lockbox-partner-info" id="lockbox-partner-info">
     <p class="address">
       <% if lockbox_partner.street_address %>
         <%= lockbox_partner.street_address %>

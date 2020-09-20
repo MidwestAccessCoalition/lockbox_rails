@@ -12,6 +12,19 @@
       vertical-align: top;
       display: inline-block;
     }
+    @media screen and (max-width: $mobile-width) {
+      display: none;
+    }
+  }
+
+  .mobile-button {
+    @media screen and (min-width: $mobile-width) {
+      display: none;
+    }
+  }
+
+  .hidden-button {
+    display: none;
   }
 }
 

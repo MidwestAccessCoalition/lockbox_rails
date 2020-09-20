@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -w
+#!/home/kevin/.rvm/rubies/ruby-2.6.5/bin/ruby
 
 `bundle`
 if $?.success?
