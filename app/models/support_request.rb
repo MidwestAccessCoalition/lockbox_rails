@@ -8,6 +8,8 @@ class SupportRequest < ApplicationRecord
     allow_destroy: true
   has_many :notes, as: :notable
 
+  delegate :name, to: :lockbox_partner
+
   validates :client_ref_id, presence: true
   validates :name_or_alias, presence: true
   validates :user, presence: true
@@ -44,6 +46,11 @@ class SupportRequest < ApplicationRecord
   def eff_date
     lockbox_action.eff_date
   end
+
+  def date_submitted
+    created_at.to_date
+  end
+
   alias_method :pickup_date, :eff_date
 
   def most_recent_note
@@ -64,6 +71,10 @@ class SupportRequest < ApplicationRecord
     lockbox_action.status
   end
 
+  def action_type
+    lockbox_action.action_type
+  end
+
   def status_options(include_current: false)
     if include_current
       LockboxAction::STATUSES
@@ -79,6 +90,24 @@ class SupportRequest < ApplicationRecord
 
   def record_creation_async
     NotesWorker.perform_async(id)
+  end
+
+  def self.to_csv
+    attributes = ActiveSupport::OrderedHash.new
+    attributes[:action_type] = 'Action type'
+    attributes[:status] = 'Status'
+    attributes[:name] = 'Partner'
+    attributes[:client_ref_id] = 'Client Reference ID'
+    attributes[:date_submitted] = 'Date submitted'
+    attributes[:eff_date] = 'Date of expense'
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes.values
+
+      SupportRequest.all.each do |support_request|
+        csv << attributes.keys.map { |attr| support_request.send(attr) }
+      end
+    end
   end
 
   private
