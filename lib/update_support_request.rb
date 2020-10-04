@@ -60,10 +60,10 @@ class UpdateSupportRequest
 
     original_values.each do |field, original_value|
       new_value = support_request.send(field)
-      next unless new_value != original_value
-
       new_value = 'blank' if new_value.blank?
       original_value = 'blank' if original_value.blank?
+      next unless new_value != original_value
+
       note_text << "The #{field_labels[field]} for this Support Request was changed from "\
                     "#{original_value} to #{new_value}."
     end
