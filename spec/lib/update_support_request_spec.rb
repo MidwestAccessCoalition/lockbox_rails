@@ -73,7 +73,7 @@ describe UpdateSupportRequest do
       }
     }
 
-    expect{UpdateSupportRequest.call(support_request: support_request, params: update_params)}
+    expect{UpdateSupportRequest.call(support_request: support_request, params: update_params, current_user: support_request.user)}
       .to change{Note.count}
       .by(1)
     expect(Note.last.text).to include("The Total Amount for this Support Request was changed")
@@ -88,7 +88,7 @@ describe UpdateSupportRequest do
       }
     }
 
-    expect{UpdateSupportRequest.call(support_request: support_request, params: update_params)}
+    expect{UpdateSupportRequest.call(support_request: support_request, params: update_params, current_user: support_request.user)}
       .to change{Note.count}
       .by(1)
     expect(Note.last.text).to include("The Pickup Date for this Support Request was changed")
@@ -103,7 +103,7 @@ describe UpdateSupportRequest do
       }
     }
 
-    expect{UpdateSupportRequest.call(support_request: support_request, params: update_params)}
+    expect{UpdateSupportRequest.call(support_request: support_request, params: update_params, current_user: support_request.user)}
       .to change{Note.count}
       .by(1)
     expect(Note.last.text).to include("The Status for this Support Request was changed")
@@ -118,7 +118,7 @@ describe UpdateSupportRequest do
       }
     }
 
-    expect{UpdateSupportRequest.call(support_request: support_request, params: update_params)}
+    expect{UpdateSupportRequest.call(support_request: support_request, params: update_params, current_user: support_request.user)}
       .to change{Note.count}
       .by(1)
     expect(Note.last.notable_action).to eq("update")
@@ -126,7 +126,7 @@ describe UpdateSupportRequest do
 
   it 'creates a single note if multiple fields changed' do
 
-    expect{UpdateSupportRequest.call(support_request: support_request, params: {client_ref_id: 'new client ref', name_or_alias: 'new name', urgency_flag: 'new urgency'})}
+    expect{UpdateSupportRequest.call(support_request: support_request, params: {client_ref_id: 'new client ref', name_or_alias: 'new name', urgency_flag: 'new urgency'}, current_user: support_request.user)}
       .to change{Note.count}
       .by(1)
 
