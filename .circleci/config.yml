@@ -116,9 +116,9 @@ workflows:
   build-test-deploy:
     jobs:
       - build-and-test
-      # - deploy:
-      #     requires:
-      #       - build-and-test
-      #     filters:
-      #       branches:
-      #         only: trunk
+      - deploy:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: trunk
