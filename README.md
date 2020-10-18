@@ -170,8 +170,7 @@ of AppSec confidence.
 #### Brakeman
 
 We use Brakeman to check for security vulnerabilities in our project's codebase.
-This check runs in CircleCI and any output from the scan is saved in the Artifacts
-tab under `security-scans/brakeman.log`. Brakeman can also be run locally:
+Brakeman can also be run locally:
 
 ```sh
 yarn scan:brakeman

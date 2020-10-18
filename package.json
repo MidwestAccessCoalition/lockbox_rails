@@ -24,8 +24,8 @@
   "scripts": {
     "clean": "rm -rf node_modules",
     "dev": "yarn dev:webpack & yarn dev:rails && fg",
-    "dev:webpack": "./bin/webpack --watch --colors --progress --display-error-details",
     "dev:rails": "bundle exec rails server --port 3000",
+    "dev:webpack": "./bin/webpack --watch --colors --progress --display-error-details",
     "install-dependencies": "./bin/install-dependencies",
     "predev": "yarn install-dependencies",
     "scan:all": "yarn scan:lockfiles; yarn scan:javascript; yarn scan:ruby",

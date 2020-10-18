@@ -28,4 +28,3 @@ if File.exist? PACKAGE_LOCK
 end
 
 $stdout.puts "\n🎉 All is well! (Lockfile-wise, at least.)"
-exit 0
