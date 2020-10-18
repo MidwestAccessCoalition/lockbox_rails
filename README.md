@@ -130,23 +130,29 @@ brew services start redis
 ```
 
 #### Ports in use
+
 * 3000: Rails server
 * 3035: Webpack server
 * 6379: Redis server
 * 1080: Mailcatcher (if applicable)
 
 ### Login
+
 #### Fund Admin
+
 Username: `cats@test.com`
 Password: `password1234`
 
 #### Lockbox Partner
+
 Username: `fluffy@catsclinic.com`
 Password: `heytherefancypants4321`
 
 ### Security Scans
+
 We use several automated scans to check for known vulnerabilities both in our code
 and our dependencies. To run all of the scans at one time:
+
 ```sh
 yarn scan:all
 ```
@@ -162,9 +168,11 @@ and high level `warnings` that may need to be addressed to ensure the highest le
 of AppSec confidence.
 
 #### Brakeman
+
 We use Brakeman to check for security vulnerabilities in our project's codebase.
 This check runs in CircleCI and any output from the scan is saved in the Artifacts
 tab under `security-scans/brakeman.log`. Brakeman can also be run locally:
+
 ```sh
 yarn scan:brakeman
 ```
@@ -175,9 +183,11 @@ terminal to get more detailed output or to ignore for lower-level warnings, in w
 may be useful.
 
 #### Bundler Audit
+
 We use `bundler-audit` to check for security vulnerabilities in our project's gem dependencies.
 This check runs in CircleCI and any output from the scan is saved in the Artifacts
 tab under `security-scans/bundler-audit.log`. `bundler-audit` can also be run locally:
+
 ```sh
 yarn scan:bundler-audit
 ```
@@ -186,15 +196,19 @@ Any non-critical vulnerabilities that cannot be fixed immediately can be tempora
 ignored by adding the CVE ID to the root-level `.bundler-audit.ignore` file.
 
 #### `lockfile-check`
+
 This is a custom script that ensures `yarn` and `bundle` have both been run
 successfully and that `npm i` has not also been run. To run locally:
+
 ```sh
 yarn scan:lockfiles
 ```
 
 #### Snyk
+
 Snyk is simmilar to `bundler-audit` except that it checks our project's Javascript
 package dependencies for vulnerabilities. To run locally:
+
 ```sh
 yarn scan:snyk
 ```
