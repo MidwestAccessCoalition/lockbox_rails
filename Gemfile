@@ -28,7 +28,10 @@ gem 'jbuilder', '~> 2.9', '>= 2.9.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '~> 1.4', '>= 1.4.5'
 
+# Authentication and MFA
 gem 'devise', '~> 4.7', '>= 4.7.1'
+gem 'devise-authy', '~> 2.2', '>= 2.2.1'
+
 gem 'font-awesome-rails', '>= 4.7.0.5'
 gem 'font_assets', '>= 0.1.14'
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
