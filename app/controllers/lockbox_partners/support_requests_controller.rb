@@ -57,7 +57,11 @@ class LockboxPartners::SupportRequestsController < ApplicationController
     @lockbox_partner = @support_request.lockbox_partner
     require_admin_or_ownership
 
-    result = UpdateSupportRequest.call(support_request: @support_request, params: {lockbox_action_attributes: {id: @support_request.lockbox_action.id, status: update_status_params[:status]}})
+    result = UpdateSupportRequest.call(
+        support_request: @support_request,
+        params: {lockbox_action_attributes: {id: @support_request.lockbox_action.id, status: update_status_params[:status]}},
+        current_user: current_user
+    )
 
     if result.success?
       flash[:notice] = "Status updated to #{update_status_params[:status]}"
@@ -80,7 +84,7 @@ class LockboxPartners::SupportRequestsController < ApplicationController
     @support_request = SupportRequest.find(params[:id])
     @lockbox_partner = @support_request.lockbox_partner
 
-    result = UpdateSupportRequest.call(support_request: @support_request, params: support_request_params)
+    result = UpdateSupportRequest.call(support_request: @support_request, params: support_request_params, current_user: current_user)
 
     if result.success?
       flash[:notice] = "Support request was successfully updated"

@@ -27,7 +27,7 @@ class UpdateSupportRequest
   # }
   #
   # We'll pass it directly to SupportRequest to take advantage of AcceptsNestedAttributes.
-  input :support_request, :params
+  input :support_request, :params, optional: [:current_user]
 
   attr_accessor :support_request, :original_values
 
@@ -60,11 +60,15 @@ class UpdateSupportRequest
 
     original_values.each do |field, original_value|
       new_value = support_request.send(field)
-      if new_value != original_value
-        note_text << "The #{field_labels[field]} for this Support Request was changed from #{original_value} to #{new_value}"
-      end
+      new_value = 'blank' if new_value.blank?
+      original_value = 'blank' if original_value.blank?
+      next unless new_value != original_value
+
+      note_text << "The #{field_labels[field]} for this Support Request was changed from "\
+                    "#{original_value} to #{new_value}."
     end
 
+    note_text << "Changes made by #{current_user.display_name}." if current_user
     support_request.notes.create(text: note_text.join("\n"), notable_action: "update")
   end
 
