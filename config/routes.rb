@@ -3,6 +3,11 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations',
     passwords: 'users/passwords',
     registrations: 'users/registrations'
+  }, path_names: {
+    verify_authy: "/verify_mfa",
+    enable_authy: "/enable_mfa",
+    verify_authy_installation: "/verify_mfa_installation",
+    authy_onetouch_status: "/onetouch_status"
   }
 
   require 'sidekiq/web'
