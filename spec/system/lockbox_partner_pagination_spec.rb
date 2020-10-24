@@ -10,10 +10,10 @@ RSpec.describe "LockboxPartner show page", type: :system do
   end
 
   it "has pagination" do
-    visit("/lockbox_partners/1")
+    visit("/lockbox_partners/#{lockbox_partner.id}")
     page.assert_selector(".support-request-container ul.pagination", count: 0)
     create(:support_request, :pending, lockbox_partner: lockbox_partner)
-    visit("/lockbox_partners/1")
+    visit("/lockbox_partners/#{lockbox_partner.id}")
     page.assert_selector(".support-request-container ul.pagination", count: 1)
     page.assert_selector(".support-request-container .lockbox-activity tr.pending", count: 20)
     click_link("2")
