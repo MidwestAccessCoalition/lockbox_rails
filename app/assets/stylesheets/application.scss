@@ -17,21 +17,25 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'datatables.net-bs4/css/dataTables.bootstrap4.min';
 @import 'font-awesome';
-@import 'devise';
 
+// VARIABLES
 @import 'variables';
 @import 'bootstrap-overrides';
-@import 'triangles';
-@import 'layout';
-@import 'navbar';
-@import 'forms';
-@import 'dashboard';
-@import 'temp';
-@import 'lockbox_activity';
-@import 'secondary_nav';
-@import 'support_request';
-@import 'notes';
+@import 'devise-overrides';
+
+
 @import 'admin_dashboard';
 @import 'alert';
+@import 'dashboard';
+@import 'forms';
+@import 'info_expander';
+@import 'layout';
+@import 'lockbox_activity';
 @import 'lockbox_partners';
+@import 'navbar';
+@import 'notes';
+@import 'secondary_nav';
+@import 'support_request';
+@import 'temp';
+@import 'triangles';
 @import 'users';
