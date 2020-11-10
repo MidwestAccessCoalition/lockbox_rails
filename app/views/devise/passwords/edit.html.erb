@@ -12,7 +12,7 @@
     <%= render "devise/shared/error_messages", resource: resource %>
     <%= f.hidden_field :reset_password_token %>
 
-    <% # The user should be able to set a name the first time they confirm the account, but not if they request a subsequent password reset %>
+    <% # The user should be able to set a name and enable MFA the first time they confirm the account, but not if they request a subsequent password reset %>
     <% unless @existing_user&.has_signed_in? %>
       <div class="form-group">
         <%= f.label :name %><br />

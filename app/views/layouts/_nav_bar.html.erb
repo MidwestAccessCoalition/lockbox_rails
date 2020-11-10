@@ -33,6 +33,11 @@
                 <a href="mailto:<%= current_user.email %>">
                   <%= current_user.email %>
                 </a>
+                <% if current_user.authy_enabled? %>
+                  <small> MFA enabled <%= fa_icon "check-circle" %></small>
+                <% else %>
+                  <%= fa_icon "exclamation-circle" %><%= link_to 'Secure your account with MFA', user_enable_authy_path %>
+                <% end %>
               </p>
             </div>
             <%= link_to "Edit Profile", edit_user_path(current_user), class: "edit-contact-info btn btn-primary btn-invert" %>
@@ -58,7 +63,7 @@
             <span>Log Out</span>
           <% end %>
           <%= link_to(edit_user_registration_path, class: 'btn btn-primary btn-invert') do %>
-            <span>Update Password</span>
+            <span>Account Settings</span>
           <% end %>
 
           <div class="links nav-item-right">

@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     confirmations: 'users/confirmations',
     passwords: 'users/passwords',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    devise_authy: 'users/devise_authy'
   }, path_names: {
     verify_authy: "/verify_mfa",
     enable_authy: "/enable_mfa",

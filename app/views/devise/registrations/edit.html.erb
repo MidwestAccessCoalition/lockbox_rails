@@ -1,9 +1,18 @@
+<h2>Account Settings</h2>
+<br />
+<h3>Multi-factor authentication (MFA)</h3>
+<% if resource.authy_enabled? %>
+  <p><%= fa_icon "check-circle" %> Your account is secured with MFA!</p>
+  <%= link_to "Disable Multi-factor Authentication", user_disable_authy_path, { method: :post} %>
+<% else %>
+  <p><%= fa_icon "exclamation-circle" %> Take action to secure your account with MFA!</p>
+  <%= link_to "Enable Multi-factor Authentication (recommended)", user_enable_authy_path %>
+<% end %>
+<br />
+<br />
+<h3>Update Password</h3>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form' }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div>
-    <h2>Update Password</h2>
-  </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
