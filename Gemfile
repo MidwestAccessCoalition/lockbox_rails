@@ -44,14 +44,12 @@ gem 'cocoon'
 # Add versions table for logging purposes
 gem 'paper_trail', '>= 10.3.1'
 
-# TODO -- before we go live, should move this back to test/dev bundle
-# For test data generation
-gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
-gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
-
 gem 'sentry-raven'
 gem 'sidekiq', '>= 6.0.5'
 gem 'skylight', '>= 4.2.1'
+
+gem 'brakeman'
+gem 'bundler-audit'
 
 group :production do
   gem 'sqreen', '>= 1.16'
@@ -63,20 +61,22 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'table_print'
+  # For better error pages with Pry console
+  gem 'better_errors'
+  gem 'binding_of_caller'
 
   # RSpec & testing gems!
-
-  # Apparently rspec is not yet ready for rails 6 :(
-  # gem 'rspec-rails', '~> 3.8'
-  gem 'rspec-rails', '~> 4.0.0.0' # gem 'rspec-rails', github: 'rspec/rspec-rails', branch: '4-0-dev'
+  gem 'rspec-rails', '~> 4.0.0.0'
   gem 'rspec', github: 'rspec/rspec', branch: 'master'
   gem 'rspec-core', github: 'rspec/rspec-core', branch: 'master'
   gem 'rspec-mocks', github: 'rspec/rspec-mocks', branch: 'master'
   gem 'rspec-expectations', github: 'rspec/rspec-expectations', branch: 'master'
   gem 'rspec-support', github: 'rspec/rspec-support', branch: 'master'
   gem 'rails-controller-testing', '>= 1.0.4'
-
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
+  # Test data generation
+  gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
+  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
 group :development do

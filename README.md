@@ -98,6 +98,7 @@ bundle exec rails webpacker:install
 ```
 
 ### Local Development
+
 ```sh
 yarn dev
 ```
@@ -119,7 +120,7 @@ bundle exec rails s # or `yarn run dev:rails`
 mailcatcher # This will run on localhost:1080
 ```
 
-### Redis
+#### Redis
 
 You'll need redis for sidekiq to work
 
@@ -128,17 +129,85 @@ brew install redis
 brew services start redis
 ```
 
-### Ports in use
+#### Ports in use
 
-- 3000: main site
-- 3035: Webpack dev server
-- 1080: Mailcatcher (if applicable)
+* 3000: Rails server
+* 3035: Webpack server
+* 6379: Redis server
+* 1080: Mailcatcher (if applicable)
 
 ### Login
-**Fund Admin**
+
+#### Fund Admin
+
 Username: `cats@test.com`
 Password: `password1234`
 
-**Lockbox Partner**
+#### Lockbox Partner
+
 Username: `fluffy@catsclinic.com`
 Password: `heytherefancypants4321`
+
+### Security Scans
+
+We use several automated scans to check for known vulnerabilities both in our code
+and our dependencies. To run all of the scans at one time:
+
+```sh
+yarn scan:all
+```
+
+There are also scripts that can be run for each individual scan or grouped by language
+(see `package.json > scripts` for more specifics). Every scan is configured to automatically
+print its output to the terminal as well as a log file in the `tmp/security-scans`
+directory. These scans are integrated as part of the CI build-and-test process.
+
+Note that some of the scans can find issues that are not severe enough to be considered
+`errors` but should still be attended to. Brakeman especially highlights low, moderate,
+and high level `warnings` that may need to be addressed to ensure the highest level
+of AppSec confidence.
+
+#### Brakeman
+
+We use Brakeman to check for security vulnerabilities in our project's codebase.
+Brakeman can also be run locally:
+
+```sh
+yarn scan:brakeman
+```
+
+For more control over the process, you can also run `brakeman` manually from the 
+terminal to get more detailed output or to ignore for lower-level warnings, in which case 
+[Brakeman's usage options](https://github.com/presidentbeef/brakeman/blob/master/OPTIONS.md)
+may be useful.
+
+#### Bundler Audit
+
+We use `bundler-audit` to check for security vulnerabilities in our project's gem dependencies.
+This check runs in CircleCI and any output from the scan is saved in the Artifacts
+tab under `security-scans/bundler-audit.log`. `bundler-audit` can also be run locally:
+
+```sh
+yarn scan:bundler-audit
+```
+
+Any non-critical vulnerabilities that cannot be fixed immediately can be temporarily
+ignored by adding the CVE ID to the root-level `.bundler-audit.ignore` file.
+
+#### `lockfile-check`
+
+This is a custom script that ensures `yarn` and `bundle` have both been run
+successfully and that `npm i` has not also been run. To run locally:
+
+```sh
+yarn scan:lockfiles
+```
+
+#### Snyk
+
+Snyk is simmilar to `bundler-audit` except that it checks our project's Javascript
+package dependencies for vulnerabilities. To run locally:
+
+```sh
+yarn scan:snyk
+```

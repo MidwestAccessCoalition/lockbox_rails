@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-expectations.git
-  revision: c87ab72748d4467fe8f9d84fe0ab87f314b18f6c
+  revision: f34a7a4fe220d2305e5bcf973d34f962d13fa6a2
   branch: master
   specs:
     rspec-expectations (3.10.0.pre)
@@ -26,7 +26,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-support.git
-  revision: 47c9ea9479e65c9f719a3bbdb20f516b773cad97
+  revision: 3ae9024527cf1e6797b4385e5b5b13073e2cad23
   branch: master
   specs:
     rspec-support (3.10.0.pre)
@@ -43,7 +43,7 @@ GIT
 
 GIT
   remote: https://github.com/stympy/faker.git
-  revision: 7309c9d59f1f73e7875635c083f7d8958e0c9f3a
+  revision: 3f72057a7522849243c4c7fa8d0527580588cbcf
   branch: master
   specs:
     faker (2.13.0)
@@ -109,20 +109,30 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    autoprefixer-rails (9.8.4)
+    autoprefixer-rails (9.8.5)
       execjs
     bcrypt (3.1.13)
     benchmark-malloc (0.2.0)
     benchmark-perf (0.6.0)
     benchmark-trend (0.4.0)
+    better_errors (2.7.1)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bindex (0.8.1)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     bootstrap (4.5.0)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
+    brakeman (4.9.1)
     builder (3.2.4)
+    bundler-audit (0.7.0.1)
+      bundler (>= 1.2.0, < 3)
+      thor (>= 0.18, < 2)
     byebug (11.1.3)
     capybara (3.33.0)
       addressable
@@ -142,6 +152,7 @@ GEM
     database_cleaner-active_record (1.8.0)
       activerecord
       database_cleaner (~> 1.8.0)
+    debug_inspector (0.0.3)
     devise (4.7.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -201,7 +212,7 @@ GEM
     minitest (5.14.1)
     monetize (1.9.4)
       money (~> 6.12)
-    money (6.13.7)
+    money (6.13.8)
       i18n (>= 0.6.4, <= 2)
     money-rails (1.13.3)
       activesupport (>= 3.0)
@@ -211,7 +222,7 @@ GEM
     msgpack (1.3.3)
     multipart-post (2.1.1)
     nio4r (2.5.2)
-    nokogiri (1.10.9)
+    nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     paper_trail (10.3.1)
@@ -365,7 +376,7 @@ GEM
     verbalize (2.3.0)
     warden (1.2.8)
       rack (>= 2.0.6)
-    web-console (4.0.3)
+    web-console (4.0.4)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
@@ -378,7 +389,7 @@ GEM
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
-    websocket-driver (0.7.2)
+    websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xpath (3.2.0)
@@ -389,8 +400,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  better_errors
+  binding_of_caller
   bootsnap (~> 1.4, >= 1.4.5)
   bootstrap (~> 4.4, >= 4.4.1)
+  brakeman
+  bundler-audit
   byebug
   capybara (>= 3.29.0)
   cocoon

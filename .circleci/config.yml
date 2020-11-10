@@ -1,10 +1,50 @@
-# Ruby CircleCI 2.0 configuration file
+# Ruby CircleCI 2.1 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
-version: 2
+version: 2.1
+commands:
+  bundle:
+    description: Install Ruby dependencies
+    steps:
+      - run:
+          name: Install bundler
+          command: gem install bundler -v 2.1.4 && bundle config set path 'vendor/bundle'
+      - restore_cache:
+          name: Restore bundler cache
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies- # fallback to using the latest cache if no exact match is found
+      - run:
+          name: Install Ruby dependencies
+          command: bundle install --jobs=4 --retry=3
+      - save_cache:
+          name: Save bundler cache
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+  yarn:
+    description: Install Javascript dependencies
+    steps:
+      - restore_cache:
+          name: Restore yarn cache
+          keys:
+            - cache-yarn-{{ checksum "yarn.lock" }}
+            - cache-yarn-
+      - run:
+          name: Install and compile JS dependencies
+          command: |
+            yarn install --cache-folder ~/.yarn-cache &&
+            NODE_ENV=test bundle exec rails webpacker:compile
+      - save_cache:
+          name: Save yarn cache
+          paths:
+            - ~/.yarn-cache
+          key: cache-yarn-{{ checksum "yarn.lock" }}
+
 jobs:
-  build:
+  build-and-test:
+    working_directory: ~/repo
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
@@ -19,82 +59,48 @@ jobs:
           POSTGRES_PASSWORD: ""
           RAILS_ENV: test
           NODE_ENV: test
-
-    working_directory: ~/repo
-
     steps:
       - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
+      - bundle
+      - yarn
       - run:
-          name: install latest bundler
-          command: |
-            gem install bundler
-
+          name: Set up database
+          command: bundle exec rake db:create db:schema:load
+      # Run security scans
       - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-
+          name: Security scans
+          command: mkdir -p tmp/security-scans && yarn scan:all
+      # Run tests
       - run:
-          name: Yarn
+          name: Run RSpec test suite
           command: |
-            yarn install
-
-      # Store yarn / webpacker cache
-      - save_cache:
-          paths:
-          - ~/.yarn-cache
-          key: cache-yarn-{{ checksum "yarn.lock" }}
-
-      - run:
-          name: Boot up server
-          command: |
-            NODE_ENV=test bundle exec rails webpacker:compile
-
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-
-      # run tests!
-      - run:
-          name: bundle exec rspec
-          command: |
-            mkdir /tmp/test-results
+            mkdir -p tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
               circleci tests split --split-by=timings)"
-
             bundle exec rspec \
               --format progress \
               --format RspecJunitFormatter \
-              --out /tmp/test-results/rspec.xml \
+              --out tmp/test-results/rspec.xml \
               --format progress \
               $TEST_FILES
-          timeout: 2400
-
-      # collect reports
+      # Collect reports
       - store_test_results:
-          path: /tmp/test-results
+          path: tmp/test-results
       - store_artifacts:
-          path: /tmp/test-results
+          name: Store security scan results
+          path: tmp/security-scans
+          destination: security-scans
+      - store_artifacts:
+          name: Store test results
+          path: tmp/test-results
           destination: test-results
       - store_artifacts:
-          path: ~/repo/tmp/screenshots
+          name: Store screenshots
+          path: tmp/screenshots
           destination: screenshots
       - store_artifacts:
+          name: Store coverage
           path: coverage
-
 
   deploy:
     docker:
@@ -107,13 +113,12 @@ jobs:
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git trunk:master
 
 workflows:
-  version: 2
-  build-deploy:
+  build-test-deploy:
     jobs:
-      - build
+      - build-and-test
       - deploy:
           requires:
-            - build
+            - build-and-test
           filters:
             branches:
               only: trunk
