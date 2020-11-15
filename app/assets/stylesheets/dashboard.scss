@@ -94,21 +94,22 @@
   text-align: left;
 }
 
-.btn-primary.view-half {
-  max-width: none;
-  width: 48%;
-  margin-top: 20px;
-  text-align: center;
-  line-height: 35px;
-}
-
 .btn-secondary.view-half {
   font-weight: bolder;
-  max-width: none;
+}
+
+.btn-primary.view-half, .btn-secondary.view-half {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 48%;
-  margin-top: 20px;
   text-align: center;
-  line-height: 35px;
+  line-height: 1;
+  @media screen and (min-width: $mobile-width) {
+    margin-top: 20px;
+    line-height: 35px;
+  }
 }
 
 .horizontal-rule {
