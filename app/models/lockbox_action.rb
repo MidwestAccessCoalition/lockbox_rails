@@ -20,6 +20,8 @@ class LockboxAction < ApplicationRecord
   before_validation :set_default_status
   has_paper_trail
 
+  before_save :record_closed_at, if: :will_be_closed?
+
   STATUSES = [
     PENDING   = 'pending',
     COMPLETED = 'completed',
@@ -164,5 +166,13 @@ class LockboxAction < ApplicationRecord
     unless lockbox_partner.active?
       errors.add(:lockbox_partner, "must be active")
     end
+  end
+
+  def will_be_closed?
+    will_save_change_to_status? && (completed? || canceled?)
+  end
+
+  def record_closed_at
+    self.closed_at = DateTime.current
   end
 end
