@@ -28,6 +28,8 @@ class SupportRequest < ApplicationRecord
     scope "#{status}_for_partner", ->(lockbox_partner_id:) { joins(:lockbox_action).where(lockbox_partner_id: lockbox_partner_id, "lockbox_actions.status": status) }
   end
 
+  REDACTED = "[redacted]".freeze
+
   def all_support_requests_for_partner
     @all_support_requests_for_partner ||= self
       .class
@@ -90,6 +92,16 @@ class SupportRequest < ApplicationRecord
 
   def record_creation_async
     NotesWorker.perform_async(id)
+  end
+
+  def redact!
+    ActiveRecord::Base.transaction do
+      notes.system_generated.each(&:redact!)
+      update!(name_or_alias: REDACTED, redacted: true)
+    end
+  end
+
+  def redact_async
   end
 
   def self.to_csv
