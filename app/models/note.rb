@@ -7,7 +7,7 @@ class Note < ApplicationRecord
 
   validates :notable_action, inclusion: { in: %w{create update annotate} }
 
-  scope :system_generated, -> { where(user_id: nil) }
+  scope :user_generated, -> { where.not(user_id: nil) }
 
   def author
     if user

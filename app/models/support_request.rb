@@ -96,7 +96,7 @@ class SupportRequest < ApplicationRecord
 
   def redact!
     ActiveRecord::Base.transaction do
-      notes.system_generated.each(&:redact!)
+      notes.user_generated.each(&:redact!)
       update!(name_or_alias: REDACTED, redacted: true)
     end
   end
