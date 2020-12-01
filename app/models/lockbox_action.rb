@@ -20,7 +20,7 @@ class LockboxAction < ApplicationRecord
   before_validation :set_default_status
   has_paper_trail
 
-  before_save :record_closed_at, if: :will_be_closed?
+  before_save :record_closed_at, if: :will_save_change_to_status?
 
   STATUSES = [
     PENDING   = 'pending',
@@ -168,11 +168,13 @@ class LockboxAction < ApplicationRecord
     end
   end
 
-  def will_be_closed?
-    will_save_change_to_status? && (completed? || canceled?)
-  end
-
   def record_closed_at
-    self.closed_at = DateTime.current
+    if completed? || canceled?
+      self.closed_at = DateTime.current
+    else
+      # Avoids an inconsistent state if a lockbox action gets "unclosed",
+      # although that probably shouldn't happen
+      self.closed_at = nil
+    end
   end
 end
