@@ -29,6 +29,16 @@ class SupportRequest < ApplicationRecord
   end
 
   REDACTED = "[redacted]".freeze
+  REDACT_AFTER_DAYS = 90
+
+  scope :needs_redaction, -> do
+    joins(:lockbox_action)
+      .where(
+        support_requests: { redacted: false },
+        lockbox_actions: { status: LockboxAction::CLOSED_STATUSES }
+      )
+      .where("lockbox_actions.closed_at < ?", REDACT_AFTER_DAYS.days.ago)
+  end
 
   def all_support_requests_for_partner
     @all_support_requests_for_partner ||= self

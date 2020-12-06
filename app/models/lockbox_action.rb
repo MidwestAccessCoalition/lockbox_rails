@@ -29,9 +29,9 @@ class LockboxAction < ApplicationRecord
   ].freeze
   validates :status, inclusion: STATUSES
 
-  EDITABLE_STATUSES = [
-    'pending'
-  ].freeze
+  EDITABLE_STATUSES = [PENDING].freeze
+
+  CLOSED_STATUSES = [COMPLETED, CANCELED].freeze
 
   ACTION_TYPES = [
     ADD_CASH = 'add_cash',
@@ -122,6 +122,10 @@ class LockboxAction < ApplicationRecord
     EDITABLE_STATUSES.include?(status)
   end
 
+  def closed?
+    CLOSED_STATUSES.include?(status)
+  end
+
   def cancel!
     update!(status: CANCELED)
   end
@@ -169,7 +173,7 @@ class LockboxAction < ApplicationRecord
   end
 
   def record_closed_at
-    if completed? || canceled?
+    if closed?
       self.closed_at = DateTime.current
     else
       # Avoids an inconsistent state if a lockbox action gets "unclosed",
