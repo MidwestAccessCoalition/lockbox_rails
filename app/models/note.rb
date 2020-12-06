@@ -7,7 +7,9 @@ class Note < ApplicationRecord
 
   validates :notable_action, inclusion: { in: %w{create update annotate} }
 
-  scope :user_generated, -> { where.not(user_id: nil) }
+  # User-generated notes could contain anything, so they're included in this
+  # scope regardless of whether may_contain_pii is set
+  scope :may_contain_pii, -> { where("user_id IS NULL OR may_contain_pii") }
 
   def author
     if user

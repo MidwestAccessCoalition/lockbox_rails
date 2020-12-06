@@ -106,7 +106,7 @@ class SupportRequest < ApplicationRecord
 
   def redact!
     ActiveRecord::Base.transaction do
-      notes.user_generated.each(&:redact!)
+      notes.may_contain_pii.each(&:redact!)
       update!(name_or_alias: REDACTED, redacted: true)
     end
   end
