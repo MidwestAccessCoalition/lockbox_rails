@@ -112,6 +112,7 @@ class SupportRequest < ApplicationRecord
   end
 
   def redact_async
+    SupportRequestRedactionWorker.perform_async(id)
   end
 
   def self.to_csv
