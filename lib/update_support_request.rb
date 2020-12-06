@@ -58,18 +58,25 @@ class UpdateSupportRequest
   def notate_changes
     note_text = []
 
+    may_contain_pii = false
+
     original_values.each do |field, original_value|
       new_value = support_request.send(field)
       new_value = 'blank' if new_value.blank?
       original_value = 'blank' if original_value.blank?
       next unless new_value != original_value
 
+      may_contain_pii = true if field == :name_or_alias
       note_text << "The #{field_labels[field]} for this Support Request was changed from "\
                     "#{original_value} to #{new_value}."
     end
 
     note_text << "Changes made by #{current_user.display_name}." if current_user
-    support_request.notes.create(text: note_text.join("\n"), notable_action: "update")
+    support_request.notes.create(
+      text: note_text.join("\n"),
+      notable_action: "update",
+      may_contain_pii: may_contain_pii
+    )
   end
 
   def field_labels
