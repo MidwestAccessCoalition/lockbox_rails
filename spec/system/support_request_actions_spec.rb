@@ -28,7 +28,8 @@ RSpec.describe "Support Request Actions", type: :system do
   it 'successfully view, edit, and add notes to a support request' do
     visit "/lockbox_partners/#{lockbox_partner.id}/support_requests/#{support_request.id}"
     assert_selector "h3", text: "Support Request for Leafy Greens"
-    click_link "Add Note"
+    click_button "Add Note"
+
     fill_in "note_text", with: "Here's some fine & fancy note text!"
     sleep(1)
     # Sleep for 1 second to avoid a race condition in slower environments (e.g., CircleCI)

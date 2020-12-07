@@ -24,7 +24,8 @@ RSpec.describe "Support Request Creation", type: :system do
 
     assert_selector "h3", text: "Support Request for"
 
-    click_link "Add Note"
+    click_button "Add Note"
+
     fill_in "note_text", with: "Here's some fine & fancy note text!"
 
     sleep(1)
@@ -48,7 +49,8 @@ RSpec.describe "Support Request Creation", type: :system do
 
     assert_selector "h3", text: "Support Request for"
 
-    click_link "Add Note"
+    click_button "Add Note"
+
     fill_in "note_text", with: "Here's some fine & fancy note text!"
 
     sleep(1)
