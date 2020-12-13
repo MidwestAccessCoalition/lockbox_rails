@@ -6,3 +6,30 @@
   max-width: 600px;
   padding: 0;
 }
+
+@media only screen and (max-width: 500px) {
+  .center-button {
+    text-align: center;
+  }
+}
+
+.alert-header-and-link {
+  justify-content: space-between;
+  align-content: center;
+  .btn-warning {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  @media only screen and (min-width: 500px) {
+    display: flex;
+    .btn-warning {
+      margin: 0;
+    }
+
+    .max-width-75 {
+      max-width: 75%;
+    }
+  }
+}
+
