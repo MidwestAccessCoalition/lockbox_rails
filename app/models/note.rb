@@ -9,7 +9,7 @@ class Note < ApplicationRecord
 
   # User-generated notes could contain anything, so they're included in this
   # scope regardless of whether may_contain_pii is set
-  scope :may_contain_pii, -> { where("user_id IS NULL OR may_contain_pii") }
+  scope :may_contain_pii, -> { where("user_id IS NOT NULL OR may_contain_pii") }
 
   def author
     if user

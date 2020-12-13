@@ -25,4 +25,14 @@ describe Note, type: :model do
       end
     end
   end
+
+  describe "#redact!" do
+    let(:note) { FactoryBot.create(:note, text: "TEXT") }
+
+    before { note.redact! }
+
+    it "redacts PII" do
+      expect(note.text).to eq(SupportRequest::REDACTED)
+    end
+  end
 end

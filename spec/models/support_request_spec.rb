@@ -113,4 +113,52 @@ describe SupportRequest, type: :model do
       expect(note.text).to eq(expected_text)
     end
   end
+
+  describe '#redact!' do
+    let(:support_request) { FactoryBot.create(:support_request) }
+    let(:user) { FactoryBot.create(:user) }
+
+    let!(:note1) do
+      FactoryBot.create(
+        :note, notable: support_request, user: nil, may_contain_pii: true
+      )
+    end
+
+    let!(:note2) do
+      FactoryBot.create(
+        :note,
+        notable: support_request,
+        user: user,
+        may_contain_pii: false
+      )     
+    end
+
+    let!(:note3) do
+      FactoryBot.create(
+        :note, notable: support_request, user: nil, may_contain_pii: false
+      )
+    end
+
+    before { support_request.redact! }
+
+    it "redacts the name_or_alias" do
+      expect(support_request.name_or_alias).to eq(SupportRequest::REDACTED)
+    end
+
+    it "marks the support request as redacted" do
+      expect(support_request.redacted).to be true
+    end
+
+    it "redacts system-generated notes that may contain PII" do
+      expect(note1.reload.text).to eq(SupportRequest::REDACTED)
+    end
+
+    it "redacts user-generated notes" do
+      expect(note2.reload.text).to eq(SupportRequest::REDACTED)
+    end
+
+    it "does not redact system-generated notes without PII" do
+      expect(note3.reload.text).not_to eq(SupportRequest::REDACTED)
+    end
+  end
 end
