@@ -5,7 +5,7 @@
     </div>
     <div class="p-2 flex-grow-1">
       <h4 class="alert-heading">Reconciliation Due</h4>
-      <div>It's been <%= days_since_last_reconciliation %> days since the lockbox has been reconciled. Please count the cash in the box and record the total.</div>
+      <div class="text-break ">It's been <%= days_since_last_reconciliation %> days since the lockbox has been reconciled. Please count the cash in the box and record the total.</div>
     </div>
     <div class="p-2">
       <%= link_to "Reconcile Budget", new_lockbox_partner_reconciliation_path(lockbox_partner), class: 'btn btn-danger' %>
@@ -21,7 +21,7 @@
       </div>
       <div class="p-2 flex-grow-1">
         <h4 class="alert-heading">Cash Sent</h4>
-        <div>A $<%= cash_action.amount %> check was mailed on <%= cash_action.eff_date.try(:strftime, "%B %-d") %>, please confirm it was received.</div>
+        <div class="text-break ">A $<%= cash_action.amount %> check was mailed on <%= cash_action.eff_date.try(:strftime, "%B %-d") %>, please confirm it was received.</div>
 
         <% if cash_action.tracking_info.present? %>
           <div>Tracking info: <%= cash_action.tracking_info_formatted %></div>
@@ -41,7 +41,7 @@
       <i class="fa fa-exclamation-circle alert-primary-icon" aria-hidden="true"></i>
     </div>
     <div class="p-2 flex-grow-1">
-      <div>
+      <div class="text-break ">
         Your lockbox balance is below $<%= LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE %>. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email <%= link_to alert_email, "mailto:#{alert_email}" %>.
       </div>
     </div>
