@@ -4,7 +4,7 @@ const addNewNote = note => {
 };
 
 const openNoteForm = () => {
-  $('#new-note-form').slideDown(250);
+  $('#new-note-form').slideDown(100);
   $('#new-note')
     .parent()
     .addClass('selected');
@@ -14,17 +14,17 @@ const openNoteForm = () => {
 const displayNoteSuccess = text => {
   $('#note-success #note-event').text('New note created');
   $('#note-success #note-text').text(text);
-  $('#note-success').slideDown(250);
+  $('#note-success').slideDown(100);
 };
 
 const displayNoteUpdate = text => {
   $('#note-success #note-event').text('Note updated');
   $('#note-success #note-text').text(text);
-  $('#note-success').slideDown(250);
+  $('#note-success').slideDown(100);
 };
 
 const hideNoteSuccess = () => {
-  $('#note-success').slideUp(250);
+  $('#note-success').slideUp(100);
   clearHighlights();
 };
 
@@ -42,7 +42,7 @@ const highlightNote = note => {
 };
 
 const clearNoteForm = () => {
-  $('#new-note-form').slideUp(250);
+  $('#new-note-form').slideUp(100);
   $('#new-note-form textarea').val('');
 };
 

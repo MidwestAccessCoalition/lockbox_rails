@@ -15,6 +15,7 @@ RSpec.describe "LockboxPartner show page", type: :system do
     create(:support_request, :pending, lockbox_partner: lockbox_partner)
     visit("/lockbox_partners/#{lockbox_partner.id}")
     page.assert_selector(".support-request-container ul.pagination", count: 1)
+    # TODO: investigate why this test is so flaky (often only finds 19)
     page.assert_selector(".support-request-container .lockbox-activity tr.pending", count: 20)
     click_link("2")
     page.assert_selector(".support-request-container .lockbox-activity tr.completed", count: 1)
