@@ -106,10 +106,8 @@ $note-form-color: #d6d7d9;
         max-width: 480px;
       }
     }
-    .textarea {
-      textarea {
-        height: 180px;
-      }
+    .textarea textarea {
+      height: 180px;
     }
     .buttons {
       height: 39px;
