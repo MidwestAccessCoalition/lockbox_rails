@@ -14,7 +14,7 @@ RSpec.describe "Support Request Actions", type: :system do
         eff_date: Date.current,
         lockbox_transactions_attributes:
         {
-          "0":{ amount: "50", category: LockboxTransaction::MEDICINE }
+          "0":{ amount: "50", category: LockboxTransaction::PRESCRIPTIONS }
         }
       }
     }
@@ -62,7 +62,7 @@ RSpec.describe "Support Request Actions", type: :system do
     visit "/lockbox_partners/#{lockbox_partner.id}/support_requests/#{support_request.id}"
     click_link "Edit Support Request"
     click_link "Add more values +"
-    all("option[value='childcare']")[1].click
+    all("option[value='childcare_reimbursements']")[1].click
     page.all(:fillable_field, 'Amount').last.set 10
     click_button "Submit"
     sleep(1)

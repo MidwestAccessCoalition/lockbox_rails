@@ -1,6 +1,8 @@
 # MAC Lockbox
 
-The MAC lockbox is a system for tracking MAC cash at partners across the Midwest. For a detailed list of app functionality, see [docs/roadmap.md](https://github.com/MidwestAccessCoalition/lockbox_rails/blob/master/docs/roadmap.md)
+The MAC lockbox is a system for tracking MAC cash at partners across the Midwest.
+For a detailed list of app functionality, see
+[docs/roadmap.md](https://github.com/MidwestAccessCoalition/lockbox_rails/blob/master/docs/roadmap.md)
 
 ## Local Dev Environment
 
@@ -11,10 +13,11 @@ Technical requirements for this project. See below for step-by-step first-time s
 | Tool       | Version  |
 | ---------- | -------- |
 | Ruby       | v2.6.5   |
-| Bundler    | v2.1.1   |
-| Rails      | 6.0.2.1  |
-| PostgreSQL | v11.3    |
-| Node       | v10.15.3 |
+| Bundler    | v2.1.x   |
+| Rails      | 6.0.3.2  |
+| PostgreSQL | v11.x    |
+| Node       | v11.14.x |
+| Yarn       | v1.22.x  |
 
 ### Environment Setup
 
@@ -22,41 +25,75 @@ Clone the repo:
 
 ```sh
 git clone git@github.com:MidwestAccessCoalition/lockbox_rails
-# Or if you don't have an SSH key setup with Github:
-# git clone https://github.com/MidwestAccessCoalition/lockbox_rails.git
 ```
 
-This setup assumes you are using [Homebrew](https://brew.sh/) on a Mac. For other environments, reach out to [@bintLopez](https://github.com/BintLopez) (Nicole).
+Alternately, if you don't already have an SSH key setup with Github:
+```sh
+git clone https://github.com/MidwestAccessCoalition/lockbox_rails.git
+```
+
+This setup assumes you are using [Homebrew](https://brew.sh/) on a Mac. For other
+environments, reach out to [@bintLopez](https://github.com/BintLopez) (Nicole).
 
 #### Ruby
 
-If you don't have a Ruby version manager, you'll want to install `rbenv`. If you already have `rbenv` or `rvm` installed, skip this step.
-**DO NOT INSTALL BOTH RVM AND RBENV ON THE SAME MACHINE**.
+If you don't have a Ruby version manager, you'll want to install `rbenv`. If you
+already have `rbenv` or `rvm` installed, skip this step.
 
-To find out if they're already installed, in a terminal run `which rbenv rvm`. If they're both "not found" or there's no output at all, install `rbenv`.
-
+To find out if you already have one of them installed, in a terminal run
 ```sh
-brew install rbenv # https://github.com/rbenv/rbenv for more info
+which rbenv rvm
 ```
 
-_If you don't have Homebrew installed, or are using a PC or Linux machine, talk to Nicole (@bintLopez) about getting your dev env setup._
-
-To get the correct Ruby version, you can run the following from the project root to get the ruby version specified in the `.ruby-version` file.
-
+If you're using `zsh` and you get the following, install `rbenv`:
 ```sh
-ruby_version=$(cat .ruby-version)
-ruby_version=${ruby_version#ruby-} # Remove "ruby-" if prefixed to version number
-# Install Ruby via rbenv
-rbenv install $ruby_version
-# OR if you're using RVM
-# rvm install $ruby_version
+rbenv not found
+rvm not found
+```
+
+If you're using `bash` and there's no output at all, that means you don't have
+either version manager installed, and you should install `rbenv`.
+
+**DO NOT INSTALL BOTH RVM AND RBENV ON THE SAME MACHINE OR YOU WILL HAVE A VERY BAD TIME!**
+
+_Note: if you have `rvm` installed but would like to switch to `rbenv` (recommended), 
+just run the following before installing `rbenv`:_
+```sh
+rvm implode
+```
+
+**Install `rbenv`** (see https://github.com/rbenv/rbenv for more info)
+```sh
+brew install rbenv
+```
+
+_Note: if you don't have Homebrew installed, or are using a PC or Linux machine and need
+help at this point, talk to Nicole (@bintLopez) about getting your dev env setup._
+
+Both `rbenv` and `rvm` will automatically try to use the version specified in a
+local `.ruby-version` file if it exists. If the version specified in `.ruby-version`
+is not installed, simply run:
+```sh
+rbenv install
+```
+Or for RVM:
+```sh
+rvm install
 ```
 
 #### Rails
 
 ```sh
 gem install bundler -v 2.1.1
-bundle install # Make sure you're in the lockbox-rails root directory
+bundle install # Make sure you're in the lockbox_rails root directory
+```
+
+#### Javascript
+You will need Yarn `v1.22.x`, a Node version manager (if you don't already have one, `nvm` is receommended), and Node `v11.x`.
+
+```sh
+brew install nvm yarn
+nvm install && nvm use # This will install and use the version in the project's `.nvmrc` file
 ```
 
 #### PostgreSQL & DB setup
@@ -64,14 +101,15 @@ bundle install # Make sure you're in the lockbox-rails root directory
 See if you have PostgreSQL:
 
 ```sh
-which psql
+psql --version
 ```
 
-If not, install and run it using Homebrew:
+If it's not installed, or the version isn't >=11.0, install and run it using Homebrew:
 
 ```sh
-brew install postgresql
-brew services start postgresql
+brew install postgresql@11
+brew services stop postgresql
+brew services start postgresql@11
 ```
 
 Setup DB:
@@ -106,7 +144,7 @@ The above command will do the following:
 * run the `predev` script in `package.json` which calls the bin script [`dev_setup`](./bin/dev_setup).
   * the setup script will `bundle install` and `yarn install`
 * run the `dev:assets` script in `package.json` which will start `webpack` in watch mode (with a few other flags set for development purposes)
-* run the `dev:rails` script in `package.json` which will start the Rails server on port 3000.
+* run the `dev:rails` script in `package.json` which will start the Rails server on port `3000`.
 
 If you just need individual parts of the above, here is the manual startup process that you can tweak as needed:
 ```sh
@@ -122,7 +160,7 @@ mailcatcher # This will run on localhost:1080
 
 #### Redis
 
-You'll need redis for sidekiq to work
+You'll need `redis` in order for `sidekiq` to work.
 
 ```sh
 brew install redis

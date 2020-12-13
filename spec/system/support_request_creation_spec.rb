@@ -18,7 +18,7 @@ RSpec.describe "Support Request Creation", type: :system do
 
     page.all(:option, lockbox_partner.name).first.select_option
     page.all(:fillable_field, 'Amount').each {|e| e.set(13.37)}
-    page.all(:option, 'Transit').each(&:select_option)
+    page.all(:option, 'Train travel').each(&:select_option)
 
     click_button "Submit"
 
