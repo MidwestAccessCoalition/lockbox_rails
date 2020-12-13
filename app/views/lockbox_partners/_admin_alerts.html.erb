@@ -4,7 +4,7 @@
       <i class="fa fa-exclamation-circle alert-primary-icon" aria-hidden="true"></i>
     </div>
     <div class="p-2 flex-grow-1">
-      <div class="break-word"><%= lockbox_partner.name %> has not confirmed cash in <%= lockbox_partner.pending_cash_addition_age %> days. Please check in with them for confirmation.</div>
+      <div class="text-break"><%= lockbox_partner.name %> has not confirmed cash in <%= lockbox_partner.pending_cash_addition_age %> days. Please check in with them for confirmation.</div>
     </div>
   </div>
 <% end %>
@@ -14,7 +14,7 @@
       <i class="fa fa-exclamation-circle alert-primary-icon" aria-hidden="true"></i>
     </div>
     <div class="p-2 flex-grow-1">
-      <div class="break-word"><%= lockbox_partner.name %>'s balance of $<%= lockbox_partner.balance %> is below $<%= LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE %>. Please replenish the funds.</div>
+      <div class="text-break"><%= lockbox_partner.name %>'s balance of $<%= lockbox_partner.balance %> is below $<%= LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE %>. Please replenish the funds.</div>
     </div>
   </div>
 <% end %>
@@ -24,7 +24,7 @@
       <i class="fa fa-check-circle alert-primary-icon" aria-hidden="true"></i>
     </div>
     <div class="p-2 flex-grow-1">
-      <div class="break-word"><%= lockbox_partner.name %> has confirmed their cash is received, and you can now send them <%= link_to "Support Requests", new_lockbox_partner_support_request_path(lockbox_partner) %>.</div>
+      <div class="text-break"><%= lockbox_partner.name %> has confirmed their cash is received, and you can now send them <%= link_to "Support Requests", new_lockbox_partner_support_request_path(lockbox_partner) %>.</div>
     </div>
   </div>
 <% end %>
