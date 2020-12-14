@@ -23,6 +23,7 @@ header {
 
     p {
       font-family: $font-serif;
+      margin-bottom: 5px;
     }
 
     a,
@@ -34,6 +35,15 @@ header {
 
     a:hover {
       color: darken($white, 10%);
+    }
+
+    .mfa em {
+      font-family: $font-serif;
+      margin-right: 5px;
+
+      a {
+        font-family: $font-serif;
+      }
     }
   }
 
@@ -58,11 +68,15 @@ header {
 
   .btn {
     display: block;
-    border: 2px solid $color-primary;
+    border: 2px solid $white;
     background: $white;
     color: $color-primary;
     width: 200px;
     margin-bottom: 20px;
+
+    &:hover {
+      border: 2px solid $white;
+    }
   }
 
   .btn-white:hover {

@@ -33,15 +33,30 @@
                 <a href="mailto:<%= current_user.email %>">
                   <%= current_user.email %>
                 </a>
+              </p>
+              <p class="mfa">
                 <% if current_user.authy_enabled? %>
-                  <small> MFA enabled <%= fa_icon "check-circle" %></small>
+                  <%= fa_icon "check" %>
+                  <em>MFA authenticated</em>
                 <% else %>
-                  <%= fa_icon "exclamation-circle" %><%= link_to 'Secure your account with MFA', user_enable_authy_path %>
+                  <%= fa_icon "exclamation-triangle" %>
+                  <em>
+                    <%= link_to 'Secure your account with MFA', user_enable_authy_path %>
+                  </em>
                 <% end %>
+                <i
+                  class="fa fa-info-circle tooltip-icon"
+                  tabindex="0"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  data-animation="false"
+                  title="Something about MFA goes here."
+                >
+                </i>
               </p>
             </div>
             <%= link_to "Edit Profile", edit_user_path(current_user), class: "edit-contact-info btn btn-primary btn-invert" %>
-            <%= link_to "Admin Dashboard", admin_dashboard_path, class: "admin-dashboard btn btn-primary btn-white" %>
+            <%= link_to "Admin Dashboard", admin_dashboard_path, class: "admin-dashboard btn btn-primary btn-white on-blue" %>
           <% elsif lp = current_user.lockbox_partner %>
             <h2><%= lp.name %></h2>
             <h3><%= current_user.name %></h3>
@@ -59,7 +74,7 @@
 
         <!-- Right container -->
         <div class="navbar-subcontainer">
-          <%= link_to(destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-white') do %>
+          <%= link_to(destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-white on-blue') do %>
             <span>Log Out</span>
           <% end %>
           <%= link_to(edit_user_registration_path, class: 'btn btn-primary btn-invert') do %>
