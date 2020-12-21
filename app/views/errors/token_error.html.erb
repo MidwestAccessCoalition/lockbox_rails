@@ -1,0 +1,17 @@
+<h1 class="error-page-heading">Something happened 😩</h1>
+<p>
+  <%= image_tag "obama_what_happened.gif", width: "400" %>
+</p>
+<p>
+  There was a problem with your request. This is likely due to some stale
+  credentials stored in your browser from a prior session. Try refreshing the
+  page and re-submitting the request.
+</p>
+<p>
+  If the error persists, please reach out to <%= mail_to ENV['LOCKBOX_EMAIL'] %>
+  for assistance.
+</p>
+
+
+
+

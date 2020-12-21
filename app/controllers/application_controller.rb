@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
     render "errors/not_found", status: :not_found
   end
 
+  rescue_from ActionController::InvalidAuthenticityToken do
+    render "errors/token_error", status: :unprocessable_entity
+  end
+
   def require_admin
     unless current_user&.admin?
       flash[:error] = "You are not authorized to access this page"
