@@ -23,7 +23,6 @@
   },
   "scripts": {
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect && yarn run snyk-protect",
     "predev": "./bin/dev_setup",
     "dev:assets": "./bin/webpack --watch --colors --progress --display-error-details",
     "dev:rails": "bundle exec rails server --port 3000",
