@@ -71,7 +71,7 @@ describe UpdateSupportRequest do
     expect(Note.last.may_contain_pii).to be true
   end
 
-  it 'does not flag the note with may_contain_pii if any other field was changed' do
+  it 'does not flag the note with may_contain_pii if name_or_alias was not changed' do
     expect{
       UpdateSupportRequest.call(
         support_request: support_request, params: { urgency_flag: 'new flag' }
