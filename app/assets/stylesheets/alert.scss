@@ -3,6 +3,48 @@
 }
 
 #errors {
-  max-width: 600px;
   padding: 0;
+}
+
+.error-page-img {
+  float: right;
+  margin-left: 10px;
+}
+
+.mfa-banner {
+  * {
+    color: $black;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .alert-icon {
+    font-size: 2rem;
+    position: absolute;
+    top: 20px;
+  }
+
+  .alert-content {
+    margin-left: 3em;
+
+    .alert-heading {
+      margin-bottom: 0;
+    }
+  }
+
+  .alert-button {
+    margin-top: 8px;
+    font-weight: 800;
+  }
+
+  @media screen and (max-width: 775px) {
+    flex-direction: column;
+    max-width: 450px;
+
+    .alert-button {
+      margin-left: 3em;
+    }
+  }
 }

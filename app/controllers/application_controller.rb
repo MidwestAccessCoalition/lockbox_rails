@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
     render "errors/not_found", status: :not_found
   end
 
+  rescue_from ActionController::RoutingError do
+    render "errors/not_found", status: :not_found
+  end
+
   rescue_from ActionController::InvalidAuthenticityToken do
     render "errors/token_error", status: :unprocessable_entity
   end

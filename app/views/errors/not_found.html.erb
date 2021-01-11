@@ -1,11 +1,5 @@
+<%= image_tag "urkel.gif", width: "300", class: "error-page-img" %>
 <h1>Page Not Found</h1>
-
-<br>
-<%= image_tag "urkel.gif", width: "400" %>
-
-<br>
-<br>
-
 <p>
-Something went wrong, please reach out to <%= mail_to ENV['LOCKBOX_EMAIL'] %>
+  Something went wrong, please reach out to <%= mail_to ENV['LOCKBOX_EMAIL'] %>.
 </p>

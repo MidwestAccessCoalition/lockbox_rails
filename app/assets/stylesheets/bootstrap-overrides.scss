@@ -13,7 +13,7 @@ h4,
 h5,
 h6 {
   font-family: $font-sans;
-  font-weight: bold;
+  font-weight: 800;
 }
 
 a {
@@ -47,6 +47,10 @@ a {
   border-right: solid 10px transparent;
 }
 
+.container {
+  padding: 0;
+}
+
 .table {
   margin-top: 20px;
   thead {
@@ -76,6 +80,10 @@ a {
 
 .alert {
   margin-top: 1rem;
+}
+
+.alert-dismissible {
+  border-left: 5px solid;
 }
 
 .tooltip > .tooltip-inner {

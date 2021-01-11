@@ -7,9 +7,16 @@
   border-radius: 0px;
 }
 
-.form-group > label,
-.field_with_errors > label {
-  font-weight: bolder;
+.form-group {
+  input:not([type=checkbox]),
+  select,
+  textarea {
+    width: 100%;
+  }
+
+  &> label {
+    font-weight: bolder;
+  }
 }
 
 .field input {
@@ -19,7 +26,13 @@
 .field_with_errors {
   display: block;
 
-  input, select {
+  &> label {
+    font-weight: bolder;
+  }
+
+  input,
+  select,
+  textarea {
     border: solid 1px red;
   }
 }
