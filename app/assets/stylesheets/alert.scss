@@ -11,7 +11,47 @@
   margin-left: 10px;
 }
 
-.mfa-banner {
+.support-request-header {
+  .alert {
+    border-radius: 0;
+    border: 0;
+    margin: 20px 0;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .alert-primary {
+    border-left: 5px solid #01bfe7;
+    background-color: $color-primary-alert;
+    color: black;
+    line-height: 2;
+  }
+
+  .alert-primary-icon {
+    font-size: 2em;
+  }
+}
+
+.alert-dismissible {
+  border-left: 5px solid;
+}
+
+.alert-compact {
+  border-left: 5px solid;
+  padding: 0.25em;
+
+  a,
+  a:visited {
+    color: $color-primary;
+  }
+
+  .alert-compact-icon {
+    font-size: 1.1em;
+  }
+}
+
+.alert {
+  margin-top: 1rem;
+
   * {
     color: $black;
   }
@@ -35,15 +75,25 @@
   }
 
   .alert-button {
-    margin-top: 8px;
+    align-self: center;
+    color: $white;
     font-weight: 800;
+    height: fit-content;
+    margin-left: 10px;;
+    min-width: 20%;
   }
 
   @media screen and (max-width: 775px) {
     flex-direction: column;
     max-width: 450px;
 
+    &.alert-compact {
+      flex-direction: row;
+      max-width: 100%;
+    }
+
     .alert-button {
+      align-self: inherit;
       margin-left: 3em;
     }
   }

@@ -6,17 +6,6 @@
     Your account is secured with MFA!
   </p>
   <%= link_to "Disable Multi-factor Authentication", user_disable_authy_path, { method: :post} %>
-<% else %>
-  <div class="mfa-banner alert alert-warning d-flex">
-    <div>
-      <%= fa_icon "exclamation-triangle", class: 'alert-icon' %>
-    </div>
-    <div class="alert-content flex-grow-1">
-      <h4 class="alert-heading">Enable Multi-factor Authentication (MFA)</h4>
-      <p>Take action to secure your account with MFA!</p>
-    </div>
-    <%= link_to "Enable MFA", user_enable_authy_path, class: 'btn btn-warning alert-button' %>
-  </div>
 <% end %>
 
 <h3>Update Password</h3>

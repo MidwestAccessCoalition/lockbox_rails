@@ -1,25 +1,36 @@
+<% if !current_user.authy_enabled? %>
+  <div class="alert alert-warning d-flex">
+    <div>
+      <%= fa_icon "exclamation-triangle", class: 'alert-icon', "aria-hidden": true %>
+    </div>
+    <div class="alert-content">
+      <h4 class="alert-heading">Enable Multi-factor Authentication (MFA)</h4>
+      <p>Take action to secure your account with MFA!</p>
+    </div>
+    <%= link_to "Enable MFA", user_enable_authy_path, class: 'btn btn-warning alert-button' %>
+  </div>
+<% end %>
+
 <% if lockbox_partner.reconciliation_needed? %>
   <div class="alert alert-danger d-flex">
-    <div class="p-2">
-      <i class="fa fa-exclamation-circle alert-primary-icon" aria-hidden="true"></i>
+    <div>
+      <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
     </div>
-    <div class="p-2 flex-grow-1">
+    <div class="alert-content flex-grow-1">
       <h4 class="alert-heading">Reconciliation Due</h4>
       <div>It's been <%= days_since_last_reconciliation %> days since the lockbox has been reconciled. Please count the cash in the box and record the total.</div>
     </div>
-    <div class="p-2">
-      <%= link_to "Reconcile Budget", new_lockbox_partner_reconciliation_path(lockbox_partner), class: 'btn btn-danger' %>
-    </div>
+    <%= link_to "Reconcile Budget", new_lockbox_partner_reconciliation_path(lockbox_partner), class: 'btn btn-danger alert-button' %>
   </div>
 <% end %>
 
 <% if lockbox_partner.cash_addition_confirmation_pending? %>
   <% lockbox_partner.lockbox_actions.pending_cash_additions.each do |cash_action| %>
     <div class="alert alert-warning d-flex">
-      <div class="p-2">
-        <i class="fa fa-exclamation-circle alert-primary-icon" aria-hidden="true"></i>
+      <div>
+        <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
       </div>
-      <div class="p-2 flex-grow-1">
+      <div class="alert-content flex-grow-1">
         <h4 class="alert-heading">Cash Sent</h4>
         <div>A $<%= cash_action.amount %> check was mailed on <%= cash_action.eff_date.try(:strftime, "%B %-d") %>, please confirm it was received.</div>
 
@@ -27,9 +38,7 @@
           <div>Tracking info: <%= cash_action.tracking_info_formatted %></div>
         <% end %>
       </div>
-      <div class="p-2">
-        <%= link_to "Confirm Cash Addition", lockbox_action_path(cash_action, {lockbox_action: {status: :completed}}), method: :put, class: 'btn btn-warning' %>
-      </div>
+      <%= link_to "Confirm Cash Addition", lockbox_action_path(cash_action, {lockbox_action: {status: :completed}}), method: :put, class: 'btn btn-warning alert-button' %>
     </div>
   <% end %>
 <% end %>
@@ -37,10 +46,10 @@
 <% if lockbox_partner.low_balance? %>
   <% alert_email = ENV['LOCKBOX_EMAIL'] %>
   <div class="alert alert-danger d-flex">
-    <div class="p-2">
-      <i class="fa fa-exclamation-circle alert-primary-icon" aria-hidden="true"></i>
+    <div>
+      <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
     </div>
-    <div class="p-2 flex-grow-1">
+    <div class="alert-content flex-grow-1">
       <div>
         Your lockbox balance is below $<%= LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE %>. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email <%= link_to alert_email, "mailto:#{alert_email}" %>.
       </div>

@@ -30,5 +30,10 @@
       <%= lockbox_partner.phone_number %>
     </p>
   </div>
+
+  <% if !current_user.authy_enabled? %>
+    <%= render partial: 'lockbox_partners/admin_mfa_alert' %>
+  <% end %>
+
   <div class="horizontal-rule"></div>
 </div>
