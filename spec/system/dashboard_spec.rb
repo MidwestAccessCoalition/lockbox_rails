@@ -27,13 +27,13 @@ RSpec.describe "Dashboard", type: :system do
     context "when a partner has low balance" do
       # Expect 0 balance since there are no transactions
       it "alerts for low balance without cash addition" do
-        page.assert_text("#{lockbox_partner.name}'s balance of $#{lockbox_partner.balance} is below $#{LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE}. Please replenish the funds.")
+        page.assert_text("#{lockbox_partner.name}'s balance of $#{lockbox_partner.balance} is below $#{lockbox_partner.minimum_acceptable_balance_formatted}. Please replenish the funds.")
       end
 
       it "alerts for low balance with unconfirmed cash addition" do
         submit_cash_addition
 
-        page.assert_text("#{lockbox_partner.name}'s balance of $#{lockbox_partner.balance} is below $#{LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE}. Please replenish the funds.")
+        page.assert_text("#{lockbox_partner.name}'s balance of $#{lockbox_partner.balance} is below $#{lockbox_partner.minimum_acceptable_balance_formatted}. Please replenish the funds.")
       end
 
       it "doesn't alert for low balance with confirmed cash addition" do
@@ -41,7 +41,7 @@ RSpec.describe "Dashboard", type: :system do
 
         lockbox_partner.lockbox_actions.last.complete!
 
-        page.assert_no_text("#{lockbox_partner.name}'s balance of $#{lockbox_partner.balance} is below $#{LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE}. Please replenish the funds.")
+        page.assert_no_text("#{lockbox_partner.name}'s balance of $#{lockbox_partner.balance} is below $#{lockbox_partner.minimum_acceptable_balance_formatted}. Please replenish the funds.")
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe "Dashboard", type: :system do
     context "when a partner has low balance" do
       # Expect 0 balance since there are no transactions
       it "alerts for low balance without cash addition" do
-        page.assert_text("Your lockbox balance is below $#{LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE}. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email #{ENV['LOCKBOX_EMAIL']}.")
+        page.assert_text("Your lockbox balance is below $#{lockbox_partner.minimum_acceptable_balance_formatted}. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email #{ENV['LOCKBOX_EMAIL']}.")
       end
 
       it "removes alert for low balance with confirmed cash addition" do
@@ -71,11 +71,11 @@ RSpec.describe "Dashboard", type: :system do
           category: 'cash_addition'
         )
         visit("/")
-        page.assert_text("Your lockbox balance is below $#{LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE}. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email #{ENV['LOCKBOX_EMAIL']}.")
+        page.assert_text("Your lockbox balance is below $#{lockbox_partner.minimum_acceptable_balance_formatted}. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email #{ENV['LOCKBOX_EMAIL']}.")
 
         click_link "Confirm Cash Addition"
 
-        page.assert_no_text("Your lockbox balance is below $#{LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE}. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email #{ENV['LOCKBOX_EMAIL']}.")
+        page.assert_no_text("Your lockbox balance is below $#{lockbox_partner.minimum_acceptable_balance_formatted}. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email #{ENV['LOCKBOX_EMAIL']}.")
       end
     end
 

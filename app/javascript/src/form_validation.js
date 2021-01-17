@@ -28,3 +28,15 @@ const submitButton = document.querySelectorAll('[type="submit"]')[0];
 submitButton.addEventListener("click", () => {
   removePristineFromInputs();
 });
+
+// Add field for displaying min acceptable balance
+const formatMinBalanceInput = () => {
+  const balanceSaved = document.getElementById("lockbox_partner_minimum_acceptable_balance");
+  const balanceInput = document.getElementById('minimum-acceptable-balance-formatted');
+  balanceInput.value = balanceSaved.value/100;
+  balanceInput.addEventListener("change", (event) => {
+    balanceSaved.value = balanceInput.value * 100;
+    console.log(balanceSaved.value);
+  })
+}
+formatMinBalanceInput();

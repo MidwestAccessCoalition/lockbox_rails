@@ -50,10 +50,12 @@ class LockboxPartner < ApplicationRecord
     end
   end
 
+  def minimum_acceptable_balance_formatted
+    Money.new(minimum_acceptable_balance)
+  end
+
   def low_balance?
-    balance < MINIMUM_ACCEPTABLE_BALANCE
-    # TODO after backfill
-    # balance.cents < minimum_acceptable_balance
+    balance.cents < minimum_acceptable_balance
   end
 
   def insufficient_funds?

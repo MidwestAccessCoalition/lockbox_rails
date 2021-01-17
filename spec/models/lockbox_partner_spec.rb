@@ -526,7 +526,7 @@ describe LockboxPartner, type: :model do
     it 'is true when the balance is below $300' do
       lockbox_partner = FactoryBot.create(:lockbox_partner)
 
-      low_amount = LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE - Money.new(100)
+      low_amount = lockbox_partner.minimum_acceptable_balance_formatted - Money.new(100)
       AddCashToLockbox.call!(lockbox_partner: lockbox_partner, eff_date: 1.day.ago, amount: low_amount).complete!
       expect(lockbox_partner).to be_low_balance
 
