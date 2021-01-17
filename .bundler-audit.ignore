@@ -1,0 +1,8 @@
+# Add CVE IDs to be ignored here--one per line or separated by a space.
+# Any comments in this file must be on their own line (not appended after an ID)
+# otherwise that ID will be ignored.
+
+# Temporarily ignoring this Rails action-view vulnerability as it requires a Rails
+# version bump that would be better to do in a separate PR.
+# More info: https://github.com/rails/rails/security/advisories/GHSA-cfjv-5498-mph5
+CVE-2020-15169

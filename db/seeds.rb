@@ -60,7 +60,7 @@ LOCKBOX_PARTNERS.map do |partner_name, partner_user_email|
         support_request_id: sup_req.id
       )
 
-      categories = LockboxTransaction::EXPENSE_CATEGORIES.sample((1..3).to_a.sample)
+      categories = LockboxTransaction::SELECTABLE_EXPENSE_CATEGORIES.sample((1..3).to_a.sample)
       categories.each do |category|
         action.lockbox_transactions.create!(
           amount_cents: (1_00..60_00).to_a.sample,
@@ -91,7 +91,7 @@ has_many_actions = LockboxPartner.where(name: LOCKBOX_PARTNERS.last.first).first
       support_request_id: sup_req.id
     )
 
-    categories = LockboxTransaction::EXPENSE_CATEGORIES.sample((1..3).to_a.sample)
+    categories = LockboxTransaction::SELECTABLE_EXPENSE_CATEGORIES.sample((1..3).to_a.sample)
     categories.each do |category|
       action.lockbox_transactions.create!(
         amount_cents: (1_00..60_00).to_a.sample,

@@ -30,16 +30,12 @@ a {
   }
 }
 
-.btn-active {
-  padding-bottom: 0;
-}
-
 .btn-active:after {
   content: '';
-  display: block;
-  position: relative;
-  top: 12px;
-  left: 48%;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
   width: 0;
   height: 0;
   border-top: solid 10px $color-primary;
@@ -54,7 +50,7 @@ a {
 .table {
   margin-top: 20px;
   thead {
-    background-color: #dee2e6;
+    background-color: $light-gray;
   }
 }
 

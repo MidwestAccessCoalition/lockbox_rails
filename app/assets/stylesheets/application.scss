@@ -17,16 +17,17 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'datatables.net-bs4/css/dataTables.bootstrap4.min';
 @import 'font-awesome';
-@import 'variables';
 
-@import 'devise';
+@import 'variables';
+@import 'bootstrap-overrides';
+@import 'devise-overrides';
 @import 'devise_authy';
 
 @import 'admin_dashboard';
 @import 'alert';
-@import 'bootstrap-overrides';
 @import 'dashboard';
 @import 'forms';
+@import 'info_expander';
 @import 'layout';
 @import 'lockbox_activity';
 @import 'lockbox_partners';

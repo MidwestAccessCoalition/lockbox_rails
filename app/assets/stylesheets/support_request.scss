@@ -12,7 +12,7 @@
     margin: 10px;
     margin-top: 0px;
   }
-  a.btn-primary.view-full {
+  .btn-primary.view-full {
     border: none;
     &:hover {
       background-color: $darker-blue;
@@ -102,15 +102,14 @@ $note-form-color: #d6d7d9;
     background: $note-form-color;
     .container {
       padding: 20px;
-    }
-    .textarea {
-      width: 500px;
-      textarea {
-        height: 180px;
+      div {
+        max-width: 480px;
       }
     }
+    .textarea textarea {
+      height: 180px;
+    }
     .buttons {
-      width: 500px;
       height: 39px;
       padding: 10px;
       * {
@@ -161,13 +160,13 @@ $note-form-color: #d6d7d9;
   .support-request-details > div {
     margin-bottom: 13px;
   }
-  .lockbox-activity {
-    margin-top: -30px;
-  }
   .status-label {
     font-size: 1.5em;
   }
   @media screen and (min-width: 768px) {
+    .lockbox-activity {
+      margin-top: -30px;
+    }
     .dropdown {
       text-align: right;
     }
@@ -187,9 +186,9 @@ $note-form-color: #d6d7d9;
   justify-content: space-between;
 }
 .support-request-nav-item {
-  background-color: $gray;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
+  background-color: $light-gray;
+  border-top: 1px solid $black;
+  border-right: 1px solid $black;
   padding: 20px;
   display: inline;
   flex: 1 auto;

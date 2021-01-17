@@ -4,6 +4,11 @@ $secondary-tab: $darker-blue;
 $secondary-active-tab: #1f5593;
 
 .secondary-nav {
+  @media only screen and (max-width: 600px) {
+    // hide nav bar if the text becomes too squished
+    display: none;
+  }
+
   .secondary-nav-tabs {
     display: flex;
     height: 2rem;

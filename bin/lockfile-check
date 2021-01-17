@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+GEMFILE_LOCK = 'Gemfile.lock'
+YARN_LOCK = 'yarn.lock'
+PACKAGE_LOCK = 'package-lock.json'
+
+VALID_LOCKFILES = [GEMFILE_LOCK, YARN_LOCK]
+
+INSTALLERS = {
+  GEMFILE_LOCK => 'bundle install',
+  YARN_LOCK => 'yarn',
+}
+
+VALID_LOCKFILES.each do |lockfile|
+  unless File.exist? lockfile
+    $stderr.puts "❌ #{lockfile} file is missing!"
+    $stderr.puts "Be sure to run `#{INSTALLERS[lockfile]}` before merging."
+    exit 1
+  end
+  $stdout.puts "✅ #{lockfile} found."
+end
+
+if File.exist? PACKAGE_LOCK
+  $stderr.puts "Errant #{PACKAGE_LOCK} file exists!"
+  $stderr.puts 'This likely just means you ran  `npm install` instead of `yarn install`'
+  $stderr.puts 'To remedy, just run `rm package-lock.json; rm -rf node_modules; yarn`.'
+  exit 2
+end
+
+$stdout.puts "\n🎉 All is well! (Lockfile-wise, at least.)"
