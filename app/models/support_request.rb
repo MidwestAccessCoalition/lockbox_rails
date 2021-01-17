@@ -28,6 +28,18 @@ class SupportRequest < ApplicationRecord
     scope "#{status}_for_partner", ->(lockbox_partner_id:) { joins(:lockbox_action).where(lockbox_partner_id: lockbox_partner_id, "lockbox_actions.status": status) }
   end
 
+  REDACTED = "[redacted]".freeze
+  REDACT_AFTER_DAYS = 90
+
+  scope :needs_redaction, -> do
+    joins(:lockbox_action)
+      .where(
+        support_requests: { redacted: false },
+        lockbox_actions: { status: LockboxAction::CLOSED_STATUSES }
+      )
+      .where("lockbox_actions.closed_at < ?", REDACT_AFTER_DAYS.days.ago)
+  end
+
   def all_support_requests_for_partner
     @all_support_requests_for_partner ||= self
       .class
@@ -90,6 +102,17 @@ class SupportRequest < ApplicationRecord
 
   def record_creation_async
     NotesWorker.perform_async(id)
+  end
+
+  def redact!
+    ActiveRecord::Base.transaction do
+      notes.may_contain_pii.each(&:redact!)
+      update!(name_or_alias: REDACTED, redacted: true)
+    end
+  end
+
+  def redact_async
+    SupportRequestRedactionWorker.perform_async(id)
   end
 
   def self.to_csv

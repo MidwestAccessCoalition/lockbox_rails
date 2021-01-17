@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_23_213623) do
+ActiveRecord::Schema.define(version: 2020_12_06_230927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_02_23_213623) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "support_request_id"
+    t.datetime "closed_at"
     t.index ["lockbox_partner_id"], name: "index_lockbox_actions_on_lockbox_partner_id"
     t.index ["support_request_id"], name: "index_lockbox_actions_on_support_request_id"
   end
@@ -58,6 +59,7 @@ ActiveRecord::Schema.define(version: 2020_02_23_213623) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.string "notable_action", default: "annotate"
+    t.boolean "may_contain_pii", default: false
     t.index ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
@@ -70,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_02_23_213623) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.boolean "redacted", default: false
     t.index ["lockbox_partner_id"], name: "index_support_requests_on_lockbox_partner_id"
     t.index ["user_id"], name: "index_support_requests_on_user_id"
   end
