@@ -46,6 +46,8 @@ class LockboxPartner < ApplicationRecord
 
   def low_balance?
     balance < MINIMUM_ACCEPTABLE_BALANCE
+    # TODO after backfill
+    # balance.cents < minimum_acceptable_balance
   end
 
   def insufficient_funds?
