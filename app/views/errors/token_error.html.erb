@@ -1,5 +1,6 @@
-<%= image_tag "obama_what_happened.gif", width: "300", class: "error-page-img" %>
-<h1 class="error-page-heading">Something happened 😩</h1>
+<%= image_tag "obama_what_happened.gif", width: "300", class: "error-page-img top-img" %>
+
+<h2 class="error-page-heading">Something happened 😩</h2>
 <p>
   There was a problem with your request. This is likely due to some stale
   credentials stored in your browser from a prior session. Try refreshing the
@@ -9,6 +10,8 @@
   If the error persists, please reach out to <%= mail_to ENV['LOCKBOX_EMAIL'] %>
   for assistance.
 </p>
+
+<%= image_tag "obama_what_happened.gif", width: "300", class: "error-page-img bottom-img" %>
 
 
 
