@@ -3,32 +3,56 @@
   <% if current_user.admin? %>
     <%= render partial: 'lockbox_partners/back_to_dashboard', locals: {:alignment => 'right'} %>
   <% end %>
-  <h2>
-    <%= lockbox_partner.name %>
-    <span class="float-right">
-      <i
-        class="fa fa-info-circle tooltip-icon"
-        tabindex="0"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        data-animation="false"
-        title="The balance here includes all cash in the partner lockbox, minus any Pending Support Requests."
-      >
-      </i>
-      $<%= lockbox_partner.balance %>
-    </span>
-  </h2>
-  <div class="lockbox-partner-info">
-    <p class="address">
-      <% if lockbox_partner.street_address %>
-        <%= lockbox_partner.street_address %>
-        <br>
-      <% end %>
-      <%= lockbox_partner.city %>, <%= lockbox_partner.state %> <%= lockbox_partner.zip_code %>
-    </p>
-    <p class="phone_number">
-      <%= lockbox_partner.phone_number %>
-    </p>
+  <div class="header-desktop">
+    <h2>
+      <%= lockbox_partner.name %>
+      <span class="float-right">
+        <i
+          class="fa fa-info-circle tooltip-icon"
+          tabindex="0"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          data-animation="false"
+          title="The balance here includes all cash in the partner lockbox, minus any Pending Support Requests."
+        >
+        </i>
+        $<%= lockbox_partner.balance %>
+      </span>
+    </h2>
+    <div class="lockbox-partner-info">
+      <p class="address">
+        <% if lockbox_partner.street_address %>
+          <%= lockbox_partner.street_address %>
+          <br>
+        <% end %>
+        <%= lockbox_partner.city %>, <%= lockbox_partner.state %> <%= lockbox_partner.zip_code %>
+      </p>
+      <p class="phone_number">
+        <%= lockbox_partner.phone_number %>
+      </p>
+    </div>
+
+  </div>
+  <div class="header-mobile">
+    <div class="info-expander closed">
+      <div class="info-expander-header">
+        <h2>
+          <span class="info-expander-header-text">
+            <%= lockbox_partner.name %>: <%= lockbox_partner.balance %>
+          </span>
+        </h2>
+      </div>
+      <div class="info-expander-content" style="display: none">
+        <% if lockbox_partner.street_address %>
+          <%= lockbox_partner.street_address %>
+          <br>
+        <% end %>
+        <%= lockbox_partner.city %>, <%= lockbox_partner.state %> <%= lockbox_partner.zip_code %>
+        <p class="phone_number">
+          <%= link_to lockbox_partner.phone_number, "tel:#{lockbox_partner.phone_number}" %>
+        </p>
+      </div>
+    </div>
   </div>
 
   <% if !current_user.authy_enabled? %>

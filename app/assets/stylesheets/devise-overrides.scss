@@ -56,14 +56,31 @@ html, body {
       margin-top: 10px;
     }
   }
+}
 
-  .error-page-heading {
-    text-align: center;
+.error-page-heading {
+  text-align: left;
+}
+
+.error-page-img {
+  float: right;
+  margin-left: 20px;
+
+  &.bottom-img {
+    display: none;
   }
 
-  .error-page-img {
-    float: right;
-    margin-left: 10px;
+  @media screen and (max-width: 600px) {
+    float: none;
+    margin-left: 0;
+
+    &.bottom-img {
+      display: block;
+    }
+
+    &.top-img {
+      display: none;
+    }
   }
 }
 

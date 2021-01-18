@@ -14,19 +14,26 @@
     "imports-loader": "^0.8.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.15.0",
-    "snyk": "^1.316.1",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "snyk": "^1.316.1",
     "webpack-dev-server": "^3.10.1"
   },
   "scripts": {
-    "snyk-protect": "snyk protect",
-    "predev": "./bin/dev_setup",
-    "dev:assets": "./bin/webpack --watch --colors --progress --display-error-details",
+    "clean": "rm -rf node_modules",
+    "dev": "yarn dev:webpack & yarn dev:rails && fg",
     "dev:rails": "bundle exec rails server --port 3000",
-    "dev": "yarn run dev:assets & yarn run dev:rails && fg"
-  },
-  "snyk": true
+    "dev:webpack": "./bin/webpack --watch --colors --progress --display-error-details",
+    "install-dependencies": "./bin/install-dependencies",
+    "predev": "yarn install-dependencies",
+    "scan:all": "yarn scan:lockfiles; yarn scan:javascript; yarn scan:ruby",
+    "scan:brakeman": "bundle exec brakeman -qA --no-exit-on-warn 2>&1 | tee tmp/security-scans/brakeman.log",
+    "scan:bundler-audit": "bundle exec bundler-audit check --ignore $(cat .bundler-audit.ignore | grep -v '#') 2>&1 | tee tmp/security-scans/bundler-audit.log",
+    "scan:javascript": "yarn scan:snyk",
+    "scan:lockfiles": "./bin/lockfile-check 2>&1 | tee tmp/security-scans/lockfile-check.log",
+    "scan:ruby": "yarn scan:brakeman; yarn scan:bundler-audit",
+    "scan:snyk": "snyk protect 2>&1 | tee tmp/security-scans/snyk.log"
+  }
 }

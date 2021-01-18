@@ -1,17 +1,25 @@
 <div class="container">
   <%= render partial: 'lockbox_partners/header', locals: { lockbox_partner: @lockbox_partner } %>
-
+  <%= link_to lockbox_partner_path(@lockbox_partner) do |link| %>
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> View All Activity
+  <% end %>
   <div class="support-request-container">
     <% if current_user.admin? %>
       <%= render partial: 'details_admin', locals: { support_request: @support_request } %>
       <div class="tabs">
-        <div class="tab"><%= link_to 'Edit Support Request', edit_lockbox_partner_support_request_path(@support_request.lockbox_partner, @support_request), class: 'btn btn-primary', disabled: !@support_request.editable_status? %></div>
-        <div class="tab"><%= link_to 'Add Note', '#', class: 'btn btn-secondary', id: 'new-note' %></div>
+        <div class="tab">
+          <%= link_to 'Edit Support Request', edit_lockbox_partner_support_request_path(@support_request.lockbox_partner, @support_request), class: 'btn btn-primary', disabled: !@support_request.editable_status? %>
+        </div>
+        <div class="tab">
+          <button id="new-note" class="btn btn-secondary">Add Note</button>
+        </div>
       </div>
     <% else %>
       <%= render partial: 'details_partner', locals: { support_request: @support_request } %>
       <ul class="tabs">
-        <li class="tab"><%= link_to 'Add Note', '#', class: 'btn btn-primary', id: 'new-note' %></li>
+        <li class="tab">
+          <button id="new-note" class="btn btn-primary">Add Note</button>
+        </li>
       </ul>
     <% end %>
 

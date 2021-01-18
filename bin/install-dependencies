@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+`bundle`
+if $?.success?
+  $stdout.puts("\n✅ All Ruby gems were successfully installed!")
+else
+  $stderr.puts("\n❌ There were issues installing Ruby dependencies; ensure that `bundle install` runs and completes successfully.")
+  exit 1
+end
+
+`yarn`
+if $?.success?
+  $stdout.puts("\n✅ All Node packages were successfully installed!")
+else
+  $stderr.puts("\n❌ There were issues installing JavaScript dependencies; ensure that `yarn` runs and completes successfully.")
+  exit 1
+end
+
+$stdout.puts("\n🎉 All dependencies successfully installed!")

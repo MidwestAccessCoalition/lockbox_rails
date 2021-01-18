@@ -14,7 +14,7 @@ RSpec.describe "Support Request Actions", type: :system do
         eff_date: Date.current,
         lockbox_transactions_attributes:
         {
-          "0":{ amount: "50", category: LockboxTransaction::MEDICINE }
+          "0":{ amount: "50", category: LockboxTransaction::PRESCRIPTIONS }
         }
       }
     }
@@ -28,7 +28,8 @@ RSpec.describe "Support Request Actions", type: :system do
   it 'successfully view, edit, and add notes to a support request' do
     visit "/lockbox_partners/#{lockbox_partner.id}/support_requests/#{support_request.id}"
     assert_selector "h3", text: "Support Request for Leafy Greens"
-    click_link "Add Note"
+    click_button "Add Note"
+
     fill_in "note_text", with: "Here's some fine & fancy note text!"
     sleep(1)
     # Sleep for 1 second to avoid a race condition in slower environments (e.g., CircleCI)
@@ -62,7 +63,7 @@ RSpec.describe "Support Request Actions", type: :system do
     visit "/lockbox_partners/#{lockbox_partner.id}/support_requests/#{support_request.id}"
     click_link "Edit Support Request"
     click_link "Add more values +"
-    all("option[value='childcare']")[1].click
+    all("option[value='childcare_reimbursements']")[1].click
     page.all(:fillable_field, 'Amount').last.set 10
     click_button "Submit"
     sleep(1)

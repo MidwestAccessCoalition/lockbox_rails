@@ -89,6 +89,7 @@ describe LockboxPartners::SupportRequestsController do
     it 'updates in less than 1/40th of a second' do
       sign_in(user)
       expect(NoteMailer).not_to receive(:deliver_note_creation_alerts)
+      # This is kinda flaky -- might be better to make the call 10 times and take an average.
       expect {
         post :update_status, params: {
           lockbox_partner_id: support_request.lockbox_partner_id,
