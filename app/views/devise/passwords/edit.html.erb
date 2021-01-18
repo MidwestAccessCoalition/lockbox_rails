@@ -6,6 +6,9 @@
     <p>
       Welcome to Lockbox! Please fill out the form below to create your account.
     </p>
+    <p>
+      Got an account already? <%= link_to('Please log in here.', new_user_session_path) %>
+    </p>
   <% end %>
 
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'form' }) do |f| %>
@@ -62,7 +65,7 @@
         <%= f.submit "#{resource.password.present? ? 'Change' : 'Set'} my password",
           class: 'btn btn-primary' %>
       <% else %>
-        <%= f.submit "Submit", class: 'btn btn-primary' %>
+        <%= f.submit "Continue", class: 'btn btn-primary' %>
       <% end %>
     </div>
   <% end %>

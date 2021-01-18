@@ -38,7 +38,7 @@ class Users::PasswordsController < Devise::PasswordsController
       # The stock devise flash message isn't needed; we display our own copy in
       # this situation
       flash.clear
-      onboarding_success_path
+      user_enable_authy_path
     end
   end
 

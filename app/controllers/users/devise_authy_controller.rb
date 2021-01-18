@@ -1,4 +1,5 @@
 class Users::DeviseAuthyController < Devise::DeviseAuthyController
+  layout "application"
 
   protected
   
@@ -6,7 +7,8 @@ class Users::DeviseAuthyController < Devise::DeviseAuthyController
   end
 
   def after_authy_verified_path_for(resource)
-    root_path
+    # root_path
+    onboarding_success_path
   end
 
   def after_authy_disabled_path_for(resource)
