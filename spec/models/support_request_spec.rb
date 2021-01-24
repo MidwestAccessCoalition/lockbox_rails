@@ -268,4 +268,34 @@ describe SupportRequest, type: :model do
       expect(note3.reload.text).not_to eq(SupportRequest::REDACTED)
     end
   end
+
+  describe "paper_trail" do
+    let(:support_request) do
+      create(:support_request, name_or_alias: "old name", urgency_flag: "old flag")
+    end
+
+    context "on creation" do
+      it "does not record name_or_alias" do
+        expect(support_request.versions.first.object_changes).not_to include("old name")
+      end
+
+      it "does record other fields" do
+        expect(support_request.versions.first.object_changes).to include("old flag")
+      end
+    end
+
+    context "on update" do
+      before do
+        support_request.update!(name_or_alias: "new name", urgency_flag: "new flag")
+      end
+
+      it "does not record name_or_alias" do
+        expect(support_request.versions.last.object_changes).not_to include("new name")
+      end
+
+      it "does record other fields" do
+        expect(support_request.versions.last.object_changes).to include("new flag")
+      end
+    end
+  end
 end
