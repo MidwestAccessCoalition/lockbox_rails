@@ -17,7 +17,8 @@ class SupportRequest < ApplicationRecord
 
   # Sometimes the UUID will already have been created elsewhere, and sometimes not
   before_validation :populate_client_ref_id
-  has_paper_trail
+  # Do not save possible PII to the versions table
+  has_paper_trail ignore: [:name_or_alias]
 
   # for grepability:
   # scope :pending
