@@ -20,6 +20,8 @@ class LockboxAction < ApplicationRecord
   before_validation :set_default_status
   has_paper_trail
 
+  before_save :record_closed_at, if: :will_save_change_to_status?
+
   STATUSES = [
     PENDING   = 'pending',
     COMPLETED = 'completed',
@@ -27,9 +29,9 @@ class LockboxAction < ApplicationRecord
   ].freeze
   validates :status, inclusion: STATUSES
 
-  EDITABLE_STATUSES = [
-    'pending'
-  ].freeze
+  EDITABLE_STATUSES = [PENDING].freeze
+
+  CLOSED_STATUSES = [COMPLETED, CANCELED].freeze
 
   ACTION_TYPES = [
     ADD_CASH = 'add_cash',
@@ -120,6 +122,10 @@ class LockboxAction < ApplicationRecord
     EDITABLE_STATUSES.include?(status)
   end
 
+  def closed?
+    CLOSED_STATUSES.include?(status)
+  end
+
   def cancel!
     update!(status: CANCELED)
   end
@@ -163,6 +169,16 @@ class LockboxAction < ApplicationRecord
   def validate_partner_is_active
     unless lockbox_partner.active?
       errors.add(:lockbox_partner, "must be active")
+    end
+  end
+
+  def record_closed_at
+    if closed?
+      self.closed_at = DateTime.current
+    else
+      # Avoids an inconsistent state if a lockbox action gets "unclosed",
+      # although that probably shouldn't happen
+      self.closed_at = nil
     end
   end
 end

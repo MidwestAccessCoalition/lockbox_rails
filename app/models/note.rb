@@ -7,6 +7,10 @@ class Note < ApplicationRecord
 
   validates :notable_action, inclusion: { in: %w{create update annotate} }
 
+  # User-generated notes could contain anything, so they're included in this
+  # scope regardless of whether may_contain_pii is set
+  scope :may_contain_pii, -> { where("user_id IS NOT NULL OR may_contain_pii") }
+
   def author
     if user
       user.display_name
@@ -21,6 +25,10 @@ class Note < ApplicationRecord
 
   def system_generated?
     user_id.blank?
+  end
+
+  def redact!
+    update!(text: SupportRequest::REDACTED)
   end
 
   private

@@ -99,6 +99,113 @@ describe SupportRequest, type: :model do
     end
   end
 
+  describe '.needs_redaction' do
+    let(:recent_completed_lockbox_action) do
+      create(:lockbox_action, :completed).tap do |la|
+        # closed_at must be set separately, or a callback will overwrite it
+        la.update!(closed_at: (SupportRequest::REDACT_AFTER_DAYS - 1).days.ago)
+      end
+    end
+
+    let!(:recent_completed_support_request) do
+      create(:support_request, lockbox_action: recent_completed_lockbox_action)
+    end
+
+    let(:recent_canceled_lockbox_action) do
+      create(:lockbox_action, :canceled).tap do |la|
+        la.update!(closed_at: (SupportRequest::REDACT_AFTER_DAYS - 1).days.ago)
+      end
+    end
+
+    let!(:recent_canceled_support_request) do
+      create(:support_request, lockbox_action: recent_canceled_lockbox_action)
+    end
+
+    let(:recent_pending_lockbox_action) do
+      create(:lockbox_action, status: LockboxAction::PENDING).tap do |la|
+        la.update!(closed_at: (SupportRequest::REDACT_AFTER_DAYS - 1).days.ago)
+      end
+    end
+
+    let!(:recent_pending_support_request) do
+      create(:support_request, lockbox_action: recent_pending_lockbox_action)
+    end
+
+    let(:old_completed_lockbox_action) do
+      create(:lockbox_action, :completed).tap do |la| 
+        la.update!(closed_at: (SupportRequest::REDACT_AFTER_DAYS).days.ago)
+      end
+    end
+
+    let!(:old_completed_support_request) do
+      create(:support_request, lockbox_action: old_completed_lockbox_action)
+    end
+
+    let(:old_canceled_lockbox_action) do
+      create(:lockbox_action, :canceled).tap do |la|
+        la.update!(closed_at: (SupportRequest::REDACT_AFTER_DAYS).days.ago)
+      end
+    end
+
+    let!(:old_canceled_support_request) do
+      create(:support_request, lockbox_action: old_canceled_lockbox_action)
+    end
+
+    let(:old_pending_lockbox_action) do
+      create(:lockbox_action,  status: LockboxAction::PENDING).tap do |la|
+        la.update!(closed_at: (SupportRequest::REDACT_AFTER_DAYS).days.ago)
+      end
+    end
+
+    let!(:old_pending_support_request) do
+      create(:support_request, lockbox_action: old_pending_lockbox_action)
+    end
+
+    let(:old_completed_lockbox_action_2) do
+      create(:lockbox_action, :completed).tap do |la|
+        la.update!(closed_at: (SupportRequest::REDACT_AFTER_DAYS).days.ago)
+      end
+    end
+
+    let!(:already_redacted_support_request) do
+      create(
+        :support_request,
+        lockbox_action: old_completed_lockbox_action_2,
+        redacted: true
+      )
+    end
+
+    subject { SupportRequest.needs_redaction.pluck(:id) }
+
+    it 'does not include recent completed support requests' do
+      expect(subject).not_to include(recent_completed_support_request.id)
+    end
+
+    it 'does not include recent canceled support requests' do
+      expect(subject).not_to include(recent_canceled_support_request.id)
+    end
+
+    it 'does not include recent support requests that are still pending' do
+      expect(subject).not_to include(recent_pending_support_request.id)
+    end
+
+    it 'includes old completed support requests' do
+      expect(subject).to include(old_completed_support_request.id)
+    end
+
+    it 'includes old canceled support requests' do
+      expect(subject).to include(old_canceled_support_request.id)
+    end
+
+    it 'does not include old support requests that are still pending' do
+      expect(subject).not_to include(old_pending_support_request.id)
+    end
+
+    it 'does not include old completed support requests that are redacted already' do
+      expect(subject).not_to include(already_redacted_support_request.id)
+    end
+  end
+
   describe 'record_creation' do
     let(:support_req)   { FactoryBot.create(:support_request) }
     let(:name)          { "FancyPants McGee" }
@@ -111,6 +218,54 @@ describe SupportRequest, type: :model do
         .to change { support_req.notes.count }.by(1)
       note = support_req.notes.last
       expect(note.text).to eq(expected_text)
+    end
+  end
+
+  describe '#redact!' do
+    let(:support_request) { FactoryBot.create(:support_request) }
+    let(:user) { FactoryBot.create(:user) }
+
+    let!(:note1) do
+      FactoryBot.create(
+        :note, notable: support_request, user: nil, may_contain_pii: true
+      )
+    end
+
+    let!(:note2) do
+      FactoryBot.create(
+        :note,
+        notable: support_request,
+        user: user,
+        may_contain_pii: false
+      )     
+    end
+
+    let!(:note3) do
+      FactoryBot.create(
+        :note, notable: support_request, user: nil, may_contain_pii: false
+      )
+    end
+
+    before { support_request.redact! }
+
+    it "redacts the name_or_alias" do
+      expect(support_request.name_or_alias).to eq(SupportRequest::REDACTED)
+    end
+
+    it "marks the support request as redacted" do
+      expect(support_request.redacted).to be true
+    end
+
+    it "redacts system-generated notes that may contain PII" do
+      expect(note1.reload.text).to eq(SupportRequest::REDACTED)
+    end
+
+    it "redacts user-generated notes" do
+      expect(note2.reload.text).to eq(SupportRequest::REDACTED)
+    end
+
+    it "does not redact system-generated notes without PII" do
+      expect(note3.reload.text).not_to eq(SupportRequest::REDACTED)
     end
   end
 end

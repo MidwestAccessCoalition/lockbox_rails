@@ -59,6 +59,30 @@ describe UpdateSupportRequest do
 
   end
 
+  it 'creates a note flagged with may_contain_pii if the name_or_alias was changed' do
+    expect{
+      UpdateSupportRequest.call(
+        support_request: support_request, params: { name_or_alias: 'new name' }
+      )
+    }
+      .to change{Note.count}
+      .by(1)
+
+    expect(Note.last.may_contain_pii).to be true
+  end
+
+  it 'does not flag the note with may_contain_pii if name_or_alias was not changed' do
+    expect{
+      UpdateSupportRequest.call(
+        support_request: support_request, params: { urgency_flag: 'new flag' }
+      )
+    }
+      .to change{Note.count}
+      .by(1)
+
+    expect(Note.last.may_contain_pii).to be false
+  end
+
   it 'creates a note if the total amount was changed' do
     update_params = {
       lockbox_action_attributes: {

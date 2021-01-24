@@ -65,4 +65,15 @@ RSpec.describe "Support Request Creation", type: :system do
     assert_no_selector "h2", text: "New support request"
     assert_selector "p", text: "Lockbox partner not yet active"
   end
+
+  it 'computes gas reinbursement rate' do
+    visit "/support_requests/new"
+
+    page.assert_selector('.distance-field', visible: true, count: 0)
+    page.all(:option, "Gas reimbursements").first.select_option
+    page.assert_selector('.distance-field', visible: true, count: 1)
+
+    fill_in "Mileage", with: 42
+    assert_selector "legend", text: "Total: $8.40"
+  end
 end

@@ -9,4 +9,9 @@ namespace :scheduled_tasks do
       ReconciliationOverdueAlertMailerWorker.perform_async(lockbox_partner)
     end
   end
+
+  desc "Redact PII"
+  task redact_pii: :environment do
+    SupportRequest.needs_redaction.each { |sr| sr.redact_async }
+  end
 end
