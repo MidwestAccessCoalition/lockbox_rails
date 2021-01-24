@@ -52,9 +52,11 @@ const rowFromGas = row => {
   }
 };
 
+const gasSelectName = "gas_reimbursements"
+
 const updateTransaction = select => {
   const row = $(select).parents('.row');
-  if (select.value == 'gas') {
+  if (select.value == gasSelectName) {
     rowToGas(row);
   } else {
     rowFromGas(row);
