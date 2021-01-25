@@ -38,7 +38,7 @@ class SupportRequest < ApplicationRecord
         support_requests: { redacted: false },
         lockbox_actions: { status: LockboxAction::CLOSED_STATUSES }
       )
-      .where("lockbox_actions.closed_at < ?", REDACT_AFTER_DAYS.days.ago)
+      .where("lockbox_actions.closed_at <= ?", REDACT_AFTER_DAYS.days.ago)
   end
 
   def all_support_requests_for_partner
