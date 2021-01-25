@@ -66,7 +66,7 @@
               <p class="heading">Quick Actions</p>
               <p><a href="<%= lockbox_partners_path %>">View all lockboxes</a></p>
               <p><a href="<%= support_requests_new_path %>">File a support request</a></p>
-              <% if @lockbox_partner && !current_page?(new_lockbox_partner_path) %>
+              <% if @lockbox_partner && @lockbox_partner.persisted? %>
                 <p><a href="<%= new_lockbox_partner_add_cash_path(@lockbox_partner) %>">Add cash to lockbox</a></p>
                 <p><a href="<%= lockbox_partner_users_path(@lockbox_partner) %>">Manage lockbox partner</a></p>
               <% end %>
