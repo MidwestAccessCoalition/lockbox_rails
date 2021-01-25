@@ -1,10 +1,10 @@
-<% if true || @support_request.urgency_flag.present? %>
+<% if @support_request.urgency_flag.present? %>
   <div class="alert alert-primary alert-compact">
     <div>
       <i class="fa fa-info-circle alert-icon" aria-hidden="true"></i>
     </div>
     <div class="alert-content">
-      <span>blah blah blah<%= @support_request.urgency_flag %></span>
+      <span><%= @support_request.urgency_flag %></span>
     </div>
   </div>
 <% end %>
