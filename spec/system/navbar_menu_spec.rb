@@ -36,6 +36,18 @@ RSpec.describe "Navbar menu", type: :system do
         page.assert_no_selector("#navbar-drawer")
       end
 
+      it "does not have secondary nav tabs" do
+        click_button("navbar-control")
+        page.assert_no_text("Add cash to lockbox")
+        page.assert_no_text("Manage lockbox partner")
+      end
+
+      it "has secondary nav tabs" do
+        visit("/lockbox_partners/#{lockbox_partner.id}")
+        click_button("navbar-control")
+        page.assert_text("Add cash to lockbox")
+        page.assert_text("Manage lockbox partner")
+      end
     end
   end
 
