@@ -1,9 +1,7 @@
 <!-- Alerts from "_admin_alerts" -->
 <% if lockbox_partner.longstanding_pending_cash_addition? %>
   <div class="alert alert-compact alert-danger">
-    <div>
-      <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
-    </div>
+    <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
     <div class="alert-content">
       <div class="text-break"><%= lockbox_partner.name %> has not confirmed cash in <%= lockbox_partner.pending_cash_addition_age %> days. Please check in with them for confirmation.</div>
     </div>
@@ -12,9 +10,7 @@
 
 <% if lockbox_partner.low_balance? %>
   <div class="alert alert-compact alert-danger">
-    <div>
-      <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
-    </div>
+    <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
     <div class="alert-content">
       <div class="text-break"><%= lockbox_partner.name %>'s balance of $<%= lockbox_partner.balance %> is below $<%= LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE %>. Please replenish the funds.</div>
     </div>
@@ -23,9 +19,7 @@
 
 <% if lockbox_partner.recently_completed_first_cash_addition? %>
   <div class="alert alert-compact alert-success">
-    <div>
-      <i class="fa fa-check-circle alert-icon" aria-hidden="true"></i>
-    </div>
+    <i class="fa fa-check-circle alert-icon" aria-hidden="true"></i>
     <div class="alert-content">
       <div class="text-break">
         <%= lockbox_partner.name %>

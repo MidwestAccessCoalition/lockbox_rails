@@ -1,8 +1,6 @@
 <% if @support_request.urgency_flag.present? %>
   <div class="alert alert-primary alert-compact">
-    <div>
-      <i class="fa fa-info-circle alert-icon" aria-hidden="true"></i>
-    </div>
+    <i class="fa fa-info-circle alert-icon" aria-hidden="true"></i>
     <div class="alert-content">
       <span><%= @support_request.urgency_flag %></span>
     </div>
