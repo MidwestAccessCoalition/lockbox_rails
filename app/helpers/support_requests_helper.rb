@@ -8,7 +8,7 @@ module SupportRequestsHelper
   end
 
   def active_lockbox_partner_select_options
-    LockboxPartner.active.order(:name).pluck(:name, :id)
+    LockboxPartner.active.order(:name).group("lockbox_partners.id").pluck(:name, :id)
   end
 
   def empty_lockbox_action
