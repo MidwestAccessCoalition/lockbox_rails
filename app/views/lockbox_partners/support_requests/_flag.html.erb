@@ -1,10 +1,10 @@
-<% if @support_request.urgency_flag.present? %>
-  <div class="alert alert-primary d-flex">
-    <div class="p-2">
-      <i class="fa fa-info-circle alert-primary-icon" aria-hidden="true"></i>
+<% if true || @support_request.urgency_flag.present? %>
+  <div class="alert alert-primary alert-compact">
+    <div>
+      <i class="fa fa-info-circle alert-icon" aria-hidden="true"></i>
     </div>
-    <div class="p-2 flex-grow-1">
-      <span><%= @support_request.urgency_flag %></span>
+    <div class="alert-content">
+      <span>blah blah blah<%= @support_request.urgency_flag %></span>
     </div>
   </div>
 <% end %>

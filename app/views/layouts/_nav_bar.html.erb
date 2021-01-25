@@ -7,6 +7,7 @@
         <span id="nav-title">Lockbox</span>
       </a>
     </h1>
+
     <% if current_user %>
       <button
         id="navbar-control"
@@ -19,11 +20,13 @@
         <%= fa_icon "times" %>
       </button>
     <% end %>
+
   </div>
   <!-- Navbar drawer -->
   <% if current_user %>
     <div id="navbar-drawer">
       <div class="container">
+
         <!-- Left container -->
         <div class="navbar-subcontainer">
           <% if current_user.admin? %>
@@ -34,6 +37,8 @@
                   <%= current_user.email %>
                 </a>
               </p>
+
+              <!-- Admin MFA line -->
               <p class="mfa">
                 <% if current_user.authy_enabled? %>
                   <%= fa_icon "check" %>
@@ -44,7 +49,6 @@
                     <%= link_to 'Secure your account with MFA', user_enable_authy_path %>
                   </em>
                 <% end %>
-
                 <i
                   class="fa fa-info-circle tooltip-icon"
                   tabindex="0"
@@ -56,6 +60,7 @@
                     your account even if somebody gets your password."
                 ></i>
               </p>
+
             </div>
             <%= link_to "Edit Profile", edit_user_path(current_user), class: "btn btn-primary btn-invert" %>
             <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn btn-primary btn-white" %>
@@ -67,6 +72,30 @@
               <%= lp.city %>, <%= lp.state %> <%= lp.zip_code %><br>
               <%= lp.phone_number %>
             </p>
+
+            <!-- Non-admin MFA line -->
+            <p class="mfa">
+              <% if current_user.authy_enabled? %>
+                <%= fa_icon "check" %>
+                <em>MFA authenticated</em>
+              <% else %>
+                <%= fa_icon "exclamation-triangle" %>
+                <em>
+                  <%= link_to 'Secure your account with MFA', user_enable_authy_path %>
+                </em>
+              <% end %>
+              <i
+                class="fa fa-info-circle tooltip-icon"
+                tabindex="0"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                data-animation="false"
+                title="MFA stands for multi-factor authentication. MFA is one
+                  of the best ways to secure your account because it protects
+                  your account even if somebody gets your password."
+              ></i>
+            </p>
+
             <div>
               <%= link_to "Edit Profile", edit_user_path(current_user), class: "btn btn-primary btn-invert" %>
               <%= link_to "Edit Contact Information", edit_lockbox_partner_path(lp), class: "btn btn-primary btn-invert" %>
@@ -99,9 +128,8 @@
 
       </div>
     </div>
-  <% end %>
-</nav>
 
-<% if current_user %>
-  <%= javascript_pack_tag 'nav_bar', 'data-turbolinks-track': 'reload' %>
-<% end %>
+    <%= javascript_pack_tag 'nav_bar', 'data-turbolinks-track': 'reload' %>
+  <% end %>
+
+</nav>

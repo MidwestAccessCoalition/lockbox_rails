@@ -1,51 +1,14 @@
-.alert-primary-icon {
-  font-size: 2em;
-}
-
 #errors {
   padding: 0;
 }
 
-.support-request-header {
-  .alert {
-    border-radius: 0;
-    border: 0;
-    margin: 20px 0;
-    padding: 0.25rem 0.75rem;
-  }
-
-  .alert-primary {
-    border-left: 5px solid #01bfe7;
-    background-color: $color-primary-alert;
-    color: black;
-    line-height: 2;
-  }
-
-  .alert-primary-icon {
-    font-size: 2em;
-  }
-}
-
-.alert-dismissible {
-  border-left: 5px solid;
-}
-
-.alert-compact {
-  border-left: 5px solid;
-  padding: 0.25em;
-
-  a,
-  a:visited {
-    color: $color-primary;
-  }
-
-  .alert-compact-icon {
-    font-size: 1.1em;
-  }
-}
-
 .alert {
-  margin-top: 1rem;
+  border: 0;
+  border-radius: 0;
+  display: flex;
+  line-height: 1.5;
+  margin: 20px 0;
+  padding: 0.5rem 0.5rem;
 
   * {
     color: $black;
@@ -55,18 +18,49 @@
     margin-bottom: 0;
   }
 
-  .alert-icon {
-    font-size: 2rem;
-    position: absolute;
-    top: 20px;
+  &.alert-danger {
+    border-left-color: $color-alert-danger-border;
   }
 
-  .alert-content {
-    margin-left: 3em;
+  &.alert-warning {
+    border-left-color: $color-alert-warning-border;
+  }
 
-    .alert-heading {
-      margin-bottom: 0;
+  .alert-icon {
+    font-size: 2em;
+    position: absolute;
+    top: 0.875rem;
+    left: 0.875rem;
+  }
+
+  &.alert-compact {
+    border-left-width: 5px;
+    border-left-style: solid;
+    padding: 0.625rem;
+
+    .alert-icon {
+      font-size: 1.2rem;
+      top: 0.75rem;
+      left: 0.75rem;
     }
+
+    .alert-content {
+      margin-left: 2rem;
+    }
+
+    a,
+    a:visited {
+      color: $color-primary;
+    }
+  }
+
+  &.alert-dismissible {
+    border-left: 5px solid;
+  }
+
+  &.alert-primary {
+    background-color: $color-primary-alert;
+    border-color: $color-primary-alert-border;
   }
 
   .alert-button {
@@ -74,8 +68,23 @@
     color: $white;
     font-weight: 800;
     height: fit-content;
-    margin-left: 10px;;
-    min-width: 20%;
+    margin-left: 0.62rem;
+    min-width: 9rem;
+
+    &.btn-warning {
+      color: $black;
+    }
+  }
+
+  .alert-content {
+    flex-grow: 1;
+    margin-left: 3rem;
+
+    .alert-heading {
+      font-family: $font-serif;
+      font-size: 1.125rem;
+      margin-bottom: 0;
+    }
   }
 
   @media screen and (max-width: 775px) {
@@ -89,7 +98,7 @@
 
     .alert-button {
       align-self: inherit;
-      margin-left: 3em;
+      margin: 0.5rem 0 0 3rem;
     }
   }
 }

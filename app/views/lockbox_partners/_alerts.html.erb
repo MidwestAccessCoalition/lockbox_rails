@@ -1,5 +1,6 @@
+<!-- Alerts from "_alerts" -->
 <% if !current_user.authy_enabled? %>
-  <div class="alert alert-warning d-flex">
+  <div class="alert alert-warning">
     <div>
       <%= fa_icon "exclamation-triangle", class: 'alert-icon', "aria-hidden": true %>
     </div>
@@ -12,11 +13,11 @@
 <% end %>
 
 <% if lockbox_partner.reconciliation_needed? %>
-  <div class="alert alert-danger d-flex">
+  <div class="alert alert-danger">
     <div>
       <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
     </div>
-    <div class="alert-content flex-grow-1">
+    <div class="alert-content">
       <h4 class="alert-heading">Reconciliation Due</h4>
       <div>It's been <%= days_since_last_reconciliation %> days since the lockbox has been reconciled. Please count the cash in the box and record the total.</div>
     </div>
@@ -26,11 +27,11 @@
 
 <% if lockbox_partner.cash_addition_confirmation_pending? %>
   <% lockbox_partner.lockbox_actions.pending_cash_additions.each do |cash_action| %>
-    <div class="alert alert-warning d-flex">
+    <div class="alert alert-warning">
       <div>
         <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
       </div>
-      <div class="alert-content flex-grow-1">
+      <div class="alert-content">
         <h4 class="alert-heading">Cash Sent</h4>
         <div>A $<%= cash_action.amount %> check was mailed on <%= cash_action.eff_date.try(:strftime, "%B %-d") %>, please confirm it was received.</div>
 
@@ -45,11 +46,11 @@
 
 <% if lockbox_partner.low_balance? %>
   <% alert_email = ENV['LOCKBOX_EMAIL'] %>
-  <div class="alert alert-danger d-flex">
+  <div class="alert alert-danger">
     <div>
       <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
     </div>
-    <div class="alert-content flex-grow-1">
+    <div class="alert-content">
       <div>
         Your lockbox balance is below $<%= LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE %>. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email <%= link_to alert_email, "mailto:#{alert_email}" %>.
       </div>

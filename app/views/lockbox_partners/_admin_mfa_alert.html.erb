@@ -1,9 +1,10 @@
+<!-- Alerts from "_admin_mfa_alert" -->
 <% if !current_user.authy_enabled? %>
-  <div class="alert alert-compact alert-warning d-flex">
-    <div class="p-2">
-      <%= fa_icon "exclamation-triangle", class: 'alert-compact-icon' %>
+  <div class="alert alert-compact alert-warning">
+    <div>
+      <%= fa_icon "exclamation-triangle", class: 'alert-icon' %>
     </div>
-    <div class="p-2 flex-grow-1">
+    <div class="alert-content">
       <p>
         Take action to secure your account with multi-factor authentication!
         <%= link_to "Enable MFA (Recommended)", user_enable_authy_path %>.
