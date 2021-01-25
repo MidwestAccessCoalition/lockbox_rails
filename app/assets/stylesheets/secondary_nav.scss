@@ -4,10 +4,11 @@ $secondary-tab: $darker-blue;
 $secondary-active-tab: #1f5593;
 
 .secondary-nav {
-  @media only screen and (max-width: 600px) {
+/* TODO -- comment this back in as part of https://github.com/MidwestAccessCoalition/lockbox_rails/issues/481 */
+/*  @media only screen and (max-width: 600px) {
     // hide nav bar if the text becomes too squished
     display: none;
-  }
+  }*/
 
   .secondary-nav-tabs {
     display: flex;
