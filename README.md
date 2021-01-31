@@ -16,7 +16,7 @@ Technical requirements for this project. See below for step-by-step first-time s
 | Bundler    | v2.1.x   |
 | Rails      | 6.0.3.2  |
 | PostgreSQL | v11.x    |
-| Node       | v11.14.x |
+| Node       | v14.15.x |
 | Yarn       | v1.22.x  |
 
 ### Environment Setup
