@@ -117,6 +117,10 @@
               <h5 class="heading">Quick Actions</h5>
               <p><a href="<%= lockbox_partners_path %>">View all lockboxes</a></p>
               <p><a href="<%= support_requests_new_path %>">File a support request</a></p>
+              <% if @lockbox_partner && @lockbox_partner.persisted? %>
+                <p><a href="<%= new_lockbox_partner_add_cash_path(@lockbox_partner) %>">Add cash to lockbox</a></p>
+                <p><a href="<%= lockbox_partner_users_path(@lockbox_partner) %>">Manage lockbox partner</a></p>
+              <% end %>
               <p><a href="<%= new_lockbox_partner_path %>">Add a new lockbox partner</a></p>
               <p><a href="<%= support_requests_export_path(:format => "csv") %>">Financial Export</a></p>
               <p><%= link_to "Get Support", support_path %></p>

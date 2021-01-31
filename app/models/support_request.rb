@@ -17,7 +17,8 @@ class SupportRequest < ApplicationRecord
 
   # Sometimes the UUID will already have been created elsewhere, and sometimes not
   before_validation :populate_client_ref_id
-  has_paper_trail
+  # Do not save possible PII to the versions table
+  has_paper_trail ignore: [:name_or_alias]
 
   # for grepability:
   # scope :pending
@@ -37,7 +38,7 @@ class SupportRequest < ApplicationRecord
         support_requests: { redacted: false },
         lockbox_actions: { status: LockboxAction::CLOSED_STATUSES }
       )
-      .where("lockbox_actions.closed_at < ?", REDACT_AFTER_DAYS.days.ago)
+      .where("lockbox_actions.closed_at <= ?", REDACT_AFTER_DAYS.days.ago)
   end
 
   def all_support_requests_for_partner

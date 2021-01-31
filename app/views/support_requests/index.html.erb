@@ -1,16 +1,18 @@
-<div class="container">
-  <div id="support-requests-index">
-    <h2>Welcome, <%= current_user.name %>!</h2>
+<div id="support-requests-index">
+  <h2>Welcome, <%= current_user.name %>!</h2>
+  <div class="lockbox-partner-buttons">
     <%= link_to 'File a support request', support_requests_new_path, class: 'btn btn-primary view-half' %>
     <%= link_to 'Add a new lockbox partner', new_lockbox_partner_path, class: 'btn btn-secondary view-half float-right' %>
-    <div class="horizontal-rule"></div>
-    <p>
-    <strong>Current View:</strong>
-    <%= render 'shared/url_switching_select', options: [
-      ['Lockbox Partners', root_path],
-      ['Pending Support Requests', support_requests_path]
-    ], selected_value: support_requests_path %>
-    </p>
+  </div>
+  <div class="horizontal-rule"></div>
+  <p>
+  <strong>Current View:</strong>
+  <%= render 'shared/url_switching_select', options: [
+    ['Lockbox Partners', root_path],
+    ['Pending Support Requests', support_requests_path]
+  ], selected_value: support_requests_path %>
+  </p>
+  <div class="table-responsive">
     <table class="table" id="supportRequestsTable">
       <thead>
         <tr>
