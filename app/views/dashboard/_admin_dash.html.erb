@@ -12,8 +12,8 @@
     <table class="table table-no-border">
       <tbody>
         <% lockbox_partner.historical_actions.order(:eff_date).last(3).each do |action| %>
-          <% support_request_class = action.support_request ? 'support-request ' : '' %>
-          <% row_class = "row " + support_request_class + action.status %>
+          <% row_class = "row #{action.status}" %>
+          <% row_class += ' support-request' if action.support_request %>
           <tr class="<%= row_class %>">
             <td class="col-6 col-md-2"><span class="action-label">date: </span><%= action.eff_date %></td>
             <td class="col-6 col-md-3"><span class="action-label">type: </span><%= action.action_type.humanize %></td>

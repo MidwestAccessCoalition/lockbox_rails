@@ -149,13 +149,9 @@ $note-form-color: #d6d7d9;
   .dropdown-item {
     font-weight: bold;
   }
-  .row {
-    div {
-      p {
-        font-size: 2em;
-        margin-bottom: 0;
-      }
-    }
+  .row div p {
+    font-size: 2em;
+    margin-bottom: 0;
   }
   .support-request-details > div {
     margin-bottom: 13px;
