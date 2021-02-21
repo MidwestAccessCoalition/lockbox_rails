@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_14_232312) do
+ActiveRecord::Schema.define(version: 2021_02_21_232408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 2021_02_14_232312) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "distance"
+    t.bigint "expense_category_id"
+    t.index ["expense_category_id"], name: "index_lockbox_transactions_on_expense_category_id"
     t.index ["lockbox_action_id"], name: "index_lockbox_transactions_on_lockbox_action_id"
   end
 
@@ -94,15 +96,6 @@ ActiveRecord::Schema.define(version: 2021_02_14_232312) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["lockbox_action_id"], name: "index_tracking_infos_on_lockbox_action_id"
-  end
-
-  create_table "transaction_categories", force: :cascade do |t|
-    t.bigint "lockbox_transaction_id", null: false
-    t.bigint "expense_category_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["expense_category_id"], name: "index_transaction_categories_on_expense_category_id"
-    t.index ["lockbox_transaction_id"], name: "index_transaction_categories_on_lockbox_transaction_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -149,10 +142,9 @@ ActiveRecord::Schema.define(version: 2021_02_14_232312) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "lockbox_transactions", "expense_categories"
   add_foreign_key "lockbox_transactions", "lockbox_actions"
   add_foreign_key "support_requests", "lockbox_partners"
   add_foreign_key "tracking_infos", "lockbox_actions"
-  add_foreign_key "transaction_categories", "expense_categories"
-  add_foreign_key "transaction_categories", "lockbox_transactions"
   add_foreign_key "users", "users", column: "invited_by_id"
 end

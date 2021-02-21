@@ -3,12 +3,10 @@
 class LockboxTransaction < ApplicationRecord
   monetize :amount_cents
 
-  belongs_to :lockbox_action
-  has_many :transaction_categories
-  has_many :expense_categories, through: :transaction_categories
+  belongs_to :lockbox_transaction
+  belongs_to :expense_category
 
   validates :amount_cents, numericality: { greater_than: 0 }
-  validates :category, presence: true
   has_paper_trail
 
   before_validation :default_values
