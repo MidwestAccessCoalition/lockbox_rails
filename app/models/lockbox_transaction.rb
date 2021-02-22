@@ -3,7 +3,7 @@
 class LockboxTransaction < ApplicationRecord
   monetize :amount_cents
 
-  belongs_to :lockbox_transaction
+  belongs_to :lockbox_action
   belongs_to :expense_category
 
   validates :amount_cents, numericality: { greater_than: 0 }
@@ -56,8 +56,6 @@ class LockboxTransaction < ApplicationRecord
   EXPENSE_CATEGORIES = (
     SELECTABLE_EXPENSE_CATEGORIES + LEGACY_EXPENSE_CATEGORIES
   ).freeze
-
-  validates :category, inclusion: EXPENSE_CATEGORIES
 
   QUICKBOOKS_CATEGORY_CODES = {
     BUS_TRAVEL                  => '6001',

@@ -68,7 +68,8 @@ RSpec.describe "Dashboard", type: :system do
         lockbox_action.lockbox_transactions.create!(
           amount_cents: 50000,
           balance_effect: LockboxTransaction::CREDIT,
-          category: 'cash_addition'
+          category: 'cash_addition',
+          expense_category: FactoryBot.create(:expense_category)
         )
         visit("/")
         page.assert_text("Your lockbox balance is below $#{LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE}. The lockbox manager should be reaching out to you shortly. If you haven't heard from them in a few days, please email #{ENV['LOCKBOX_EMAIL']}.")
