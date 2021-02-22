@@ -28,31 +28,30 @@ That said, there are ways of manually configuring nearly everything, but if you 
 ### MVC Architecture
 Rails is an MVC (model-view-controller) framework for web development.
 
-This means that for any resource that a user can view, create, edit, and/or delete, there will be a:
+This means that for any resource that a user can view, create, edit, and/or delete, there will likely be the following:
 * **Model**: this allows you to interact with the data in a database table with a similar name.  
 E.g. the `Cat` model found at `app/model/cat.rb` will allow you to work with records in the `cats` table in your database.  
-[_Note that the model is capitalized and singular (`Cat`) and the table name is lowercase and plural (`cats`). These are just two of the many Rails `conventions` introduced above. Nearly everythingin the app that can be named follows a set of naming conventions that—once you understand them—will make working with the codebase and database less mysterious and more intuitive._]
+[_Note that the model is capitalized and singular (`Cat`) and the table name is lowercase and plural (`cats`). These are just two of the many Rails `conventions` introduced above. Nearly everything in the app that can be named follows a set of naming conventions that—once you understand them—will make working with the codebase and database less mysterious and more intuitive._]
 * **Controller**: this has several methods which perform specific actions to manipulate the relevant database table through the corresponding model, each based on the [RESTful route (also known as CRUD route)](https://en.wikipedia.org/wiki/Create,_read,_update,_and_delete) that initiated the current request-response cycle.  
 E.g. the `CatsController` found at `app/controllers/cats_controller.rb` would contain methods that access the `cats` table in the database through the `Cat` model. Navigating to `https://my-rails-app.com/cats` would call the `CatsController#index` method which retrieves the list of all cats from the database via the `Cat` model.
 * **View** this is the presentational code that gets processed to create the code returned to the frontend and displayed in the browser. (This is usually `HTML`, but can be other formats such as `JSON`.)  
-E.g. navigating to `https://my-rails-app.com/cats.html` would return an `HTML` page with a list of all `Cat` objects in the DB, possibly formatted and styled as a `<ul>` or a `<table>`. The view file would be found at `app/views/cats/index.html`). There are several different templating languages that can be used to minimize the amount of raw `HTML` that has to be written. By default, `ERB` is used (and this is what the Lockbox App uses).
+E.g. navigating to `https://my-rails-app.com/cats.html` would return an `HTML` page with a list of all `Cat` objects in the DB, possibly formatted and styled as a `<ul>` or a `<table>`. The view file would be found at `app/views/cats/index.html`). There are several different templating languages that can be used to minimize the amount of raw `HTML` that has to be written. By default, Rails uses `ERB` (aka embedded Ruby) in new projects, and this is what we use in the Lockbox App.  
+Views set in controller actions are often just a small part of the total response body sent to the browser. Views are typically contained within `layouts` (see the `app/views/layouts/` directory) which can be set in controllers at the top-level to apply to all of that controller's actions, or within each action individually. Layouts and views may be nested, though nested views are often referred to as `partials` and have slightly different invoking methods and naming conventions (the filename has a leading underscore, e.g. `app/views/cats/_cat_description.html.erb`). The primary use case for `partials` is to "DRY (Don't Repeat Yourself) up" your views by extracting `HTML` snippets to be reused in several different views. So you might have an `HTML` snippet the displays the details of a cat object. Then you can place this into a `_cat_details.html.erb` partial that can then be included in your `app/views/cats/show.html.erb` file for relaying details of one cat, but also use it in a loop in your `app/views/cats/index.html.erb` file to iteratively display the details of all the cats.
 
 ### DB
 #### Schema
-The schema file located at `db/schema.rb` provides information about the structure of the DB, its tables, and their columns. It is a good way to familiarize yourself with how the database is set up and what information is stored there.
+The schema file located at `db/schema.rb` provides information about the structure of the DB, its tables, and their columns. Perusing this file is a good way to familiarize yourself with how the database is set up and what information is stored there.
 
 **NOTE: YOU SHOULD NEVER EDIT A SCHEMA FILE DIRECTLY**
 
 #### Migrations
-The schema file gets updated each time you [create and run a migration](https://guides.rubyonrails.org/getting_started.html#database-migrations). These files are typically generated by running a `rails` command in a terminal and are kept in `db/migrate/`.
+The schema file gets updated each time you [create and run a migration](https://guides.rubyonrails.org/getting_started.html#database-migrations). These files are typically generated by running a `rails` command in a terminal and are kept in the `db/migrate/` directory.
 
 Migrations are used to create, modify, or remove tables and/or table columns. They are used to make and track changes to the DB structure and allow for easy rollback in case the change introduces unforeseen problems.
 
 **NOTE: ONCE A MIGRATION HAS BEEN PUSHED TO GITHUB, YOU SHOULD NOT EDIT IT!**
 
-Editing a migration that someone else may have already pulled into their local dev environment will create major problems for that user. If you made a mistake in a migration that has already been pushed to `origin` or been merged to `trunk`, simply create a new migration to correct it.
-
-## The Lockbox App
+Editing a migration that someone else may have already pulled into their local dev environment will create major problems for that user. If you made a mistake in a migration and it has already been pushed to `origin` or merged to `trunk`, simply create a new migration to correct the earlier problematic one.
 
 ### Basic request/response flow
 The basic flow for a single request/response cycle is:
@@ -103,6 +102,7 @@ For concepts larger than a single model or that affect more than one model, a sl
 
 This allows us to extract complicated logic from our model which makes the model more maintainable and extensible. It also helps to reduce the amount of tight coupling of models that would otherwise occur in our app.
 
+## The Lockbox App
 ### Authentication
 Auth is handled by the `devise` gem ([what's a gem?](https://guides.rubygems.org/what-is-a-gem/)). In the `ApplicationController` which every other controller inherits from, the very first line is a `before_action` (just a sort of hook that runs before the method being called runs):
 ```rb
@@ -133,7 +133,8 @@ Webpack is pretty much an industry standard at this point and provides support f
 #### Stylesheets
 The Lockbox app supports the use of `CSS`, `SCSS`, and `SASS` file types for styling. All style rules are contained in files in the `app/assets/stylesheets/` directory. At the present, rules are dispersed across a number of files, grouped according to the part of the app they pertain to. However ultimately each of these files is imported into `application.scss` which is then compiled into a single style sheet, meaning rules written overly broadly could inadvertently affect other parts of the app. So err on the side of overly-specific in your rule writing.
 
-#### Other
+#### Images
 Images also live in the assets directory. These are loaded by Webpacker and made available across the app through various Rails helper methods (such as `image_tag`) or by referencing in stylesheets.
 
-In the Lockbox app, we use a gem called `font-awesome-rails` that facilitates the usage of the Font Awesome icon library and provides helper methods for using them in view files. Our standard fonts are sourced from Google Fonts in a `<script>` tag in `app/views/application.html.erb`.
+#### Fonts
+Fonts can be included in the assets directory to be handled by Webpack. However in the Lockbox app, we use a gem called `font-awesome-rails` that facilitates the usage of the Font Awesome icon library and provides helper methods for using them in view files, and our standard site-wide fonts are sourced from Google Fonts in a `<script>` tag in `app/views/application.html.erb`.
