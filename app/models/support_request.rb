@@ -124,6 +124,7 @@ class SupportRequest < ApplicationRecord
     attributes[:client_ref_id] = 'Client Reference ID'
     attributes[:date_submitted] = 'Date submitted'
     attributes[:eff_date] = 'Date of expense'
+    attributes[:amount] = 'Amount'
 
     CSV.generate(headers: true) do |csv|
       csv << attributes.values

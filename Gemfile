@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'rails', '~> 6.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -70,11 +70,11 @@ group :development, :test do
 
   # RSpec & testing gems!
   gem 'rspec-rails', '~> 4.0.0.0'
-  gem 'rspec', github: 'rspec/rspec', branch: 'master'
-  gem 'rspec-core', github: 'rspec/rspec-core', branch: 'master'
-  gem 'rspec-mocks', github: 'rspec/rspec-mocks', branch: 'master'
-  gem 'rspec-expectations', github: 'rspec/rspec-expectations', branch: 'master'
-  gem 'rspec-support', github: 'rspec/rspec-support', branch: 'master'
+  gem 'rspec', github: 'rspec/rspec', branch: 'main'
+  gem 'rspec-core', github: 'rspec/rspec-core', branch: 'main'
+  gem 'rspec-mocks', github: 'rspec/rspec-mocks', branch: 'main'
+  gem 'rspec-expectations', github: 'rspec/rspec-expectations', branch: 'main'
+  gem 'rspec-support', github: 'rspec/rspec-support', branch: 'main'
   gem 'rails-controller-testing', '>= 1.0.4'
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
   # Test data generation
