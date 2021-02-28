@@ -7,7 +7,6 @@ class LockboxTransaction < ApplicationRecord
   belongs_to :expense_category, optional: true
 
   TRANSACTION_CATEGORIES = [
-    # Used for internal Lockbox purposes
     ADJUSTMENT    = 'adjustment',
     CASH_ADDITION = 'cash_addition',
     EXPENSE = 'expense'
@@ -16,6 +15,7 @@ class LockboxTransaction < ApplicationRecord
   validates :amount_cents, numericality: { greater_than: 0 }
   validates :category, presence: true, inclusion: { in: TRANSACTION_CATEGORIES }
   validates :expense_category_id, presence: true, if: -> { category == EXPENSE }
+  validates :expense_category_id, absence: true, if: -> { category != EXPENSE }
   has_paper_trail
 
   before_validation :default_values

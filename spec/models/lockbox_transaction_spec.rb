@@ -31,6 +31,17 @@ describe LockboxTransaction, type: :model do
       .not_to include("can't be blank")
   end
 
+  it 'does not allow an expense category to be set if the transaction is not an expense' do
+    transaction = FactoryBot.build(
+      :lockbox_transaction,
+      category: LockboxTransaction::ADJUSTMENT,
+      expense_category_id: FactoryBot.create(:expense_category).id
+    )
+    transaction.valid?
+    expect(transaction.errors.messages[:expense_category_id])
+      .to include("must be blank")
+  end
+
   it 'validates the effect' do
     transaction = LockboxTransaction.new(balance_effect: 'magic')
     transaction.valid?
