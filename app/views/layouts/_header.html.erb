@@ -3,4 +3,4 @@
     <%= render "layouts/nav_bar" %>
   </div>
 </header>
-<%= render 'layouts/secondary_nav' if current_user&.partner? && (current_user&.lockbox_partner || @lockbox_partner)&.id %>
+<%= render 'layouts/secondary_nav' if @lockbox_partner&.id %>

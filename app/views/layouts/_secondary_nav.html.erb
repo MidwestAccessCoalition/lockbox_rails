@@ -1,22 +1,21 @@
-<% lp = @lockbox_partner || current_user.lockbox_partner %>
 <div class="secondary-nav">
   <div class='secondary-nav-tabs'>
     <% if current_user.admin? %>
       <%= render partial: 'layouts/secondary_tab', locals: {
         tab_name: 'All activity',
-        tab_path: lockbox_partner_path(lp)
+        tab_path: lockbox_partner_path(@lockbox_partner)
       } %>
       <%= render partial: 'layouts/secondary_tab', locals: {
         tab_name: 'File a support request',
-        tab_path: new_lockbox_partner_support_request_path(lp)
+        tab_path: new_lockbox_partner_support_request_path(@lockbox_partner)
       } %>
       <%= render partial: 'layouts/secondary_tab', locals: {
         tab_name: 'Add cash to lockbox',
-        tab_path: new_lockbox_partner_add_cash_path(lp)
+        tab_path: new_lockbox_partner_add_cash_path(@lockbox_partner)
       } %>
       <%= render partial: 'layouts/secondary_tab', locals: {
         tab_name: 'Manage lockbox partner',
-        tab_path: lockbox_partner_users_path(lp)
+        tab_path: lockbox_partner_users_path(@lockbox_partner)
       } %>
     <% else %>
       <%= render partial: 'layouts/secondary_tab', locals: {
@@ -25,7 +24,7 @@
       } %>
       <%= render partial: 'layouts/secondary_tab', locals: {
         tab_name: 'All Activity',
-        tab_path: lockbox_partner_path(lp)
+        tab_path: lockbox_partner_path(@lockbox_partner)
       } %>
     <% end %>
   </div>
