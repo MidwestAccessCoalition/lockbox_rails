@@ -111,6 +111,10 @@ ActiveRecord::Schema.define(version: 2020_12_06_230927) do
     t.string "role"
     t.bigint "invited_by_id"
     t.string "time_zone"
+    t.string "authy_id"
+    t.datetime "last_sign_in_with_authy"
+    t.boolean "authy_enabled", default: false
+    t.index ["authy_id"], name: "index_users_on_authy_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
