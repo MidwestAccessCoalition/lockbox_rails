@@ -52,13 +52,14 @@ class CreateSupportRequest
       end
 
       params[:lockbox_action_attributes][:lockbox_transactions_attributes].values
-        .reject { |lt| lt[:amount].blank? && lt[:category].blank? }
+        .reject { |lt| lt[:amount].blank? && lt[:expense_category_id].blank? }
         .each do |item|
           lockbox_transaction = lockbox_action.lockbox_transactions.create(
-            amount:         item[:amount],
-            distance:       item[:distance],
-            balance_effect: LockboxTransaction::DEBIT,
-            category:       item[:category]
+            amount:              item[:amount],
+            distance:            item[:distance],
+            balance_effect:      LockboxTransaction::DEBIT,
+            category:            LockboxTransaction::EXPENSE,
+            expense_category_id: item[:expense_category_id]
           )
 
           unless lockbox_transaction.valid? && lockbox_transaction.persisted?

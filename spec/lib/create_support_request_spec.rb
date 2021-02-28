@@ -15,11 +15,13 @@ describe CreateSupportRequest do
     FactoryBot.create(:lockbox_partner, :active)
   end
 
+  let(:expense_category) { FactoryBot.create(:expense_category) }
+
   let(:lockbox_transactions) do
     {
       "0" => {
-        amount:       42.42,
-        category:     "gas"
+        amount:              42.42,
+        expense_category_id: expense_category.id
       }
     }
   end
@@ -86,11 +88,11 @@ describe CreateSupportRequest do
     let(:lockbox_transactions) do
       {
         "0" => {
-          amount:   42.42,
-          category: "gas"
+          amount:              42.42,
+          expense_category_id: expense_category.id
         },
         "1" => {
-          amount:   10.00
+          amount: 10.00,
         }
       }
     end
@@ -106,12 +108,12 @@ describe CreateSupportRequest do
     let(:lockbox_transactions) do
       {
         "0": {
-          amount:   42.42,
-          category: "gas"
+          amount:              42.42,
+          expense_category_id: expense_category.id
         },
         "1": {
-          amount:   "",
-          category: "gas"
+          amount:              "",
+          expense_category_id: expense_category.id
         }
       }
     end
@@ -127,12 +129,12 @@ describe CreateSupportRequest do
     let(:lockbox_transactions) do
       {
         "0": {
-          amount: 42.42,
-          category: "gas"
+          amount:              42.42,
+          expense_category_id: expense_category.id
         },
         "1": {
-          amount: "",
-          category: ""
+          amount:              "",
+          expense_category_id: ""
         }
       }
     end
@@ -165,12 +167,12 @@ describe CreateSupportRequest do
           eff_date:         Date.current,
           lockbox_transactions_attributes: {
             "0": {
-              amount:       1,
-              category:     "gas"
+              amount:              1,
+              expense_category_id: expense_category.id
             }
           }
         },
-        user_id:            mac_user.id,
+        user_id: mac_user.id,
       }
     end
 
@@ -232,12 +234,12 @@ describe CreateSupportRequest do
           eff_date:         Date.current,
           lockbox_transactions_attributes: {
             "0": {
-              amount:       Money.new(1100),
-              category:     "gas"
+              amount:              Money.new(1100),
+              expense_category_id: expense_category.id
             }
           }
         },
-        user_id:            mac_user.id,
+        user_id: mac_user.id,
       }
     end
 
