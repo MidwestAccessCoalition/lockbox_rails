@@ -2,7 +2,7 @@
   <div class="field form-group col" >
     <%= f.label :category, 'Support Type' %>
     <%= f.select :category,
-      options_for_select(expense_category_select_options, selected: f.object.category),
+      options_for_select(expense_category_select_options, selected: f.object.expense_category_id),
       { include_blank: true },
       { class: 'form-control', required: f.index == 0 } %>
   </div>
