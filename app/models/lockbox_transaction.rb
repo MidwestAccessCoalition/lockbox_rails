@@ -4,9 +4,18 @@ class LockboxTransaction < ApplicationRecord
   monetize :amount_cents
 
   belongs_to :lockbox_action
-  belongs_to :expense_category
+  belongs_to :expense_category, optional: true
+
+  TRANSACTION_CATEGORIES = [
+    # Used for internal Lockbox purposes
+    ADJUSTMENT    = 'adjustment',
+    CASH_ADDITION = 'cash_addition',
+    EXPENSE = 'expense'
+  ].freeze
 
   validates :amount_cents, numericality: { greater_than: 0 }
+  validates :category, presence: true, inclusion: { in: TRANSACTION_CATEGORIES }
+  validates :expense_category_id, presence: true, if: -> { category == EXPENSE }
   has_paper_trail
 
   before_validation :default_values
@@ -33,12 +42,6 @@ class LockboxTransaction < ApplicationRecord
     PROCEDURES                  = 'procedures',
   ].freeze
 
-  INTERNAL_EXPENSE_CATEGORIES = [
-    # Used for internal Lockbox purposes
-    ADJUSTMENT    = 'adjustment',
-    CASH_ADDITION = 'cash_addition',
-  ].freeze
-
   LEGACY_EXPENSE_CATEGORIES = [
     # These may appear on old records, but should not be set on any new records
     GAS                 = 'gas',
@@ -50,7 +53,7 @@ class LockboxTransaction < ApplicationRecord
   ].freeze
 
   SELECTABLE_EXPENSE_CATEGORIES = (
-    QUICKBOOKS_EXPENSE_CATEGORIES + INTERNAL_EXPENSE_CATEGORIES
+    QUICKBOOKS_EXPENSE_CATEGORIES + TRANSACTION_CATEGORIES
   ).freeze
 
   EXPENSE_CATEGORIES = (
