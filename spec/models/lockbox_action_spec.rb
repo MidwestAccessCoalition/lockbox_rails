@@ -51,12 +51,14 @@ describe LockboxAction, type: :model do
         action.lockbox_transactions.create(
           amount_cents: 20_00,
           balance_effect: LockboxTransaction::DEBIT,
-          category: LockboxTransaction::GAS
+          category: LockboxTransaction::EXPENSE,
+          expense_category_id: FactoryBot.create(:expense_category).id
         )
         action.lockbox_transactions.create(
           amount_cents: 20_00,
           balance_effect: LockboxTransaction::DEBIT,
-          category: 'medicine'
+          category: LockboxTransaction::EXPENSE,
+          expense_category_id: FactoryBot.create(:expense_category).id
         )
       end
     end
