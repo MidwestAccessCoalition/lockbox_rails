@@ -1,4 +1,6 @@
 class LockboxPartner < ApplicationRecord
+  after_initialize :set_defaults
+
   has_many :users
   has_many :lockbox_actions
   has_many :support_requests, dependent: :destroy
@@ -26,6 +28,10 @@ class LockboxPartner < ApplicationRecord
   scope :with_initial_cash, -> do
     # returns partners that have had cash successfully added at least once
     includes(:lockbox_actions).merge(LockboxAction.completed_cash_additions).references(:lockbox_actions)
+  end
+
+  def set_defaults
+    self.minimum_acceptable_balance ||= MINIMUM_ACCEPTABLE_BALANCE
   end
 
   def pending_support_requests
