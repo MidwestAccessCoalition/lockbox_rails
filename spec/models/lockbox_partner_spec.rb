@@ -285,7 +285,7 @@ describe LockboxPartner, type: :model do
     end
   end
 
-  describe '#relevant_transactions_for_balance' do
+  describe '#relevant_actions_for_balance' do
     let(:partner_1) { FactoryBot.create(:lockbox_partner, :with_active_user) }
     let(:partner_2) { FactoryBot.create(:lockbox_partner, :with_active_user) }
 

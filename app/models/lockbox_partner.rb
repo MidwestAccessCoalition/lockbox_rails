@@ -33,14 +33,14 @@ class LockboxPartner < ApplicationRecord
   end
 
   def balance(exclude_pending: false)
-    relevant_transactions_for_balance(exclude_pending: exclude_pending).inject(Money.zero) do |balance, action|
-      case action.balance_effect
-      when LockboxTransaction::CREDIT
-        balance += action.amount
-      when LockboxTransaction::DEBIT
-        balance -= action.amount
+    relevant_actions_for_balance(exclude_pending: exclude_pending).inject(Money.zero) do |balance, action|
+      if action.credit?
+        balance + action.amount
+      elsif action.debit?
+        balance - action.amount
+      else
+        balance
       end
-      balance
     end
   end
 
@@ -80,7 +80,7 @@ class LockboxPartner < ApplicationRecord
     recently_completed_first_cash_addition? || longstanding_pending_cash_addition?
   end
 
-  def relevant_transactions_for_balance(exclude_pending: false)
+  def relevant_actions_for_balance(exclude_pending: false)
     excluded_statuses = [ LockboxAction::CANCELED ]
     excluded_statuses << LockboxAction::PENDING if exclude_pending
     actions = LockboxAction.where(lockbox_partner: self).excluding_statuses(excluded_statuses)
@@ -88,7 +88,7 @@ class LockboxPartner < ApplicationRecord
       next if action.pending? && action.action_type == LockboxAction::ADD_CASH
       action.id
     end.compact
-    LockboxTransaction.where(lockbox_action_id: lockbox_action_ids)
+    LockboxAction.find(lockbox_action_ids)
   end
 
   def active?

@@ -41,7 +41,10 @@
       </div>
     </div>
   <% end %>
-  <legend id="total">Total: $0.00</legend>
+  <div class="form-group">
+    <legend id="total">Total: $0.00</legend>
+    <p class="form-text text-muted font-italic my-0">Rounded up to the nearest dollar</p>
+  </div>
   <div class="form-group">
     <%= f.label :urgency_flag %>
     <p class="form-text text-muted font-italic my-0">Displays in email subject line (75 character limit)</p>

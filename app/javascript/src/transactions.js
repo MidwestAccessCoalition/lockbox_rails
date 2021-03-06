@@ -9,7 +9,12 @@ const updateTotal = () => {
       total += value;
     }
   }
-  $('#total').text(`Total: \$${(Math.round(total * 100) / 100).toFixed(2)}`);
+  const round_up = true // This may need to be configurable in the future
+  if (round_up) {
+    $('#total').text(`Total: \$${Math.ceil(total).toFixed(2)}`);
+  } else {
+    $('#total').text(`Total: \$${(Math.round(total * 100) / 100).toFixed(2)}`);
+  }
 };
 
 const computeMileage = () => {
@@ -86,5 +91,6 @@ const setupMileage = () => {
 document.addEventListener('turbolinks:load', () => {
   setupTotal();
   setupMileage();
-  $('.mileage-row label').tooltip({ animation: false });
+  $('.amount-field label:visible').tooltip('dispose');
+  $('.mileage-row .amount-field label:visible').tooltip({ animation: false });
 });

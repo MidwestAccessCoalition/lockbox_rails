@@ -103,7 +103,9 @@ class LockboxAction < ApplicationRecord
   def amount
     return Money.zero if canceled?
     return Money.zero if lockbox_transactions.none?
-    lockbox_transactions.map(&:amount).sum
+    sum = lockbox_transactions.map(&:amount).sum
+    return sum unless round_up?
+    Money.new(sum.to_f.ceil * 100)
   end
 
   def pending?
@@ -180,5 +182,10 @@ class LockboxAction < ApplicationRecord
       # although that probably shouldn't happen
       self.closed_at = nil
     end
+  end
+
+  def round_up?
+    # We may need to make this configurable when we go multi-tenant based on lockbox-partner
+    true
   end
 end
