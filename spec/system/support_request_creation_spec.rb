@@ -74,6 +74,6 @@ RSpec.describe "Support Request Creation", type: :system do
     page.assert_selector('.distance-field', visible: true, count: 1)
 
     fill_in "Mileage", with: 42
-    assert_selector "legend", text: "Total: $8.40"
+    assert_selector "legend", text: "Total: $9.00"
   end
 end

@@ -7,7 +7,7 @@
       { include_blank: true },
       { class: 'form-control', required: f.index == 0 } %>
   </div>
-  <div class="field form-group col-3 distance-field" style="<%= "#{'display: none' unless f.object.category == gas_select_name}" %>">
+  <div class="field form-group col-4 distance-field" style="<%= "#{'display: none' unless f.object.category == gas_select_name}" %>">
     <%= f.label :distance, "Mileage" %>
     <%= f.text_field :distance, type: 'number', class: 'form-control' %>
   </div>

@@ -305,21 +305,14 @@ describe LockboxPartner, type: :model do
     let!(:diff_partner_completed_support)  { pending_request_on(partner_2, Date.yesterday, [10_00], request_2).tap{|a| a.complete!} }
 
     it 'returns pending and completed transactions for that lockbox partner' do
-      expected_results = [
-        completed_add_cash.lockbox_transactions,
-        pending_support.lockbox_transactions,
-        completed_support.lockbox_transactions
-      ].flatten
-      expect(partner_1.relevant_transactions_for_balance).to match(expected_results)
+      expected_results = [completed_add_cash, pending_support, completed_support]
+      expect(partner_1.relevant_actions_for_balance).to match_array(expected_results)
     end
 
     context 'when exclude_pending: true' do
       it 'returns only completed transactions for that lockbox partner' do
-        expected_results = [
-          completed_add_cash.lockbox_transactions,
-          completed_support.lockbox_transactions
-        ].flatten
-        expect(partner_1.relevant_transactions_for_balance(exclude_pending: true)).to match(expected_results)
+        expected_results = [completed_add_cash, completed_support]
+        expect(partner_1.relevant_actions_for_balance(exclude_pending: true)).to match_array(expected_results)
       end
     end
   end
