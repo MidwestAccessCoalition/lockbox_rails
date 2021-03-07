@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_230927) do
+ActiveRecord::Schema.define(version: 2021_01_17_223939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_230927) do
     t.string "state"
     t.string "zip_code"
     t.string "phone_ext"
+    t.integer "minimum_acceptable_balance"
   end
 
   create_table "lockbox_transactions", force: :cascade do |t|
