@@ -21,7 +21,7 @@
     <strong>Amount Breakdown</strong>
     <% @support_request.lockbox_action.breakdown.each do |item| %>
       <div>
-        <%= item[:amount] %> for <%= item[:category].humanize(capitalize: false) %>
+        <%= item[:amount] %> for <%= item[:category] %>
       </div>
     <% end %>
   </div>

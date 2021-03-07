@@ -14,7 +14,11 @@ RSpec.describe "Support Request Actions", type: :system do
         eff_date: Date.current,
         lockbox_transactions_attributes:
         {
-          "0":{ amount: "50", category: LockboxTransaction::PRESCRIPTIONS }
+          "0": {
+            amount:              "50",
+            category:            LockboxTransaction::EXPENSE,
+            expense_category_id: FactoryBot.create(:expense_category).id
+          }
         }
       }
     }

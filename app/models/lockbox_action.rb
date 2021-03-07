@@ -136,7 +136,7 @@ class LockboxAction < ApplicationRecord
 
   def breakdown
     lockbox_transactions.map do |txn|
-      { amount: txn.amount, category: txn.category }
+      { amount: txn.amount, category: txn.expense_category.display_name }
     end
   end
 
