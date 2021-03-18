@@ -7,8 +7,11 @@ class Users::DeviseAuthyController < Devise::DeviseAuthyController
   end
 
   def after_authy_verified_path_for(resource)
-    # root_path
-    onboarding_success_path
+    if resource.sign_in_count > 1
+      root_path
+    else
+      onboarding_success_path
+    end
   end
 
   def after_authy_disabled_path_for(resource)
