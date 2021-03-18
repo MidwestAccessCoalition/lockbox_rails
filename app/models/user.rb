@@ -34,6 +34,13 @@ class User < ApplicationRecord
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
+  def authy_enabled
+    # This method overwrites devise-authy functionality to always return false
+    # if the MFA feature is not live. This method should be deleted after
+    # MFA goes live.
+    !!ENV['AUTHY_MFA_ENABLED'] ? super : false
+  end
+
   def admin?
     role == ADMIN
   end
