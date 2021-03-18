@@ -1,4 +1,6 @@
 class LockboxPartner < ApplicationRecord
+  after_initialize :set_defaults
+
   has_many :users
   has_many :lockbox_actions
   has_many :support_requests, dependent: :destroy
@@ -28,6 +30,10 @@ class LockboxPartner < ApplicationRecord
     includes(:lockbox_actions).merge(LockboxAction.completed_cash_additions).references(:lockbox_actions)
   end
 
+  def set_defaults
+    self.minimum_acceptable_balance ||= MINIMUM_ACCEPTABLE_BALANCE
+  end
+
   def pending_support_requests
     @pending_support_requests ||= SupportRequest.pending_for_partner(lockbox_partner_id: self.id)
   end
@@ -46,6 +52,8 @@ class LockboxPartner < ApplicationRecord
 
   def low_balance?
     balance < MINIMUM_ACCEPTABLE_BALANCE
+    # TODO after backfill
+    # balance.cents < minimum_acceptable_balance
   end
 
   def insufficient_funds?
