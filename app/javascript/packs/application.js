@@ -25,3 +25,4 @@ require('../src/pending_support_requests_table');
 require('../src/tooltips');
 require('../src/transactions');
 require('../src/url_switching_select');
+require('../src/thankyou_gifs')

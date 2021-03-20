@@ -52,7 +52,7 @@ gem 'brakeman'
 gem 'bundler-audit'
 
 group :production do
-  gem 'sqreen', '>= 1.16'
+  # gem 'sqreen', '>= 1.16'
 end
 
 group :development, :test do

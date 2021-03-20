@@ -19,7 +19,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "snyk": "^1.316.1",
-    "webpack-dev-server": "^3.10.1"
+    "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
     "clean": "rm -rf node_modules",
