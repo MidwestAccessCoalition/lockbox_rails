@@ -14,7 +14,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.font_src        :self, 'https://fonts.gstatic.com', 'https://demo-lockbox.herokuapp.com'
   policy.form_action     :self
   policy.frame_ancestors :none
-  policy.img_src         :self, 'https://*.amazonaws.com' # Whitelist amazonaws to support the Sqreen image
+  policy.img_src         :self, 'https://*.amazonaws.com', 'https://i.pinimg.com/'
   policy.object_src      :none
   policy.script_src      :self
   policy.style_src       :self, :unsafe_inline, 'https://fonts.googleapis.com'
