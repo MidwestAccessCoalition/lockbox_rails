@@ -36,3 +36,4 @@ yarn-debug.log*
 .env
 coverage
 .vscode
+.DS_Store

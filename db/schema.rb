@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_02_21_232408) do
     t.string "state"
     t.string "zip_code"
     t.string "phone_ext"
+    t.integer "minimum_acceptable_balance"
   end
 
   create_table "lockbox_transactions", force: :cascade do |t|
