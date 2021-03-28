@@ -5,6 +5,8 @@ describe UpdateSupportRequest do
 
   let(:support_request) { FactoryBot.create(:support_request, :pending) }
   let(:lockbox_transaction) { FactoryBot.create(:lockbox_transaction) }
+  let(:expense_category_1) { FactoryBot.create(:expense_category) }
+  let(:expense_category_2) { FactoryBot.create(:expense_category) }
 
   before do
     support_request.lockbox_action.lockbox_transactions = [lockbox_transaction]
@@ -26,16 +28,18 @@ describe UpdateSupportRequest do
         id: lockbox_transaction.lockbox_action.id,
         lockbox_transactions_attributes: {
         "0": {
-          category: "hotel_reimbursement",
           distance: "",
           amount: "10.00",
           _destroy: "false",
+          category: LockboxTransaction::EXPENSE,
+          expense_category_id: expense_category_1.id,
           id: lockbox_transaction.id
         },
         "1": {
-          category: "food",
           distance: "",
           amount: "12.00",
+          category: LockboxTransaction::EXPENSE,
+          expense_category_id: expense_category_2.id,
           balance_effect: LockboxTransaction::DEBIT,
         }
     }}})

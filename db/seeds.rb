@@ -53,6 +53,15 @@ LOCKBOX_PARTNERS.map do |partner_name, partner_user_email|
     )
   end
 
+  3.times do |n|
+    display_name = Faker::Commerce.product_name
+    ExpenseCategory.create!(
+      display_name: display_name,
+      identifier: display_name.downcase.gsub(/[^a-z]/, "_"),
+      category_code: "6" + sprintf("%03d", n)
+    )
+  end
+
   5.times do
     support_request = SupportRequest.create!(
       client_ref_id: Faker::Alphanumeric.alpha(number: 10),
@@ -72,7 +81,8 @@ LOCKBOX_PARTNERS.map do |partner_name, partner_user_email|
         action.lockbox_transactions.create!(
           amount_cents: (1_00..60_00).to_a.sample,
           balance_effect: LockboxTransaction::DEBIT,
-          category: category
+          category: LockboxTransaction::EXPENSE,
+          expense_category: ExpenseCategory.all.sample
         )
       end
 
@@ -98,12 +108,13 @@ has_many_actions = LockboxPartner.where(name: LOCKBOX_PARTNERS.last.first).first
       support_request_id: sup_req.id
     )
 
-    categories = LockboxTransaction::SELECTABLE_EXPENSE_CATEGORIES.sample((1..3).to_a.sample)
+    categories = ExpenseCategory.all
     categories.each do |category|
       action.lockbox_transactions.create!(
         amount_cents: (1_00..60_00).to_a.sample,
         balance_effect: LockboxTransaction::DEBIT,
-        category: category
+        category: LockboxTransaction::EXPENSE,
+        expense_category: category
       )
     end
   end

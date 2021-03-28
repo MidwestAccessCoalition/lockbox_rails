@@ -5,6 +5,14 @@ RSpec.describe "Support Request Creation", type: :system do
   let!(:inactive_lockbox_partner) { FactoryBot.create(:lockbox_partner) }
   let!(:user)            { FactoryBot.create(:user) }
 
+  let!(:train_travel) do
+    FactoryBot.create(:expense_category, display_name: 'Train travel')
+  end
+
+  let!(:childcare) do
+    FactoryBot.create(:expense_category, display_name: 'Childcare')
+  end
+
   before do
     login_as(user, :scope => :user)
   end

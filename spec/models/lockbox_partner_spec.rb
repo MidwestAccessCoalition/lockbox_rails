@@ -15,7 +15,7 @@ describe LockboxPartner, type: :model do
       action.lockbox_transactions.create!(
         amount_cents: 1000_00,
         balance_effect: LockboxTransaction::CREDIT,
-        category: LockboxTransaction::GAS
+        category: LockboxTransaction::CASH_ADDITION
       )
     end
   end
@@ -32,7 +32,8 @@ describe LockboxPartner, type: :model do
         lb_action.lockbox_transactions.create!(
           amount_cents: amt_cents,
           balance_effect: LockboxTransaction::DEBIT,
-          category: LockboxTransaction::GAS
+          category: LockboxTransaction::EXPENSE,
+          expense_category: FactoryBot.create(:expense_category)
         )
       end
     end

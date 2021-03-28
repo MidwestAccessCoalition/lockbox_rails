@@ -113,7 +113,7 @@ class LockboxPartners::SupportRequestsController < ApplicationController
         lockbox_transactions_attributes: [
           :id,
           :amount,
-          :category,
+          :expense_category_id,
           :distance,
           :_destroy # Virtual attribute used to delete records
         ]

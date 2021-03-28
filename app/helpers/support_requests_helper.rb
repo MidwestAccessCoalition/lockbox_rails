@@ -1,6 +1,6 @@
 module SupportRequestsHelper
   def expense_category_select_options
-    LockboxTransaction::SELECTABLE_EXPENSE_CATEGORIES.map { |c| [c.humanize, c] }
+    ExpenseCategory.order(:display_name).pluck(:display_name, :id)
   end
 
   def lockbox_partner_select_options

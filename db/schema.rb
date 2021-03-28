@@ -2,18 +2,28 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_223939) do
+ActiveRecord::Schema.define(version: 2021_02_21_232408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "expense_categories", force: :cascade do |t|
+    t.string "identifier"
+    t.string "category_code"
+    t.string "display_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["display_name"], name: "index_expense_categories_on_display_name", unique: true
+    t.index ["identifier"], name: "index_expense_categories_on_identifier", unique: true
+  end
 
   create_table "lockbox_actions", force: :cascade do |t|
     t.date "eff_date"
@@ -49,6 +59,8 @@ ActiveRecord::Schema.define(version: 2021_01_17_223939) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "distance"
+    t.bigint "expense_category_id"
+    t.index ["expense_category_id"], name: "index_lockbox_transactions_on_expense_category_id"
     t.index ["lockbox_action_id"], name: "index_lockbox_transactions_on_lockbox_action_id"
   end
 
@@ -131,6 +143,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_223939) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "lockbox_transactions", "expense_categories"
   add_foreign_key "lockbox_transactions", "lockbox_actions"
   add_foreign_key "support_requests", "lockbox_partners"
   add_foreign_key "tracking_infos", "lockbox_actions"
