@@ -1,14 +1,21 @@
 <div class="lockbox-partner container clearfix">
-  <div>
+  <div class="px-3">
     <p>
       <strong><%= lockbox_partner.city %></strong>
     </p>
   </div>
-  <h3>
-    <%= lockbox_partner.name %><span class="float-right">$<%= lockbox_partner.balance %></span>
-  </h3>
-
-  <div class="lockbox-activity">
+  
+  <% if lockbox_partner.insufficient_funds? %>
+    <h3 class="alert-danger px-3">
+  <% elsif lockbox_partner.low_balance? %>
+    <h3 class="alert-warning px-3">
+  <% else %>
+    <h3 class="px-3">
+  <% end %>
+      <%= lockbox_partner.name %><span class="float-right">$<%= lockbox_partner.balance %></span>
+    </h3>
+  
+  <div class="lockbox-activity mx-3">
     <table class="table table-no-border">
       <tbody>
         <% lockbox_partner.historical_actions.order(:eff_date).last(3).each do |action| %>
