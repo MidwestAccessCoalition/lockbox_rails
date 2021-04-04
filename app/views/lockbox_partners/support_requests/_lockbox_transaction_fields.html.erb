@@ -1,4 +1,5 @@
-<div class="<%= 'nested-fields row' + (f.object.category == 'gas' ? ' mileage-row' : '') %>">
+<% gas_select_name = LockboxTransaction::GAS_SELECT_NAME %>
+<div class="<%= 'nested-fields row' + (f.object.category == gas_select_name ? ' mileage-row' : '') %>">
   <div class="field form-group col" >
     <%= f.label :category, 'Support Type' %>
     <%= f.select :category,
@@ -6,11 +7,11 @@
       { include_blank: true },
       { class: 'form-control', required: f.index == 0 } %>
   </div>
-  <div class="field form-group col-3 distance-field" style="<%= "#{'display: none' unless f.object.category == 'gas'}" %>">
+  <div class="field form-group col-4 distance-field" style="<%= "#{'display: none' unless f.object.category == gas_select_name}" %>">
     <%= f.label :distance, "Mileage" %>
     <%= f.text_field :distance, type: 'number', class: 'form-control' %>
   </div>
-  <div class="field form-group col-3 amount-field" >
+  <div class="field form-group col-4 col-md-3 amount-field" >
     <%= f.label :amount,
       'data-toggle':"tooltip",
       'data-placement':"top",
@@ -19,7 +20,9 @@
       type: 'number',
       step: "0.01",
       class: 'form-control',
-      readonly: f.object.category == 'gas' %>
+      readonly: f.object.category == gas_select_name %>
   </div>
-  <%= link_to_remove_association "X", f, { style: "#{'visibility: hidden' if f.index == 0}" } %>
+  <%= link_to_remove_association(f, style: "#{'visibility: hidden' if f.index == 0}") do %>
+    <%= fa_icon "times" %>
+  <% end %>
 </div>

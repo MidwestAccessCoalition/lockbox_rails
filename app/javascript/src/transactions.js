@@ -86,5 +86,6 @@ const setupMileage = () => {
 document.addEventListener('turbolinks:load', () => {
   setupTotal();
   setupMileage();
-  $('.mileage-row label').tooltip({ animation: false });
+  $('.amount-field label:visible').tooltip('dispose');
+  $('.mileage-row .amount-field label:visible').tooltip({ animation: false });
 });
