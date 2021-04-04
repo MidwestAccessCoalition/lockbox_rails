@@ -9,8 +9,8 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
    <body>
-    <div class="devise">
-      <div class="devise-form container">
+    <div class="devise d-flex justify-content-center align-items-center">
+      <div class="devise-form container mx-0">
         <div id="errors">
           <% flash.each do |key, value| %>
             <% # Only display Devise flash messages that are intended to be displayed, and not those used internally by Devise  %>
@@ -22,6 +22,9 @@
         </div>
         <%= yield %>
         <a id="sqreen-badge" title="Realtime application protection" href="https://www.sqreen.com/?utm_source=badge"><img style="width:109px;height:36px" src="https://s3-eu-west-1.amazonaws.com/sqreen-assets/badges/20171107/sqreen-light-badge.svg" alt="Sqreen | Runtime Application Protection" /></a>
+      </div>
+      <div class="devise-form container mx-0">
+        <%= image_tag get_random_gif, width: "370" %>
       </div>
     </div>
   </body>
