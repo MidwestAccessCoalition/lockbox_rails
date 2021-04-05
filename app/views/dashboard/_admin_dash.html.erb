@@ -6,9 +6,9 @@
   </div>
   
   <% if lockbox_partner.insufficient_funds? %>
-    <h3 class="alert-danger px-3">
+    <h3 class="alert-danger border border-danger px-3">
   <% elsif lockbox_partner.low_balance? %>
-    <h3 class="alert-warning px-3">
+    <h3 class="alert-warning border border-warning px-3">
   <% else %>
     <h3 class="px-3">
   <% end %>
@@ -16,7 +16,11 @@
     </h3>
   
   <div class="lockbox-activity mx-3">
-    <table class="table table-no-border">
+    <% if lockbox_partner.insufficient_funds? or lockbox_partner.low_balance? %>
+      <table class="table table-no-border">
+    <% else %>
+      <table class="table table-no-border table-top-border">
+    <% end %>
       <tbody>
         <% lockbox_partner.historical_actions.order(:eff_date).last(3).each do |action| %>
           <% support_request_class = action.support_request ? 'support-request ' : '' %>
