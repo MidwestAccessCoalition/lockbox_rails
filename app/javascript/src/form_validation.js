@@ -36,7 +36,6 @@ const formatMinBalanceInput = () => {
   balanceInput.value = balanceSaved.value/100;
   balanceInput.addEventListener("change", (event) => {
     balanceSaved.value = balanceInput.value * 100;
-    console.log(balanceSaved.value);
   })
 }
 formatMinBalanceInput();
