@@ -66,4 +66,10 @@ module ApplicationHelper
       ['Wyoming', 'WY']
     ]
   end
+
+  def get_random_gif 
+    image_path_prefix = "app/assets/images/"
+    gif_files = Dir.glob("#{image_path_prefix}thank_you_gifs/*")
+    gif_files.sample.split(image_path_prefix)[1]
+  end
 end

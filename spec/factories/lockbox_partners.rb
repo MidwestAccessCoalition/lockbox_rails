@@ -6,6 +6,7 @@ FactoryBot.define do
     state          { Faker::Address.state }
     zip_code       { Faker::Address.zip_code }
     phone_number   { (2..9).to_a.sample.to_s + Faker::Base.numerify('#########') }
+    minimum_acceptable_balance { 500_00 }
 
     trait :active do
       # The user needs to be confirmed, but currently the user factory does this
