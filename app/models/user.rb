@@ -5,11 +5,19 @@ class User < ApplicationRecord
   belongs_to :inviter, class_name: "User",  optional: true, foreign_key: 'invited_by_id'
 
   # all but :omniauthable
-  devise :authy_authenticatable, :database_authenticatable,
-         :registerable, :recoverable, :rememberable,
-         :validatable, :confirmable,
-         :lockable, :authy_lockable,
-         :trackable, :timeoutable
+  devise(
+    :authy_authenticatable, 
+    :authy_lockable,
+    :confirmable,
+    :database_authenticatable,
+    :lockable, 
+    :recoverable, 
+    :registerable, 
+    :rememberable,
+    :timeoutable,
+    :trackable, 
+    :validatable,
+  )
 
   ROLES = [
     ADMIN  = 'admin',
