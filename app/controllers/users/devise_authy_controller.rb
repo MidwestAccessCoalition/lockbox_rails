@@ -19,8 +19,4 @@ class Users::DeviseAuthyController < Devise::DeviseAuthyController
   def invalid_resource_path
     super
   end
-<<<<<<< HEAD
 end
-=======
-end
->>>>>>> mfa_backend_only
