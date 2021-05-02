@@ -38,7 +38,12 @@ class Users::PasswordsController < Devise::PasswordsController
       # The stock devise flash message isn't needed; we display our own copy in
       # this situation
       flash.clear
-      user_enable_authy_path
+
+      if ENV['AUTHY_MFA_ENABLED']
+        user_enable_authy_path
+      else
+        onboarding_success_path
+      end
     end
   end
 

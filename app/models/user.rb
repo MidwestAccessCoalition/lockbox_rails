@@ -5,11 +5,19 @@ class User < ApplicationRecord
   belongs_to :inviter, class_name: "User",  optional: true, foreign_key: 'invited_by_id'
 
   # all but :omniauthable
-  devise :authy_authenticatable, :database_authenticatable,
-         :registerable, :recoverable, :rememberable,
-         :validatable, :confirmable,
-         :lockable, :authy_lockable,
-         :trackable, :timeoutable
+  devise(
+    :authy_authenticatable,
+    :authy_lockable,
+    :confirmable,
+    :database_authenticatable,
+    :lockable,
+    :recoverable,
+    :registerable,
+    :rememberable,
+    :timeoutable,
+    :trackable,
+    :validatable,
+  )
 
   ROLES = [
     ADMIN  = 'admin',
@@ -33,6 +41,13 @@ class User < ApplicationRecord
   ].freeze
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+
+  def authy_enabled
+    # This method overwrites devise-authy functionality to always return false
+    # if the MFA feature is not live. This method should be deleted after
+    # MFA goes live.
+    !!ENV['AUTHY_MFA_ENABLED'] ? super : false
+  end
 
   def admin?
     role == ADMIN

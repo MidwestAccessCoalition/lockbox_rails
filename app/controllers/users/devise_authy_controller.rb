@@ -2,12 +2,13 @@ class Users::DeviseAuthyController < Devise::DeviseAuthyController
   layout "application"
 
   protected
-  
+
   def after_authy_enabled_path_for(resource)
   end
 
   def after_authy_verified_path_for(resource)
-    # root_path
+    return root_path if resource.sign_in_count > 1
+
     onboarding_success_path
   end
 
@@ -18,4 +19,8 @@ class Users::DeviseAuthyController < Devise::DeviseAuthyController
   def invalid_resource_path
     super
   end
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> mfa_backend_only
