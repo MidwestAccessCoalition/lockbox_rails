@@ -135,7 +135,23 @@ gem install mailcatcher
 bundle exec rails webpacker:install
 ```
 
-### Local Development
+#### Redis
+
+You'll need `redis` in order for `sidekiq` to work.
+
+```sh
+brew install redis
+brew services start redis
+```
+
+#### Ports in use
+
+* 3000: Rails server
+* 3035: Webpack server
+* 6379: Redis server
+* 1080: Mailcatcher (if applicable)
+
+## Local Development
 
 ```sh
 yarn dev
@@ -158,21 +174,37 @@ bundle exec rails s # or `yarn run dev:rails`
 mailcatcher # This will run on localhost:1080
 ```
 
-#### Redis
-
-You'll need `redis` in order for `sidekiq` to work.
-
-```sh
-brew install redis
-brew services start redis
+### Working on MFA/Authy
+If you need to work on part of the MFA (Authy) workflow, you will need to add two
+env vars to your `config/local_env.yml` file:
+```yml
+AUTHY_MFA_ENABLED: 1
+AUTHY_API_KEY: You'll have to get this token from Nicole
 ```
 
-#### Ports in use
+If you don't have a `config/local_env.yml` file, see the `config/local_env.sample.yml`
+file for instructions on creating one. `config/local_env.yml` is not tracked by `git`, so it's
+safe to put secrets, API keys, and other credentials in it.
 
-* 3000: Rails server
-* 3035: Webpack server
-* 6379: Redis server
-* 1080: Mailcatcher (if applicable)
+You will have to ask Nicole (@bintLopez) for the API token (but note that this cannot
+be sent via email, text, or Slack for security reasons, so to receive it you will need some
+sort of secure method for sending messages e.g. LastPass, Signal, etc.).
+
+### Working on error pages
+By default, in development most errors result in a `better_errors` page response
+which provides a more advanced interface for troubleshooting (e.g. a stack trace, 
+global and local variables, a console scoped to the point that the error occurred).
+
+If you need to work on an error page, you will have to temporarily disable this
+functionality. To do so, open `config/environments/development.rb` and find the 
+following line
+```rb
+  config.consider_all_requests_local = true
+```
+and flip the `true` to `false`. This change won't take effect until the Rails server
+is restarted. 
+
+Be sure to revert this change before merging your PR.
 
 ### Login
 

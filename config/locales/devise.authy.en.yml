@@ -15,7 +15,12 @@ en:
     enable_my_account: 'Enable my account'
 
     authy_qr_code_alt: 'QR code for scanning with your authenticator app.'
-    authy_qr_code_instructions: 'Scan this QR code with your authenticator application and enter the code below.'
+    authy_qr_code_instructions:
+      If you're using the Authy app as your authenticator app, you should have received a
+      notification in Authy adding the Lockbox app, and you should now have a code available.
+
+      If you don't see your token in Authy or if you are using a different authenticator app,
+      scan the QR code above to receive your token.
 
     devise_authy:
       user:
