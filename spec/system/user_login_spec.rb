@@ -65,7 +65,7 @@ RSpec.describe "User Login Flow", type: :system do
         fill_in "Password", with: 'g00seONtheLOO$E!'
 
         click_button "Log in"
-        assert_selector "h2", text: "Please enter your Authy token"
+        assert_selector "h2", text: "Authy token code"
       end
     end
 
