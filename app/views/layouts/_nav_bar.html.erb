@@ -46,7 +46,7 @@
                 <% else %>
                   <%= fa_icon "exclamation-triangle" %>
                   <em>
-                    <%= link_to 'Secure your account with MFA', user_enable_authy_path %>
+                    <%= link_to 'Secure your account with MFA', user_enable_authy_path, 'data-turbolinks': false %>
                   </em>
                 <% end %>
                 <i
@@ -81,7 +81,7 @@
               <% else %>
                 <%= fa_icon "exclamation-triangle" %>
                 <em>
-                  <%= link_to 'Secure your account with MFA', user_enable_authy_path %>
+                  <%= link_to 'Secure your account with MFA', user_enable_authy_path, 'data-turbolinks': false %>
                 </em>
               <% end %>
               <i

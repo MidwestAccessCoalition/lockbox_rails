@@ -1,9 +1,13 @@
 <%= enable_authy_form do %>
   <div class="form-group">
-    <%= text_field_tag :country_code, '', :autocomplete => :off, :placeholder => I18n.t('devise.country'), :id => "authy-countries"%>
+    <label for="authy-countries">Country Code</label>
+    <%= text_field_tag :country_code, '', :autocomplete => :off, :placeholder => I18n.t('devise.country'), :id => "authy-countries" %>
   </div>
+
   <div class="form-group">
-    <%= text_field_tag :cellphone, '', :autocomplete => :off, :placeholder => I18n.t('devise.cellphone'), :id => "authy-cellphone"%>
+    <label for="authy-cellphone">MFA Phone Number</label>
+    <%= text_field_tag :cellphone, '', :autocomplete => :off, :placeholder => I18n.t('devise.cellphone'), :id => "authy-cellphone" %>
   </div>
-  <p><%= submit_tag I18n.t('enable_authy', {:scope => 'devise'}), class: 'btn btn-primary' %></p>
+
+  <%= submit_tag I18n.t('enable_authy', {:scope => 'devise'}), class: 'btn btn-primary' %>
 <% end %>

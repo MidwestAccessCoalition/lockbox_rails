@@ -1,11 +1,13 @@
 <h2>Account Settings</h2>
 
 <% if resource.authy_enabled? %>
-  <p>
-    <%= fa_icon "check-circle" %>
-    Your account is secured with MFA!
-  </p>
-  <%= link_to "Disable Multi-factor Authentication", user_disable_authy_path, { method: :post} %>
+  <div class="mfa-info">
+    <p>
+      <%= fa_icon "check-circle" %>
+      Your account is secured with MFA!
+    </p>
+    <%= link_to "Disable Multi-factor Authentication", user_disable_authy_path, { class: 'disable-mfa', method: :post} %>
+  </div>
 <% else %>
   <div class="alert alert-warning">
     <div>
@@ -15,7 +17,7 @@
       <h4 class="alert-heading">Enable Multi-factor Authentication (MFA)</h4>
       <p>Take action to secure your account with MFA!</p>
     </div>
-    <%= link_to "Enable MFA", user_enable_authy_path, class: 'btn btn-warning alert-button' %>
+    <%= link_to "Enable MFA", user_enable_authy_path, class: 'btn btn-warning alert-button', 'data-turbolinks': false %>
   </div>
 <% end %>
 
