@@ -3,6 +3,7 @@
 
   .header-desktop { display: none; }
   .header-mobile { display: block; }
+
   @media screen and (min-width: $mobile-width) {
     .header-desktop { display: block; }
     .header-mobile { display: none; }
