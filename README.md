@@ -151,7 +151,7 @@ brew services start redis
 * 6379: Redis server
 * 1080: Mailcatcher (if applicable)
 
-## Local Development
+## Working in the local dev environment
 
 ```sh
 yarn dev
