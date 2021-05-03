@@ -174,6 +174,16 @@ bundle exec rails s # or `yarn run dev:rails`
 mailcatcher # This will run on localhost:1080
 ```
 
+### Login
+
+#### As a fund admin
+Username: `cats@test.com`  
+Password: `password1234`
+
+#### As a lockbox partner
+Username: `fluffy@catsclinic.com`  
+Password: `heytherefancypants4321`
+
 ### Working on MFA/Authy
 If you need to work on part of the MFA (Authy) workflow, you will need to add two
 env vars to your `config/local_env.yml` file:
@@ -206,19 +216,7 @@ is restarted.
 
 Be sure to revert this change before merging your PR.
 
-### Login
-
-#### Fund Admin
-
-Username: `cats@test.com`
-Password: `password1234`
-
-#### Lockbox Partner
-
-Username: `fluffy@catsclinic.com`
-Password: `heytherefancypants4321`
-
-### Security Scans
+## Security Scans
 
 We use several automated scans to check for known vulnerabilities both in our code
 and our dependencies. To run all of the scans at one time:
@@ -237,7 +235,7 @@ Note that some of the scans can find issues that are not severe enough to be con
 and high level `warnings` that may need to be addressed to ensure the highest level
 of AppSec confidence.
 
-#### Brakeman
+### Brakeman
 
 We use Brakeman to check for security vulnerabilities in our project's codebase.
 Brakeman can also be run locally:
@@ -251,7 +249,7 @@ terminal to get more detailed output or to ignore for lower-level warnings, in w
 [Brakeman's usage options](https://github.com/presidentbeef/brakeman/blob/master/OPTIONS.md)
 may be useful.
 
-#### Bundler Audit
+### Bundler Audit
 
 We use `bundler-audit` to check for security vulnerabilities in our project's gem dependencies.
 This check runs in CircleCI and any output from the scan is saved in the Artifacts
@@ -264,7 +262,7 @@ yarn scan:bundler-audit
 Any non-critical vulnerabilities that cannot be fixed immediately can be temporarily
 ignored by adding the CVE ID to the root-level `.bundler-audit.ignore` file.
 
-#### `lockfile-check`
+### `lockfile-check`
 
 This is a custom script that ensures `yarn` and `bundle` have both been run
 successfully and that `npm i` has not also been run. To run locally:
@@ -273,7 +271,7 @@ successfully and that `npm i` has not also been run. To run locally:
 yarn scan:lockfiles
 ```
 
-#### Snyk
+### Snyk
 
 Snyk is simmilar to `bundler-audit` except that it checks our project's Javascript
 package dependencies for vulnerabilities. To run locally:
