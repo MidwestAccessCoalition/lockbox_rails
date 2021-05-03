@@ -1,11 +1,9 @@
-<h1>Server Error</h1>
+<%= image_tag "oops.gif", width: "300", class: "error-page-img top-img" %>
 
-<br>
-<%= image_tag "oops.gif", width: "400" %>
-
-<br>
-<br>
-
+<h2>Server Error</h2>
 <p>
-Something went wrong, please reach out to <%= mail_to ENV['LOCKBOX_EMAIL'] %>
+  Something went wrong, please reach out to
+  <%= ENV['LOCKBOX_EMAIL'] ? mail_to(ENV['LOCKBOX_EMAIL']) : "your organization's lockbox administrator." %>
 </p>
+
+<%= image_tag "oops.gif", width: "300", class: "error-page-img bottom-img" %>

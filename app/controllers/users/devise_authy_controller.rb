@@ -2,7 +2,7 @@ class Users::DeviseAuthyController < Devise::DeviseAuthyController
   layout "application"
 
   protected
-  
+
   def after_authy_enabled_path_for(resource)
   end
 

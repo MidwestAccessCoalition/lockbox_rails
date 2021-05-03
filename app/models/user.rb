@@ -6,16 +6,16 @@ class User < ApplicationRecord
 
   # all but :omniauthable
   devise(
-    :authy_authenticatable, 
+    :authy_authenticatable,
     :authy_lockable,
     :confirmable,
     :database_authenticatable,
-    :lockable, 
-    :recoverable, 
-    :registerable, 
+    :lockable,
+    :recoverable,
+    :registerable,
     :rememberable,
     :timeoutable,
-    :trackable, 
+    :trackable,
     :validatable,
   )
 

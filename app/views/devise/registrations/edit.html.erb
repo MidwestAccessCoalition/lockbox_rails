@@ -1,9 +1,29 @@
+<h2>Account Settings</h2>
+
+<% if resource.authy_enabled? %>
+  <div class="mfa-info">
+    <p>
+      <%= fa_icon "check-circle" %>
+      Your account is secured with MFA!
+    </p>
+    <%= link_to "Disable Multi-factor Authentication", user_disable_authy_path, { class: 'disable-mfa', method: :post} %>
+  </div>
+<% else %>
+  <div class="alert alert-warning">
+    <div>
+      <%= fa_icon "exclamation-triangle", class: 'alert-icon' %>
+    </div>
+    <div class="alert-content flex-grow-1">
+      <h4 class="alert-heading">Enable Multi-factor Authentication (MFA)</h4>
+      <p>Take action to secure your account with MFA!</p>
+    </div>
+    <%= link_to "Enable MFA", user_enable_authy_path, class: 'btn btn-warning alert-button', 'data-turbolinks': false %>
+  </div>
+<% end %>
+
+<h3>Update Password</h3>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form' }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div>
-    <h2>Update Password</h2>
-  </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>

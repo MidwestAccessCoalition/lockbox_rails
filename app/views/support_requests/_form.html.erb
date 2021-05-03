@@ -35,7 +35,7 @@
         <%= la.fields_for :lockbox_transactions do |lt| %>
           <%= render 'lockbox_transaction_fields', f: lt %>
         <% end %>
-        <div class="links">
+        <div>
           <%= link_to_add_association 'Add more values +', la, :lockbox_transactions  %>
         </div>
       </div>

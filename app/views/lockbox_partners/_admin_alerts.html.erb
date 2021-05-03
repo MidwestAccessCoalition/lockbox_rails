@@ -1,30 +1,31 @@
+<!-- Alerts from "_admin_alerts" -->
 <% if lockbox_partner.longstanding_pending_cash_addition? %>
-  <div class="alert alert-danger d-flex">
-    <div class="p-2">
-      <i class="fa fa-exclamation-circle alert-primary-icon" aria-hidden="true"></i>
-    </div>
-    <div class="p-2 flex-grow-1">
+  <div class="alert alert-compact alert-danger">
+    <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
+    <div class="alert-content">
       <div class="text-break"><%= lockbox_partner.name %> has not confirmed cash in <%= lockbox_partner.pending_cash_addition_age %> days. Please check in with them for confirmation.</div>
     </div>
   </div>
 <% end %>
+
 <% if lockbox_partner.low_balance? %>
-  <div class="alert alert-danger d-flex">
-    <div class="p-2">
-      <i class="fa fa-exclamation-circle alert-primary-icon" aria-hidden="true"></i>
-    </div>
-    <div class="p-2 flex-grow-1">
+  <div class="alert alert-compact alert-danger">
+    <i class="fa fa-exclamation-circle alert-icon" aria-hidden="true"></i>
+    <div class="alert-content">
       <div class="text-break"><%= lockbox_partner.name %>'s balance of $<%= lockbox_partner.balance %> is below $<%= LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE %>. Please replenish the funds.</div>
     </div>
   </div>
 <% end %>
+
 <% if lockbox_partner.recently_completed_first_cash_addition? %>
-  <div class="alert alert-success d-flex">
-    <div class="p-2">
-      <i class="fa fa-check-circle alert-primary-icon" aria-hidden="true"></i>
-    </div>
-    <div class="p-2 flex-grow-1">
-      <div class="text-break"><%= lockbox_partner.name %> has confirmed their cash is received, and you can now send them <%= link_to "Support Requests", new_lockbox_partner_support_request_path(lockbox_partner) %>.</div>
+  <div class="alert alert-compact alert-success">
+    <i class="fa fa-check-circle alert-icon" aria-hidden="true"></i>
+    <div class="alert-content">
+      <div class="text-break">
+        <%= lockbox_partner.name %>
+        has confirmed their cash is received, and you can now send them
+        <%= link_to "Support Requests", new_lockbox_partner_support_request_path(lockbox_partner) %>.
+      </div>
     </div>
   </div>
 <% end %>

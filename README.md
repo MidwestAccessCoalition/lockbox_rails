@@ -135,7 +135,23 @@ gem install mailcatcher
 bundle exec rails webpacker:install
 ```
 
-### Local Development
+#### Redis
+
+You'll need `redis` in order for `sidekiq` to work.
+
+```sh
+brew install redis
+brew services start redis
+```
+
+#### Ports in use
+
+* 3000: Rails server
+* 3035: Webpack server
+* 6379: Redis server
+* 1080: Mailcatcher (if applicable)
+
+## Working in the local dev environment
 
 ```sh
 yarn dev
@@ -158,35 +174,49 @@ bundle exec rails s # or `yarn run dev:rails`
 mailcatcher # This will run on localhost:1080
 ```
 
-#### Redis
-
-You'll need `redis` in order for `sidekiq` to work.
-
-```sh
-brew install redis
-brew services start redis
-```
-
-#### Ports in use
-
-* 3000: Rails server
-* 3035: Webpack server
-* 6379: Redis server
-* 1080: Mailcatcher (if applicable)
-
 ### Login
 
-#### Fund Admin
-
-Username: `cats@test.com`
+#### As a fund admin
+Username: `cats@test.com`  
 Password: `password1234`
 
-#### Lockbox Partner
-
-Username: `fluffy@catsclinic.com`
+#### As a lockbox partner
+Username: `fluffy@catsclinic.com`  
 Password: `heytherefancypants4321`
 
-### Security Scans
+### Working on MFA/Authy
+If you need to work on part of the MFA (Authy) workflow, you will need to add two
+env vars to your `config/local_env.yml` file:
+```yml
+AUTHY_MFA_ENABLED: 1
+AUTHY_API_KEY: You'll have to get this token from Nicole
+```
+
+If you don't have a `config/local_env.yml` file, see the `config/local_env.sample.yml`
+file for instructions on creating one. `config/local_env.yml` is not tracked by `git`, so it's
+safe to put secrets, API keys, and other credentials in it.
+
+You will have to ask Nicole (@bintLopez) for the API token (but note that this cannot
+be sent via email, text, or Slack for security reasons, so to receive it you will need some
+sort of secure method for sending messages e.g. LastPass, Signal, etc.).
+
+### Working on error pages
+By default, in development most errors result in a `better_errors` page response
+which provides a more advanced interface for troubleshooting (e.g. a stack trace, 
+global and local variables, a console scoped to the point that the error occurred).
+
+If you need to work on an error page, you will have to temporarily disable this
+functionality. To do so, open `config/environments/development.rb` and find the 
+following line
+```rb
+  config.consider_all_requests_local = true
+```
+and flip the `true` to `false`. This change won't take effect until the Rails server
+is restarted. 
+
+Be sure to revert this change before merging your PR.
+
+## Security Scans
 
 We use several automated scans to check for known vulnerabilities both in our code
 and our dependencies. To run all of the scans at one time:
@@ -205,7 +235,7 @@ Note that some of the scans can find issues that are not severe enough to be con
 and high level `warnings` that may need to be addressed to ensure the highest level
 of AppSec confidence.
 
-#### Brakeman
+### Brakeman
 
 We use Brakeman to check for security vulnerabilities in our project's codebase.
 Brakeman can also be run locally:
@@ -219,7 +249,7 @@ terminal to get more detailed output or to ignore for lower-level warnings, in w
 [Brakeman's usage options](https://github.com/presidentbeef/brakeman/blob/master/OPTIONS.md)
 may be useful.
 
-#### Bundler Audit
+### Bundler Audit
 
 We use `bundler-audit` to check for security vulnerabilities in our project's gem dependencies.
 This check runs in CircleCI and any output from the scan is saved in the Artifacts
@@ -232,7 +262,7 @@ yarn scan:bundler-audit
 Any non-critical vulnerabilities that cannot be fixed immediately can be temporarily
 ignored by adding the CVE ID to the root-level `.bundler-audit.ignore` file.
 
-#### `lockfile-check`
+### `lockfile-check`
 
 This is a custom script that ensures `yarn` and `bundle` have both been run
 successfully and that `npm i` has not also been run. To run locally:
@@ -241,7 +271,7 @@ successfully and that `npm i` has not also been run. To run locally:
 yarn scan:lockfiles
 ```
 
-#### Snyk
+### Snyk
 
 Snyk is simmilar to `bundler-audit` except that it checks our project's Javascript
 package dependencies for vulnerabilities. To run locally:

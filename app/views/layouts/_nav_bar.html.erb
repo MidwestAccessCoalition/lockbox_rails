@@ -7,6 +7,7 @@
         <span id="nav-title">Lockbox</span>
       </a>
     </h1>
+
     <% if current_user %>
       <button
         id="navbar-control"
@@ -19,24 +20,50 @@
         <%= fa_icon "times" %>
       </button>
     <% end %>
+
   </div>
   <!-- Navbar drawer -->
   <% if current_user %>
     <div id="navbar-drawer">
       <div class="container">
+
         <!-- Left container -->
         <div class="navbar-subcontainer">
           <% if current_user.admin? %>
             <h2><%= current_user.name %></h2>
-            <div class="links">
+            <div>
               <p>
                 <a href="mailto:<%= current_user.email %>">
                   <%= current_user.email %>
                 </a>
               </p>
+
+              <!-- Admin MFA line -->
+              <p class="mfa">
+                <% if current_user.authy_enabled? %>
+                  <%= fa_icon "check" %>
+                  <em>MFA authenticated</em>
+                <% else %>
+                  <%= fa_icon "exclamation-triangle" %>
+                  <em>
+                    <%= link_to 'Secure your account with MFA', user_enable_authy_path, 'data-turbolinks': false %>
+                  </em>
+                <% end %>
+                <i
+                  class="fa fa-info-circle tooltip-icon"
+                  tabindex="0"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  data-animation="false"
+                  title="MFA stands for multi-factor authentication. MFA is one
+                    of the best ways to secure your account because it protects
+                    your account even if somebody gets your password."
+                ></i>
+              </p>
+
             </div>
-            <%= link_to "Edit Profile", edit_user_path(current_user), class: "edit-contact-info btn btn-primary btn-invert" %>
-            <%= link_to "Admin Dashboard", admin_dashboard_path, class: "admin-dashboard btn btn-primary btn-white" %>
+            <%= link_to "Edit Profile", edit_user_path(current_user), class: "btn btn-primary btn-invert" %>
+            <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn btn-primary btn-white" %>
           <% elsif lp = current_user.lockbox_partner %>
             <h2><%= lp.name %></h2>
             <h3><%= current_user.name %></h3>
@@ -45,25 +72,49 @@
               <%= lp.city %>, <%= lp.state %> <%= lp.zip_code %><br>
               <%= lp.phone_number %>
             </p>
-            <div class="links">
-              <%= link_to "Edit Profile", edit_user_path(current_user), class: "edit-contact-info btn btn-primary btn-invert" %>
-              <%= link_to "Edit Contact Information", edit_lockbox_partner_path(lp), class: "edit-contact-info btn btn-primary btn-invert" %>
+
+            <!-- Non-admin MFA line -->
+            <p class="mfa">
+              <% if current_user.authy_enabled? %>
+                <%= fa_icon "check" %>
+                <em>MFA authenticated</em>
+              <% else %>
+                <%= fa_icon "exclamation-triangle" %>
+                <em>
+                  <%= link_to 'Secure your account with MFA', user_enable_authy_path, 'data-turbolinks': false %>
+                </em>
+              <% end %>
+              <i
+                class="fa fa-info-circle tooltip-icon"
+                tabindex="0"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                data-animation="false"
+                title="MFA stands for multi-factor authentication. MFA is one
+                  of the best ways to secure your account because it protects
+                  your account even if somebody gets your password."
+              ></i>
+            </p>
+
+            <div>
+              <%= link_to "Edit Profile", edit_user_path(current_user), class: "btn btn-primary btn-invert" %>
+              <%= link_to "Edit Contact Information", edit_lockbox_partner_path(lp), class: "btn btn-primary btn-invert" %>
             </div>
           <% end %>
         </div>
 
         <!-- Right container -->
-        <div class="navbar-subcontainer">
+        <div class="navbar-subcontainer right">
           <%= link_to(destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-white') do %>
             <span>Log Out</span>
           <% end %>
           <%= link_to(edit_user_registration_path, class: 'btn btn-primary btn-invert') do %>
-            <span>Update Password</span>
+            <span>Account Settings</span>
           <% end %>
 
-          <div class="links nav-item-right">
+          <div class="nav-item-right">
             <% if current_user.admin? %>
-              <p class="heading">Quick Actions</p>
+              <h5 class="heading">Quick Actions</h5>
               <p><a href="<%= lockbox_partners_path %>">View all lockboxes</a></p>
               <p><a href="<%= support_requests_new_path %>">File a support request</a></p>
               <% if @lockbox_partner && @lockbox_partner.persisted? %>
@@ -72,16 +123,17 @@
               <% end %>
               <p><a href="<%= new_lockbox_partner_path %>">Add a new lockbox partner</a></p>
               <p><a href="<%= support_requests_export_path(:format => "csv") %>">Financial Export</a></p>
+              <p><%= link_to "Get Support", support_path %></p>
+            <% else %>
+              <p><%= link_to "Get Support", support_path, class: 'btn btn-primary btn-invert' %></p>
             <% end %>
-            <p><%= link_to "Get Support", support_path %></p>
           </div>
         </div>
 
       </div>
     </div>
-  <% end %>
-</nav>
 
-<% if current_user %>
-  <%= javascript_pack_tag 'nav_bar', 'data-turbolinks-track': 'reload' %>
-<% end %>
+    <%= javascript_pack_tag 'nav_bar', 'data-turbolinks-track': 'reload' %>
+  <% end %>
+
+</nav>

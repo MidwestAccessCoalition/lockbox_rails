@@ -6,13 +6,21 @@ RSpec.describe "User Login Flow", type: :system do
 
   it 'a user can successfully log in' do
     visit "/users/sign_in"
-    assert_selector "h2", text: "Log in"
 
+    # Log in attempt with blank input
+    assert_selector "h2", text: "Log in"
+    fill_in "Email", with: ""
+    fill_in "Password", with: ""
+    click_button "Log in"
+
+    # Log in attempt with incorrect password
+    assert_selector "h2", text: "Log in"
     fill_in "Email", with: user.email
     fill_in "Password", with: "monkeybrains"
     click_button "Log in"
-    assert_selector "h2", text: "Log in"
 
+    # Successful log in with correct password
+    assert_selector "h2", text: "Log in"
     fill_in "Email", with: user.email
     fill_in "Password", with: 'g00seONtheLOO$E!'
     click_button "Log in"
@@ -55,9 +63,9 @@ RSpec.describe "User Login Flow", type: :system do
 
         fill_in "Email", with: user.email
         fill_in "Password", with: 'g00seONtheLOO$E!'
-        
+
         click_button "Log in"
-        assert_selector "h2", text: "Please enter your Authy token"
+        assert_selector "h2", text: "Authy token code"
       end
     end
 
@@ -74,3 +82,5 @@ RSpec.describe "User Login Flow", type: :system do
     end
   end
 end
+
+

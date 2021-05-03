@@ -3,7 +3,7 @@
   <% if current_user.admin? %>
     <%= render partial: 'lockbox_partners/back_to_dashboard', locals: {:alignment => 'right'} %>
   <% end %>
-  <span class="header-desktop">
+  <div class="header-desktop">
     <h2>
       <%= lockbox_partner.name %>
       <span class="float-right">
@@ -31,8 +31,9 @@
         <%= lockbox_partner.phone_number %>
       </p>
     </div>
-  </span>
-  <span class="header-mobile">
+
+  </div>
+  <div class="header-mobile">
     <div class="info-expander closed">
       <div class="info-expander-header">
         <h2>
@@ -52,6 +53,11 @@
         </p>
       </div>
     </div>
-  </span>
+  </div>
+
+  <% if current_user.admin? && !current_user.authy_enabled? %>
+    <%= render partial: 'lockbox_partners/admin_mfa_alert' %>
+  <% end %>
+
   <div class="horizontal-rule"></div>
 </div>

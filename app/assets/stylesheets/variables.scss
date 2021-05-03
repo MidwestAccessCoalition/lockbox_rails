@@ -6,7 +6,10 @@ $font-serif: 'Merriweather', $georgia !default;
 
 // COLORS
 $color-primary: #1E78BE;
-$color-primary-alert: #e1f3f8;
+$color-alert-primary: #e1f3f8;
+$color-alert-primary-border: #01bfe7;
+$color-alert-warning-border: #ffc107;
+$color-alert-danger-border: #dc3545;
 $darker-blue: #194180;
 $gray: #dee2e6;
 $medium-dark-gray: rgb(207,208,210);

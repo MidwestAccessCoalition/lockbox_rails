@@ -1,35 +1,108 @@
-.alert-primary-icon {
-  font-size: 2em;
-}
-
 #errors {
-  max-width: 600px;
   padding: 0;
 }
 
-@media only screen and (max-width: 500px) {
-  .center-button {
-    text-align: center;
-  }
-}
+.alert {
+  border: 0;
+  border-radius: 0;
+  display: flex;
+  line-height: 1.5;
+  margin: 20px 0;
+  padding: 0.5rem 0.5rem;
 
-.alert-header-and-link {
-  justify-content: space-between;
-  align-content: center;
-  .btn-warning {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  * {
+    color: $black;
   }
 
-  @media only screen and (min-width: 500px) {
-    display: flex;
-    .btn-warning {
-      margin: 0;
+  p {
+    margin-bottom: 0;
+  }
+
+  &.alert-danger {
+    border-left-color: $color-alert-danger-border;
+  }
+
+  &.alert-warning {
+    border-left-color: $color-alert-warning-border;
+  }
+
+  .alert-icon {
+    font-size: 2em;
+    position: absolute;
+    top: 0.875rem;
+    left: 0.875rem;
+  }
+
+  &.alert-compact {
+    border-left-width: 5px;
+    border-left-style: solid;
+    padding: 0.625rem;
+
+    .alert-icon {
+      font-size: 1.2rem;
+      top: 0.75rem;
+      left: 0.75rem;
     }
 
-    .max-width-75 {
-      max-width: 75%;
+    .alert-content {
+      margin-left: 2rem;
+    }
+
+    a,
+    a:visited {
+      color: $color-primary;
+    }
+  }
+
+  &.alert-dismissible {
+    border-left: 5px solid;
+
+    .close {
+      padding: 0.5rem 1.25rem;
+    }
+  }
+
+  &.alert-primary {
+    background-color: $color-alert-primary;
+    border-color: $color-alert-primary-border;
+  }
+
+  .alert-button {
+    align-self: center;
+    color: $white;
+    font-weight: 800;
+    height: fit-content;
+    margin-left: 0.62rem;
+    min-width: 9rem;
+
+    &.btn-warning {
+      color: $black;
+    }
+  }
+
+  .alert-content {
+    flex-grow: 1;
+    margin-left: 3rem;
+
+    .alert-heading {
+      font-family: $font-serif;
+      font-size: 1.125rem;
+      margin-bottom: 0;
+    }
+  }
+
+  @media screen and (max-width: 775px) {
+    flex-direction: column;
+    max-width: 450px;
+
+    &.alert-compact {
+      flex-direction: row;
+      max-width: 100%;
+    }
+
+    .alert-button {
+      align-self: inherit;
+      margin: 0.5rem 0 0 3rem;
     }
   }
 }
-

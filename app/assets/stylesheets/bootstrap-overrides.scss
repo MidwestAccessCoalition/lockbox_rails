@@ -13,7 +13,7 @@ h4,
 h5,
 h6 {
   font-family: $font-sans;
-  font-weight: bold;
+  font-weight: 800;
 }
 
 a {
@@ -43,35 +43,15 @@ a {
   border-right: solid 10px transparent;
 }
 
+.container {
+  padding: 0;
+}
+
 .table {
   margin-top: 20px;
   thead {
     background-color: $light-gray;
   }
-}
-
-.support-request-header {
-  .alert {
-    border-radius: 0;
-    border: 0;
-    margin: 20px 0;
-    padding: 0.25rem 0.75rem;
-  }
-
-  .alert-primary {
-    border-left: 5px solid #01bfe7;
-    background-color: $color-primary-alert;
-    color: black;
-    line-height: 2;
-  }
-
-  .alert-primary-icon {
-    font-size: x-large;
-  }
-}
-
-.alert {
-  margin-top: 1rem;
 }
 
 .tooltip > .tooltip-inner {

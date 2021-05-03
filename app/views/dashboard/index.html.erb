@@ -3,6 +3,7 @@
 <% elsif current_user.admin? %>
   <div id="dashboard-lockbox-partners">
     <%= render partial: 'lockbox_partners/dashboard_header' %>
+    <%= render partial: 'lockbox_partners/admin_mfa_alert' %>
     <%= render partial: 'lockbox_partners/admin_alerts', collection: @lockbox_partners, as: :lockbox_partner %>
     <p>
       <strong>Current View:</strong>

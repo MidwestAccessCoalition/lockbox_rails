@@ -17,9 +17,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+    @lockbox_partner = current_user.partner? ? current_user.lockbox_partner : nil
+  end
 
   # PUT /resource
   # def update

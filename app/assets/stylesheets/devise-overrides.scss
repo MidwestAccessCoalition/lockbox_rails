@@ -58,7 +58,28 @@ html, body {
   }
 }
 
-.account-creation-form-container {
-  padding-left: 20px;
-  padding-right: 20px;
+.error-page-heading {
+  text-align: left;
+}
+
+.error-page-img {
+  float: right;
+  margin-left: 20px;
+
+  &.bottom-img {
+    display: none;
+  }
+
+  @media screen and (max-width: $mobile-width) {
+    float: none;
+    margin-left: 0;
+
+    &.bottom-img {
+      display: block;
+    }
+
+    &.top-img {
+      display: none;
+    }
+  }
 }

@@ -23,6 +23,7 @@ header {
 
     p {
       font-family: $font-serif;
+      margin-bottom: 5px;
     }
 
     a,
@@ -34,6 +35,15 @@ header {
 
     a:hover {
       color: darken($white, 10%);
+    }
+
+    .mfa em {
+      font-family: $font-serif;
+      margin-right: 5px;
+
+      a {
+        font-family: $font-serif;
+      }
     }
   }
 
@@ -58,11 +68,15 @@ header {
 
   .btn {
     display: block;
-    border: 2px solid $color-primary;
+    border: 2px solid $white;
     background: $white;
     color: $color-primary;
     width: 200px;
     margin-bottom: 20px;
+
+    &:hover {
+      border: 2px solid $white;
+    }
   }
 
   .btn-white:hover {
@@ -75,16 +89,6 @@ header {
     background: $color-primary;
     color: $white;
     border: 2px solid $white;
-  }
-
-  nav a.edit-contact-info {
-    display: inline-block;
-    width: auto;
-    padding: 0.25em 2em;
-
-    &:hover {
-      color: $color-primary;
-    }
   }
 
   #navbar-drawer {
@@ -116,17 +120,28 @@ header {
   }
 }
 
-nav a {
-  &.edit-contact-info, &.admin-dashboard {
-    float: none;
-    display: inline-block;
-    width: auto;
-    margin: 1em 0;
-    font-size: 0.75em;
-    padding: 0.25em 2em;
+.fa-cog {
+  font-size: 1.5em;
+}
+
+.navbar-subcontainer {
+  margin-right: 20px;
+
+  .mfa {
+    margin-bottom: 20px;
+  }
+
+  a:not(.btn) {
+      color: $white;
   }
 }
 
-.fa-cog {
-  font-size: 1.5em;
+.nav-item-right {
+  p {
+    margin-bottom: 5px;
+  }
+  a:not(.btn) {
+    font-size: 0.9rem;
+    color: $white;
+  }
 }

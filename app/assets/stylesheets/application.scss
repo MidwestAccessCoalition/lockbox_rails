@@ -18,11 +18,10 @@
 @import 'datatables.net-bs4/css/dataTables.bootstrap4.min';
 @import 'font-awesome';
 
-// VARIABLES
 @import 'variables';
 @import 'bootstrap-overrides';
+@import 'devise_authy';
 @import 'devise-overrides';
-
 
 @import 'admin_dashboard';
 @import 'alert';
