@@ -1,5 +1,10 @@
+# Copy the contents of this file into a new file "config/local_env.yml"
+# and use it to store environment variables. Since some of those may
+# include credentials, config/local_env.yml is ignored by git
+
 'LOW_BALANCE_ALERT_EMAIL': "recipient@alerts.com"
 'LOCKBOX_ADMIN_FAQ_LINK': "http://www.example.com/admin_faq"
 'LOCKBOX_EMAIL': "kittens@lockbox-example.com"
 'LOCKBOX_PARTNER_FAQ_LINK': "http://www.example.com/partner_faq"
 'REPLY_TO_EMAIL': "no-reply@lockbox-example.com"
+'AUTHY_API_KEY': "some-token"
