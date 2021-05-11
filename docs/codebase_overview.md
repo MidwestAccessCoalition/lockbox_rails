@@ -7,7 +7,7 @@ Typically, there will be tickets with the label `good first issue`. If there are
 
 ## Rails Overview
 ### Setup and first steps
-Getting started with Rails: [the Official Documentation™](https://guides.rubyonrails.org/getting_started.html).
+Getting started with Rails: [the Official Documentation](https://guides.rubyonrails.org/getting_started.html).
 
 A non-profit educational organization called RailsBridge has a really good [first-time environment setup tutorial](https://docs.railsbridge.org/installfest). This can help to supplement the install instructions in our [`README`](../README.md) in case you get stuck. But also, don't hesitate to contact us for help with local env setup.
 
@@ -17,13 +17,12 @@ RailsBridge's intro to Rails tutorial called `Suggestotron` is also quite good: 
 
 If you get stuck at any point of the install process, ping Scott or Nicole on Slack or by email, or create an issue on this Github repo. 
 
-### The Rails Way™
+### The Rails Way
 Rails has two major principles:
 * **Don't Repeat Yourself (aka DRY)**  
 When you can re-use code, you should re-use code. Writing DRY code makes the codebase more maintainable, more extensible, and less buggy.
 * **Convention** Over **Configuration (or, Rails is Opinionated)**  
-This just means that rather than manually configuring every little detail, Rails generates a lot of boilerplate code with reasonable defaults. It also means that when developing in Rails, there is usually a right way and a not-so-right way to do things. Learning `The Rails Way™` of doing things will make your life easier, happier, and more fulfilling.  
-That said, there are ways of manually configuring nearly everything, but if you find yourself doing this a lot, you're probably not doing it The Rails Way™ and should re-evaluate some of your life choices.
+This just means that rather than manually configuring every little detail, Rails generates a lot of boilerplate code with reasonable defaults. It also means that when developing in Rails, there is usually a preferred way of doing things. If you find yourself fighting the framework while trying to do something, it can be a sign that there's an easier, built-in way of doing things.
 
 ### MVC Architecture
 Rails is an MVC (model-view-controller) framework for web development.
@@ -37,6 +36,13 @@ E.g. the `CatsController` found at `app/controllers/cats_controller.rb` would co
 * **View** this is the presentational code that gets processed to create the code returned to the frontend and displayed in the browser. (This is usually `HTML`, but can be other formats such as `JSON`.)  
 E.g. navigating to `https://my-rails-app.com/cats.html` would return an `HTML` page with a list of all `Cat` objects in the DB, possibly formatted and styled as a `<ul>` or a `<table>`. The view file would be found at `app/views/cats/index.html`). There are several different templating languages that can be used to minimize the amount of raw `HTML` that has to be written. By default, Rails uses `ERB` (aka embedded Ruby) in new projects, and this is what we use in the Lockbox App.  
 Views set in controller actions are often just a small part of the total response body sent to the browser. Views are typically contained within `layouts` (see the `app/views/layouts/` directory) which can be set in controllers at the top-level to apply to all of that controller's actions, or within each action individually. Layouts and views may be nested, though nested views are often referred to as `partials` and have slightly different invoking methods and naming conventions (the filename has a leading underscore, e.g. `app/views/cats/_cat_description.html.erb`). The primary use case for `partials` is to "DRY (Don't Repeat Yourself) up" your views by extracting `HTML` snippets to be reused in several different views. So you might have an `HTML` snippet the displays the details of a cat object. Then you can place this into a `_cat_details.html.erb` partial that can then be included in your `app/views/cats/show.html.erb` file for relaying details of one cat, but also use it in a loop in your `app/views/cats/index.html.erb` file to iteratively display the details of all the cats.
+
+To see Rails boilerplate and defaults in action, check out a branch locally and run the command `bundle exec rails g scaffold Cat name:string age:integer`. What this command does is create boilerplate Model-View-Controller code for the new `Cat` model you'd like to add.
+- Notice the console output the command generates.
+- What files get created? Peruse the contents of those files.
+- Notice the namimg conventions.
+- Run the command `bundle exec rake db:migrate` to add your new cats table to the database
+- Boot up the app with `bundle exec rails s`, log in using the [default dummy credentials]() and nagivate to localhost:3000/cats
 
 ### DB
 #### Schema
