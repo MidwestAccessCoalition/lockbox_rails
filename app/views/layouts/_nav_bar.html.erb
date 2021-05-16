@@ -46,7 +46,6 @@
               <%= lp.phone_number %>
             </p>
             <div class="links">
-              <%= link_to "Edit Profile", edit_user_path(current_user), class: "edit-contact-info btn btn-primary btn-invert" %>
               <%= link_to "Edit Contact Information", edit_lockbox_partner_path(lp), class: "edit-contact-info btn btn-primary btn-invert" %>
             </div>
           <% end %>
@@ -58,7 +57,7 @@
             <span>Log Out</span>
           <% end %>
           <%= link_to(edit_user_registration_path, class: 'btn btn-primary btn-invert') do %>
-            <span>Update Password</span>
+            <span>Account setting</span>
           <% end %>
 
           <div class="links nav-item-right">
