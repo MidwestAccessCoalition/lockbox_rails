@@ -3,6 +3,7 @@ require './lib/add_cash_to_lockbox'
 
 describe AddCashToLockbox do
   let(:lockbox_partner) { FactoryBot.create(:lockbox_partner, :with_active_user) }
+  let!(:locked_user) { create(:user, role: "partner", lockbox_partner: lockbox_partner, locked_at: Time.now) }
   let(:eff_date) { 1.day.from_now.to_date }
   let(:params) do
     {
@@ -44,11 +45,12 @@ describe AddCashToLockbox do
       expect{add_cash}.to change(TrackingInfo, :count).by(0)
     end
 
-    it "emails the lockbox partner's users" do
+    it "emails the lockbox partner's active users" do
       expect{ add_cash }.to change{ ActionMailer::Base.deliveries.count }.by(1)
       mail = ActionMailer::Base.deliveries.last
       expect(mail.subject).to eq('Incoming Lockbox Cash in the Mail')
       expect(mail.body).to include(amount)
+      expect(mail.to.to_s).not_to include(locked_user.email)
     end
 
     it "succeeds" do
