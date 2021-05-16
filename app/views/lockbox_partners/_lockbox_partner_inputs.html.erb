@@ -55,5 +55,5 @@
     class: 'form-control d-none',
     required: true
   %>
-  <input id="minimum-acceptable-balance-formatted" type="number" class="form-control" value="" min="100" max="1000"/>
+  <%= number_field_tag "minimum-acceptable-balance-formatted", "", class: "form-control", in: LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE_RANGE %>
 </div>
