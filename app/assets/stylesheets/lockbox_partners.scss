@@ -8,7 +8,7 @@
     .header-desktop { display: block; }
     .header-mobile { display: none; }
   }
-  
+
   .tooltip-icon {
     color: $color-primary;
     font-size: 0.6em;
@@ -23,7 +23,7 @@
   }
 }
 
-.lockbox-partner-buttons {
+.lockbox-partner-buttons, .lockbox-partner-header-info {
   display: flex;
   justify-content: space-between;
 }

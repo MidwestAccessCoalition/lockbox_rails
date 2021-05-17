@@ -48,3 +48,12 @@
     class: 'form-control'
   %>
 </div>
+<div class="form-group">
+  <%= f.label :minimum_acceptable_balance %>
+  <p class="help-text">When the lockbox balance reaches this amount, notifications will be sent to the lockbox finance team and coordinators to send out more money.</p>
+  <%= f.text_field :minimum_acceptable_balance,
+    class: 'form-control d-none',
+    required: true
+  %>
+  <%= number_field_tag "minimum-acceptable-balance-formatted", "", class: "form-control", in: LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE_RANGE %>
+</div>

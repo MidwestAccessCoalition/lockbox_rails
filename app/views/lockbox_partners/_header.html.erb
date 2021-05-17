@@ -4,32 +4,43 @@
     <%= render partial: 'lockbox_partners/back_to_dashboard', locals: {:alignment => 'right'} %>
   <% end %>
   <span class="header-desktop">
-    <h2>
-      <%= lockbox_partner.name %>
-      <span class="float-right">
-        <i
-          class="fa fa-info-circle tooltip-icon"
-          tabindex="0"
-          data-toggle="tooltip"
-          data-placement="bottom"
-          data-animation="false"
-          title="The balance here includes all cash in the partner lockbox, minus any Pending Support Requests."
-        >
-        </i>
-        $<%= lockbox_partner.balance %>
-      </span>
-    </h2>
-    <div class="lockbox-partner-info">
-      <p class="address">
-        <% if lockbox_partner.street_address %>
-          <%= lockbox_partner.street_address %>
-          <br>
+    <div class="lockbox-partner-header-info">
+      <div>
+        <h2>
+          <%= lockbox_partner.name %>
+        </h2>
+        <div class="lockbox-partner-info">
+          <p class="address">
+            <% if lockbox_partner.street_address %>
+              <%= lockbox_partner.street_address %>
+              <br>
+            <% end %>
+            <%= lockbox_partner.city %>, <%= lockbox_partner.state %> <%= lockbox_partner.zip_code %>
+          </p>
+          <p class="phone_number">
+            <%= lockbox_partner.phone_number %>
+          </p>
+        </div>
+      </div>
+      <span>
+        <h2>
+          <i
+            class="fa fa-info-circle tooltip-icon"
+            tabindex="0"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            data-animation="false"
+            title="The balance here includes all cash in the partner lockbox, minus any Pending Support Requests."
+          >
+          </i>
+          $<%= lockbox_partner.balance %>
+        </h2>
+        <div>Low balance alert:</div>
+        <%= link_to edit_lockbox_partner_path(lockbox_partner) do %>
+          <%= "$#{lockbox_partner.minimum_acceptable_balance_formatted}" %>
+          <i class="fa fa-edit" aria-hidden="true"></i>
         <% end %>
-        <%= lockbox_partner.city %>, <%= lockbox_partner.state %> <%= lockbox_partner.zip_code %>
-      </p>
-      <p class="phone_number">
-        <%= lockbox_partner.phone_number %>
-      </p>
+      </span>
     </div>
   </span>
   <span class="header-mobile">
