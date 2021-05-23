@@ -16,8 +16,8 @@ Rails.application.config.content_security_policy do |policy|
   policy.frame_ancestors :none
   policy.img_src         :self, 'https://*.amazonaws.com' # Whitelist amazonaws to support the Sqreen image
   policy.object_src      :none
-  policy.script_src      :self
-  policy.style_src       :self, :unsafe_inline, 'https://fonts.googleapis.com'
+  policy.script_src      :self, 'https://www.authy.com'
+  policy.style_src       :self, :unsafe_inline, 'https://fonts.googleapis.com', 'https://www.authy.com'
   policy.worker_src      :self
   # If you are using webpack-dev-server then specify webpack-dev-server host
   policy.connect_src     :self, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?

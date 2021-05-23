@@ -47,7 +47,7 @@ class LockboxPartnersController < ApplicationController
   def lockbox_params
     params.require(:lockbox_partner)
           .permit(:name, :phone_number, :phone_ext, :street_address,
-                  :city, :state, :zip_code)
+                  :city, :state, :zip_code, :minimum_acceptable_balance)
   end
 
   def set_lockbox_partner
