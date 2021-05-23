@@ -53,6 +53,9 @@ Rails.application.routes.draw do
 
   resources :lockbox_actions, only: [:update]
 
+  get 'privacy-policy' => 'pages#privacy_policy'
+  get 'terms-of-service' => 'pages#terms_of_service'
+
   match '/404', to: "errors#not_found", via: :all
   match '/500', to: "errors#internal_server_error", via: :all
 end

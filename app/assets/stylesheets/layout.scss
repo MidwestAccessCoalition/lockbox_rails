@@ -57,3 +57,16 @@ footer {
     display: none;
   }
 }
+
+.footer {
+  background-color: #ecebeb;
+  padding-bottom: 16px;
+}
+
+ol {
+  counter-reset: item;
+  padding-left: 0;
+  padding-right: 0
+}
+li { display: block }
+li:before { content: counters(item, ".") ". "; counter-increment: item }
