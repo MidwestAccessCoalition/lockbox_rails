@@ -57,3 +57,21 @@ footer {
     display: none;
   }
 }
+
+.footer {
+  background-color: #ecebeb;
+  padding-bottom: 16px;
+}
+
+ol {
+  list-style-position: outside;
+  counter-reset: item;
+  padding-left: 0;
+}
+li {
+  list-style-position: outside;
+  display: block;
+  padding-bottom: 16px;
+}
+
+li:before { content: counters(item, ".") ".  "; counter-increment: item }
