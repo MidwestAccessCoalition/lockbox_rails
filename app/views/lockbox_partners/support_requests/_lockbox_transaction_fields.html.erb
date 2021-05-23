@@ -1,5 +1,5 @@
 <% gas_select_name = LockboxTransaction::GAS_SELECT_NAME %>
-<div class="<%= 'nested-fields row' + (f.object.category == gas_select_name ? ' mileage-row' : '') %>">
+<div class="<%= class_names('nested-fields', 'row', { 'mileage-row' => f.object.category == gas_select_name }) %>">
   <div class="field form-group col" >
     <%= f.label :category, 'Support Type' %>
     <%= f.select :category,
