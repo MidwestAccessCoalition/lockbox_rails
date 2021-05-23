@@ -14,7 +14,8 @@ RSpec.describe "Support Request Actions", type: :system do
         eff_date: Date.current,
         lockbox_transactions_attributes:
         {
-          "0":{ amount: "50", category: LockboxTransaction::PRESCRIPTIONS }
+          "0":{ amount: "50", category: LockboxTransaction::PRESCRIPTIONS },
+          "1":{ amount: "4.40", distance: 22, category: LockboxTransaction::GAS_REIMBURSEMENTS }
         }
       }
     }
@@ -29,7 +30,6 @@ RSpec.describe "Support Request Actions", type: :system do
     visit "/lockbox_partners/#{lockbox_partner.id}/support_requests/#{support_request.id}"
     assert_selector "h3", text: "Support Request for Leafy Greens"
     click_button "Add Note"
-
     fill_in "note_text", with: "Here's some fine & fancy note text!"
     sleep(1)
     # Sleep for 1 second to avoid a race condition in slower environments (e.g., CircleCI)
@@ -63,11 +63,21 @@ RSpec.describe "Support Request Actions", type: :system do
     visit "/lockbox_partners/#{lockbox_partner.id}/support_requests/#{support_request.id}"
     click_link "Edit Support Request"
     click_link "Add more values +"
-    all("option[value='childcare_reimbursements']")[1].click
+    all("option[value='childcare_reimbursements']")[2].click
     page.all(:fillable_field, 'Amount').last.set 10
     click_button "Submit"
     sleep(1)
     expect(support_request.reload.lockbox_action.lockbox_transactions.count).to eq(transaction_count + 1)
     assert_selector "div.support-request-details", text: "10.00 for childcare"
+  end
+
+  it "successfully edit a gas reinbursement of a support request" do
+    visit "/lockbox_partners/#{lockbox_partner.id}/support_requests/#{support_request.id}"
+    click_link "Edit Support Request"
+    page.assert_selector('.mileage-row', visible: true)
+    page.all(:fillable_field, 'Mileage').last.set 23
+    click_button "Submit"
+    sleep(1)
+    assert_selector "div.support-request-details", text: "4.60 for gas reimbursements"
   end
 end
