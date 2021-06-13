@@ -4,6 +4,9 @@ The MAC lockbox is a system for tracking MAC cash at partners across the Midwest
 For a detailed list of app functionality, see
 [docs/roadmap.md](https://github.com/MidwestAccessCoalition/lockbox_rails/blob/master/docs/roadmap.md)
 
+For new developers working on the project, see the [codebase overview doc](docs/codebase_overview.md)
+to help get you started.
+
 ## Local Dev Environment
 
 ### Requirements
@@ -116,7 +119,7 @@ Setup DB:
 
 ```sh
 # From project root:
-bundle exec rake db:setup # runs `rake db:create db:schema:load db:seed
+bundle exec rails db:setup # runs `rake db:create db:schema:load db:seed
 ```
 
 _If you have issues at this step, see this [PostgreSQL Setup](https://github.com/MidwestAccessCoalition/jane_point_oh/blob/master/docs/db_setup.md) doc. But while going through it, wherever you see the string `admin_app`, replace it with `lockbox_rails`. (This includes instances like `admin_app_development` => `lockbox_rails_development`.)_
