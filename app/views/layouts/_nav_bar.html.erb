@@ -35,7 +35,9 @@
                 </a>
               </p>
             </div>
-            <%= link_to "Edit Profile", edit_user_path(current_user), class: "edit-contact-info btn btn-primary btn-invert" %>
+            <%= link_to(edit_user_registration_path, class: "edit-contact-info btn btn-primary btn-invert") do %>
+              <span>Edit Account setting</span>
+            <% end %>
             <%= link_to "Admin Dashboard", admin_dashboard_path, class: "admin-dashboard btn btn-primary btn-white" %>
           <% elsif lp = current_user.lockbox_partner %>
             <h2><%= lp.name %></h2>
@@ -46,7 +48,6 @@
               <%= lp.phone_number %>
             </p>
             <div class="links">
-              <%= link_to "Edit Profile", edit_user_path(current_user), class: "edit-contact-info btn btn-primary btn-invert" %>
               <%= link_to "Edit Contact Information", edit_lockbox_partner_path(lp), class: "edit-contact-info btn btn-primary btn-invert" %>
             </div>
           <% end %>
@@ -54,13 +55,15 @@
 
         <!-- Right container -->
         <div class="navbar-subcontainer">
+        
           <%= link_to(destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-white') do %>
             <span>Log Out</span>
           <% end %>
-          <%= link_to(edit_user_registration_path, class: 'btn btn-primary btn-invert') do %>
-            <span>Update Password</span>
+          <% if lp = current_user.lockbox_partner %>
+            <%= link_to(edit_user_registration_path, class: "btn btn-primary btn-invert") do %>
+              <span>Edit Account setting</span>
           <% end %>
-
+          <% end %>
           <div class="links nav-item-right">
             <% if current_user.admin? %>
               <p class="heading">Quick Actions</p>
