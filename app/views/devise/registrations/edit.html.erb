@@ -1,5 +1,6 @@
 <div class="container">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form' }) do |f| %> 
+    <%= render "devise/shared/error_messages", resource: resource %>
     <div>
       <h2>Update Password</h2>
     </div>
@@ -33,19 +34,6 @@
   <% end %>
 
   <%= form_for @user, html: { class: 'form' } do |f| %>
-    <% if @user.errors.any? %>
-      <div id="error_explanation">
-        <h2>
-          <%= @user.errors.count %> error(s) prohibited this user from being saved:
-        </h2>
-        <ul>
-          <% @user.errors.full_messages.each do |error_message| %>
-            <li><%= error_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
     <h2>Update User</h2>
     <div class="form-group">
       <%= f.label :name %>
