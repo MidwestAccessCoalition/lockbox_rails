@@ -3,6 +3,19 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+
+  # ==> Devise Authy Authentication Extension
+  # How long should the user's device be remembered for.
+  config.authy_remember_device = 1.month
+
+  # Allows TOTP notification flow aka Authy OneTouch
+  # Note: must be enabled in Twilio console
+  config.authy_enable_onetouch = true
+
+  # Enables QR codes for other authenticator apps
+  # Note: must be enabled in Twilio console
+  config.authy_enable_qr_code = true
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
