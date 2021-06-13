@@ -14,7 +14,9 @@ describe LockboxPartnerMailer, type: :mailer do
         .deliver_now
     end
 
-    let(:admin) { FactoryBot.create(:user) }
+    let!(:admin) { FactoryBot.create(:user) }
+
+    let!(:locked_admin) { FactoryBot.create(:user, locked_at: Time.now) }
 
     before do
       allow(ENV)
@@ -34,8 +36,9 @@ describe LockboxPartnerMailer, type: :mailer do
       expect(email.to).to eq([low_balance_alert_email, lockbox_email])
     end
 
-    it "ccs the admins" do
-      expect(admin.email).to eq(User.get_admin_emails)
+    it "ccs the active admin emails" do
+      expect(User.admin.count).to eq(2)
+      expect(admin.email).to eq(User.get_active_admin_emails)
       expect(email.cc).to eq([admin.email])
     end
 
