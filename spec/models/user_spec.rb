@@ -68,4 +68,19 @@ describe User, type: :model do
       it { is_expected.to eq('Lock Account') }
     end
   end
+
+  describe "scopes" do
+    let(:locked_user) { FactoryBot.create(:user, locked_at: Time.current) }
+    let(:active_user) { FactoryBot.create(:user) }
+    let(:unconfirmed_user) { FactoryBot.create(:user, confirmed_at: nil) }
+
+    context 'when user is confirmed and not locked' do
+      it "is active" do
+        active_users = User.active
+        expect(active_users).to include(active_user)
+        expect(active_users).to_not include(locked_user)
+        expect(active_users).to_not include(unconfirmed_user)
+      end
+    end
+  end
 end

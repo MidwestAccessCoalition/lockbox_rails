@@ -33,6 +33,7 @@ class LockboxTransaction < ApplicationRecord
     PROCEDURES                  = 'procedures',
   ].freeze
 
+  GAS_SELECT_NAME = 'gas_reimbursements'.freeze
   INTERNAL_EXPENSE_CATEGORIES = [
     # Used for internal Lockbox purposes
     ADJUSTMENT    = 'adjustment',

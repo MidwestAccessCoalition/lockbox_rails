@@ -33,6 +33,9 @@ dump.rdb
 yarn-debug.log*
 .yarn-integrity
 
+/config/local_env.yml
+
 .env
 coverage
 .vscode
+.DS_Store

@@ -30,3 +30,30 @@ footer {
     margin: 20px auto;
   }
 }
+
+#gif {
+  width: 370px;
+}
+
+@media screen and (max-width: 800px) {
+  #login-container {
+    flex-direction: column;
+
+    .container {
+      margin: 0;
+    }
+
+    #gif-container {
+      text-align: center;
+      #gif {
+        width: 300px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #gif-container {
+    display: none;
+  }
+}

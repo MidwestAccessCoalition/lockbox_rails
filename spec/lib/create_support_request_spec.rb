@@ -175,7 +175,7 @@ describe CreateSupportRequest do
     end
 
     before do
-      AddCashToLockbox.call!(lockbox_partner: low_balance_lockbox_partner, eff_date: 1.day.ago, amount: LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE).complete!
+      AddCashToLockbox.call!(lockbox_partner: low_balance_lockbox_partner, eff_date: 1.day.ago, amount: lockbox_partner.minimum_acceptable_balance_formatted).complete!
     end
 
     it 'goes to the finance team when balance is below $300' do
@@ -186,7 +186,7 @@ describe CreateSupportRequest do
         drain_queues
       }.to change{ActionMailer::Base.deliveries.length}.by(3)
 
-      expected_dollar_value = (LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE - Money.new(100)).to_s
+      expected_dollar_value = (lockbox_partner.minimum_acceptable_balance_formatted - Money.new(100)).to_s
 
       emails = ActionMailer::Base.deliveries.last(3)
       mail = emails.detect {|e| e.subject.include?('[LOW LOCKBOX BALANCE]') }
@@ -210,7 +210,7 @@ describe CreateSupportRequest do
     it 'is not sent when the balance remains above $300' do
       stub_const('ENV', ENV.to_hash.merge('LOW_BALANCE_ALERT_EMAIL' => 'lowbalance@alert.com'))
 
-      AddCashToLockbox.call!(lockbox_partner: lockbox_partner, eff_date: 1.day.ago, amount: LockboxPartner::MINIMUM_ACCEPTABLE_BALANCE + Money.new(15000)).complete!
+      AddCashToLockbox.call!(lockbox_partner: lockbox_partner, eff_date: 1.day.ago, amount: lockbox_partner.minimum_acceptable_balance_formatted + Money.new(15000)).complete!
 
       params[:lockbox_action_attributes][:lockbox_transactions_attributes]["0"][:amount] = 100
       expect {

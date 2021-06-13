@@ -1,4 +1,6 @@
 class LockboxPartner < ApplicationRecord
+  after_initialize :set_defaults
+
   has_many :users
   has_many :lockbox_actions
   has_many :support_requests, dependent: :destroy
@@ -16,6 +18,7 @@ class LockboxPartner < ApplicationRecord
   RECONCILIATION_INTERVAL = 30
   DAYS_UNTIL_OVERDUE_RECONCILIATION_NOTIFICATION = 7
   MINIMUM_ACCEPTABLE_BALANCE = Money.new(50000) # $500
+  MINIMUM_ACCEPTABLE_BALANCE_RANGE = 100..1000
   THRESHOLD_FOR_RECENT_INITIAL_CASH_ADDITION_IN_HOURS = 48
   THRESHOLD_LONGSTANDING_CASH_ADDITION_IN_DAYS = 3
   ZERO_BALANCE = Money.new(0)
@@ -26,6 +29,10 @@ class LockboxPartner < ApplicationRecord
   scope :with_initial_cash, -> do
     # returns partners that have had cash successfully added at least once
     includes(:lockbox_actions).merge(LockboxAction.completed_cash_additions).references(:lockbox_actions)
+  end
+
+  def set_defaults
+    self.minimum_acceptable_balance ||= MINIMUM_ACCEPTABLE_BALANCE.cents
   end
 
   def pending_support_requests
@@ -44,8 +51,12 @@ class LockboxPartner < ApplicationRecord
     end
   end
 
+  def minimum_acceptable_balance_formatted
+    Money.new(minimum_acceptable_balance)
+  end
+
   def low_balance?
-    balance < MINIMUM_ACCEPTABLE_BALANCE
+    balance.cents < minimum_acceptable_balance
   end
 
   def insufficient_funds?

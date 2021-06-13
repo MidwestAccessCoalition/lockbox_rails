@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'rails', '~> 6.1', '>= 6.1.3.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -28,7 +28,10 @@ gem 'jbuilder', '~> 2.9', '>= 2.9.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '~> 1.4', '>= 1.4.5'
 
+# Authentication and MFA
 gem 'devise', '~> 4.7', '>= 4.7.1'
+gem 'devise-authy', '~> 2.2', '>= 2.2.1'
+
 gem 'font-awesome-rails', '>= 4.7.0.5'
 gem 'font_assets', '>= 0.1.14'
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
@@ -67,11 +70,11 @@ group :development, :test do
 
   # RSpec & testing gems!
   gem 'rspec-rails', '~> 4.0.0.0'
-  gem 'rspec', github: 'rspec/rspec', branch: 'master'
-  gem 'rspec-core', github: 'rspec/rspec-core', branch: 'master'
-  gem 'rspec-mocks', github: 'rspec/rspec-mocks', branch: 'master'
-  gem 'rspec-expectations', github: 'rspec/rspec-expectations', branch: 'master'
-  gem 'rspec-support', github: 'rspec/rspec-support', branch: 'master'
+  gem 'rspec', github: 'rspec/rspec', branch: 'main'
+  gem 'rspec-core', github: 'rspec/rspec-core', branch: 'main'
+  gem 'rspec-mocks', github: 'rspec/rspec-mocks', branch: 'main'
+  gem 'rspec-expectations', github: 'rspec/rspec-expectations', branch: 'main'
+  gem 'rspec-support', github: 'rspec/rspec-support', branch: 'main'
   gem 'rails-controller-testing', '>= 1.0.4'
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
   # Test data generation
