@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   belongs_to :lockbox_partner, optional: true
+  belongs_to :organization, optional: true
   has_many :support_requests
   has_many :invitees, class_name: "User", foreign_key: 'invited_by_id'
   belongs_to :inviter, class_name: "User",  optional: true, foreign_key: 'invited_by_id'
