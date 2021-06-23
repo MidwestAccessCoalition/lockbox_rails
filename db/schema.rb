@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_223939) do
+ActiveRecord::Schema.define(version: 2021_06_23_010412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,16 @@ ActiveRecord::Schema.define(version: 2021_01_17_223939) do
     t.boolean "may_contain_pii", default: false
     t.index ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "street_address"
+    t.string "city"
+    t.string "zip_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "support_requests", force: :cascade do |t|
