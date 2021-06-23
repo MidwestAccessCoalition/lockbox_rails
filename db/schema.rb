@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_011948) do
+ActiveRecord::Schema.define(version: 2021_06_23_013524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,16 @@ ActiveRecord::Schema.define(version: 2021_06_23_011948) do
     t.string "zip_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "piggybanks", force: :cascade do |t|
+    t.string "name"
+    t.integer "minimum_acceptable_balance_cents"
+    t.bigint "owner_id"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_piggybanks_on_owner_id"
   end
 
   create_table "support_requests", force: :cascade do |t|
