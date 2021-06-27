@@ -1,15 +1,16 @@
 <div class="lockbox-partner container clearfix">
-  <div>
+  <div class="px-3">
     <p>
       <strong><%= lockbox_partner.city %></strong>
     </p>
   </div>
-  <h3>
+  
+  <h3 class="<%= alert_display_header_class(lockbox_partner) %> px-3">
     <%= lockbox_partner.name %><span class="float-right">$<%= lockbox_partner.balance %></span>
   </h3>
-
-  <div class="lockbox-activity">
-    <table class="table table-no-border">
+  
+  <div class="lockbox-activity mx-3">
+    <table class="table table-no-border <%= display_table_top_border(lockbox_partner) %>">
       <tbody>
         <% lockbox_partner.historical_actions.order(:eff_date).last(3).each do |action| %>
           <% support_request_class = action.support_request ? 'support-request ' : '' %>
