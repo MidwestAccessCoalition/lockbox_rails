@@ -70,6 +70,22 @@ Rails.application.configure do
     :password => ENV['MG_PASSWORD']
   }
 
+  # # CONFIG FOR MAILTRAP
+  # # To setup, we'd probably want to make the env vars more generic (like SMTP_*
+  # # rather than MG_*). Port can stay the same as it's a valid port for mailtrap,
+  # # but address would also need to be an env var; not sure if :plain is a valid
+  # # auth type for mailtrap.
+  # # Values for these live at mailtrap.io/inboxes/:id/messages.
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   :address => ENV['MG_ADDRESS'],
+  #   :domain => ENV['MG_DOMAIN'],
+  #   :port => 587,
+  #   :user_name => ENV['MG_USERNAME'],
+  #   :password => ENV['MG_PASSWORD']
+  #   :authentication => :cram_md5 ???
+  # }
+
   config.action_mailer.default_url_options = { :host => ENV['HOST'] }
   config.action_mailer.asset_host = ENV['HOST']
   config.action_controller.asset_host = ENV['HOST']
