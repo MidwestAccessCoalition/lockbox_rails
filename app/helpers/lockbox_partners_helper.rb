@@ -11,4 +11,14 @@ module LockboxPartnersHelper
     end
     (icon_html + " " + status.capitalize).html_safe
   end
+
+  def alert_display_header_class(lockbox_partner)
+    return unless lockbox_partner.low_balance?
+    alert_level = lockbox_partner.insufficient_funds? ? "danger" : "warning"
+    "alert-#{alert_level} border border-#{alert_level}"
+  end
+
+  def display_table_top_border(lockbox_partner)
+    return 'table-top-border' if !lockbox_partner.low_balance?
+  end
 end

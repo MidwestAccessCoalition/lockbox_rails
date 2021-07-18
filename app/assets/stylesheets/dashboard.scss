@@ -13,7 +13,7 @@
   .lockbox-partner {
     background: #f2f2f2;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 20px 0;
     position: relative;
     @media screen and (min-width: 481px) {
       border-bottom-right-radius: 5px;
@@ -53,7 +53,7 @@
       @media screen and (min-width: $mobile-width) {
         margin-bottom: 50px;
       }
-      .table {
+      .table-top-border {
         border-top: solid 2px black;
       }
     }
