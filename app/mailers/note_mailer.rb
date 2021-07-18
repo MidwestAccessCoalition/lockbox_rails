@@ -46,7 +46,7 @@ class NoteMailer < ApplicationMailer
   def self.recipients(note)
     # MAC users only get emailed about manual notes
     # MAC users don't get emailed about notes they wrote
-    users = User.admin.all
+    users = User.admin.active
     users -= [note.user]
 
     # Partner users get emailed about all notes

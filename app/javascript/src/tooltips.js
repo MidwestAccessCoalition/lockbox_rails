@@ -1,3 +1,3 @@
 document.addEventListener('turbolinks:load', () => {
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]:visible').tooltip();
 });

@@ -8,7 +8,7 @@ require('turbolinks').start();
 //require('@rails/activestorage').start();
 require('babel-polyfill');
 require('channels');
-require('cocoon-js');
+require("@nathanvda/cocoon")
 // jQuery, Bootstrap, and dataTables need to be loaded in a specific order to work properly.
 // See: https://stackoverflow.com/a/61239503/3251463
 require('jquery')

@@ -6,16 +6,16 @@ class User < ApplicationRecord
 
   # all but :omniauthable
   devise(
-    :authy_authenticatable, 
+    :authy_authenticatable,
     :authy_lockable,
     :confirmable,
     :database_authenticatable,
-    :lockable, 
-    :recoverable, 
-    :registerable, 
+    :lockable,
+    :recoverable,
+    :registerable,
     :rememberable,
     :timeoutable,
-    :trackable, 
+    :trackable,
     :validatable,
   )
 
@@ -41,6 +41,8 @@ class User < ApplicationRecord
   ].freeze
 
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+
+  scope :active, -> { where(locked_at: nil).where.not(confirmed_at: nil) }
 
   def authy_enabled
     # This method overwrites devise-authy functionality to always return false
@@ -77,8 +79,8 @@ class User < ApplicationRecord
     self.name || "User #{id}"
   end
 
-  def self.get_admin_emails
-    User.admin.pluck(:email).join(",")
+  def self.get_active_admin_emails
+    User.admin.active.pluck(:email).join(",")
   end
 
   private

@@ -13,11 +13,11 @@ RSpec.describe "New lockbox partner form", type: :system do
 
   context "on initial page load" do
     it "all inputs are present" do
-      page.assert_selector(selector_string, count: 7)
+      page.assert_selector(selector_string, count: 8)
     end
 
     it "inputs are pristine" do
-      page.assert_selector(".pristine", count: 7)
+      page.assert_selector(".pristine", count: 8)
     end
   end
 
@@ -36,6 +36,7 @@ RSpec.describe "New lockbox partner form", type: :system do
       select "Illinois", from: "State"
       fill_in "Zip code", with: "60601"
       fill_in "Phone number", with: "3123211234"
+      fill_in "minimum-acceptable-balance-formatted", with: "500"
       click_button("Add New Partner")
       expect(page).to have_content("Lockbox Partner was successfully created.")
     end

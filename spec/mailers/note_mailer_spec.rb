@@ -3,6 +3,7 @@ require 'rails_helper'
 describe NoteMailer, type: :mailer do
   let!(:admin_user) { FactoryBot.create(:user) }
   let!(:admin_user2) { FactoryBot.create(:user) }
+  let!(:locked_admin_user) { create(:user, locked_at: Time.now) }
   let(:lockbox_partner) { FactoryBot.create(:lockbox_partner, :active) }
   let(:support_request) do
     FactoryBot.create(:support_request, :pending, lockbox_partner: lockbox_partner)
@@ -74,9 +75,10 @@ describe NoteMailer, type: :mailer do
 
       it "emails the other admins" do
         expect(User.admin.count).to be > 1 # need to make sure we're emailing OTHER admins
-        (User.admin.pluck(:email) - [admin_note.user.email]).compact.each do |address|
+        (User.admin.active.pluck(:email) - [admin_note.user.email]).compact.each do |address|
           expect(recipients).to include(address)
         end
+        expect(recipients).to_not include(User.where.not(locked_at: nil).pluck(:email))
       end
     end
 
@@ -92,10 +94,14 @@ describe NoteMailer, type: :mailer do
         end
       end
 
-      it "emails all the admins" do
+      it "emails all the active admins" do
         expect(User.admin.count).to be > 1 # need to make sure we're emailing OTHER admins
-        User.admin.pluck(:email).compact.each do |address|
-          expect(recipients).to include(address)
+        User.admin.each do |admin|
+          if admin.locked_at?
+            expect(recipients).to_not include(admin.email)
+          else
+            expect(recipients).to include(admin.email)
+          end
         end
       end
     end
