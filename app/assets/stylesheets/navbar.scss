@@ -97,13 +97,13 @@ header {
 
     .container {
       align-items: normal;
-      
+
       @include media-breakpoint-only(sm) {
         flex-direction: column;
       }
 
-      .navbar-subcontainer {
-        @media screen and (max-width: 767.9px) {
+      @media screen and (max-width: 767.9px) {
+        .navbar-subcontainer {
           width: 100%;
           a {
             width: 100%;
@@ -112,8 +112,17 @@ header {
             font-size: 1rem;
           }
         }
-      }
 
+        .navbar-subcontainer:last-of-type {
+          a:last-of-type {
+            margin: 24px 0;
+          }
+        }
+
+        a.admin-dashboard {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 
@@ -134,7 +143,8 @@ header {
 }
 
 nav a {
-  &.edit-contact-info, &.admin-dashboard {
+  &.edit-contact-info,
+  &.admin-dashboard {
     float: none;
     display: inline-block;
     width: auto;
