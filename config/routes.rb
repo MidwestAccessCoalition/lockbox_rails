@@ -47,7 +47,8 @@ Rails.application.routes.draw do
         resources :notes, only: [:create, :show, :edit, :update]
       end
       resource :add_cash, only: [:new, :create], controller: 'add_cash'
-      resource :reconciliation, only: [:new, :create], controller: 'reconciliation'
+      resource :reconciliation, only: [:new, :create, :edit, :update], controller: 'reconciliation'
+        get '/reconciliations/:id/delete', to: 'reconciliation#delete'
     end
   end
 

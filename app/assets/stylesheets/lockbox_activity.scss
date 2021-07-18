@@ -17,6 +17,14 @@ tr.canceled {
   font-style: italic;
 }
 
+.deleted-reconciliation-tooltip-icon {
+  color: $color-primary;
+}
+
+.deleted-reconciliation-tooltip-text {
+  color: $color-primary;
+}
+
 .action-label {
   display: none;
 }

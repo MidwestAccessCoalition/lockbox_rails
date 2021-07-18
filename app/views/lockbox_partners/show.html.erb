@@ -18,18 +18,58 @@
       </thead>
       <tbody>
         <% @historical_actions.each do |action| %>
+          <% is_deleted_reconciliation = action.action_type == LockboxAction::RECONCILE && action.status == LockboxAction::CANCELED %>
           <tr class=<%= action.status %>>
-            <td><%= action.eff_date_formatted %></td>
-            <td><%= action.action_type.humanize %></td>
-            <td><%= action.status %></td>
+
             <td>
+              <% if is_deleted_reconciliation %>
+                <s>
+              <% end %>
+              <%= action.eff_date_formatted %>
+              <% if is_deleted_reconciliation %>
+                </s>
+              <% end %>
+            </td>
+
+            <td>
+              <% if is_deleted_reconciliation %>
+                <s>
+              <% end %>
+              <%= action.action_type.humanize %>
+              <% if is_deleted_reconciliation %>
+                </s>
+              <% end %>
+            </td>
+
+            <td>
+              <% if is_deleted_reconciliation %>
+                <s>
+              <% end %>
+              <%= action.status %>
+              <% if is_deleted_reconciliation %>
+                </s>
+              <% end %>
+            </td>
+
+            <td>
+              <% if is_deleted_reconciliation %>
+                <s>
+              <% end %>
               <% if action.credit? %>
                 +
               <% elsif action.debit? %>
                 -
               <% end %>
-              <%= action.amount %>
+              <% if is_deleted_reconciliation %>
+                <%= action.canceled_amount %>
+              <% else %>
+                <%= action.amount %>
+              <% end %>
+              <% if is_deleted_reconciliation %>
+                <s>
+              <% end %>
             </td>
+
             <td><%= action.support_request&.name_or_alias %></td>
             <td>
               <% if action.support_request %>
@@ -38,8 +78,32 @@
                   View details
                   <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                 <% end %>
-              <% end %>
-            </td>
+      			  <% elsif current_user.admin? && action.action_type == LockboxAction::RECONCILE && action.status == LockboxAction::COMPLETED %>
+              <!-- link to delete reconciliation page -->
+                  <% path = lockbox_partner_path+"/reconciliations/"+action.id.to_s+"/delete" %>
+      				    <%= link_to path do %>
+                    Delete Reconciliation
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  <% end %>
+              <% elsif is_deleted_reconciliation %>
+                <% reconciliation_delete_user_id = action.delete_user.nil? ? 0 : action.delete_user %>
+                <% reconciliation_delete_user = User.where(id: reconciliation_delete_user_id).first %>
+                <% reconciliation_delete_user_name = reconciliation_delete_user.nil? ? "" : reconciliation_delete_user.display_name.to_s %>
+                <div class="deleted-reconciliation-tooltip-icon">
+                  <i
+                    class="fa fa-info-circle tooltip-icon"
+                    tabindex="0"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    data-animation="false"
+                    data-html="true"
+                    title="<%= "<div class=\"deleted-reconciliation-tooltip-text\"><strong>History</strong><hr>Deleted date - " + action.delete_date.to_s + "<hr>User - " + reconciliation_delete_user_name + "</div>" %>"
+                  >
+                  </i>
+                  Deleted
+                </div>
+      			  <% end %>
+      			</td>
           </tr>
         <% end %>
       </tbody>

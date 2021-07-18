@@ -106,6 +106,11 @@ class LockboxAction < ApplicationRecord
     lockbox_transactions.map(&:amount).sum
   end
 
+  def canceled_amount
+    return Money.zero if lockbox_transactions.none?
+    lockbox_transactions.map(&:amount).sum
+  end
+
   def pending?
     status == PENDING
   end
