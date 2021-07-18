@@ -97,6 +97,23 @@ header {
 
     .container {
       align-items: normal;
+      
+      @include media-breakpoint-only(sm) {
+        flex-direction: column;
+      }
+
+      .navbar-subcontainer {
+        @media screen and (max-width: 767.9px) {
+          width: 100%;
+          a {
+            width: 100%;
+            padding: 10px 3px;
+            margin: 12px 0;
+            font-size: 1rem;
+          }
+        }
+      }
+
     }
   }
 
