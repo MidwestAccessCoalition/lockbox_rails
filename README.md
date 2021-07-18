@@ -84,23 +84,7 @@ Or for RVM:
 rvm install
 ```
 
-#### Rails
-
-```sh
-gem install bundler -v 2.1.1
-bundle install # Make sure you're in the lockbox_rails root directory
-```
-
-#### Javascript
-You will need Yarn `v1.22.x`, a Node version manager (if you don't already have one, `nvm` is receommended), and Node `v11.x`.
-
-```sh
-brew install nvm yarn
-nvm install && nvm use # This will install and use the version in the project's `.nvmrc` file
-```
-
-#### PostgreSQL & DB setup
-
+#### PostgreSQL
 See if you have PostgreSQL:
 
 ```sh
@@ -115,6 +99,36 @@ brew services stop postgresql
 brew services start postgresql@11
 ```
 
+#### Rails
+
+```sh
+gem install bundler -v 2.1.1
+bundle install # Make sure you're in the lockbox_rails root directory
+```
+
+*If you get an error installing `pg` while running the `bundle install` command, it may be resolved 
+by running `brew install postgresql`, even if you have already installed `postgresql@11` or another 
+specific version of `postgresql`. Unlike when you installed `postgresql@11` above, you do not need 
+to start the `postgresql` service for this to fix your `bundle install` error.*
+
+#### Javascript
+You will need Yarn `v1.22.x`, a Node version manager (if you don't already have one, `nvm` is receommended), and Node `v11.x`.
+
+```sh
+brew install nvm yarn
+nvm install && nvm use # This will install and use the version in the project's `.nvmrc` file
+```
+#### Redis
+
+You'll need `redis` in order for `sidekiq` to work and to set up the database.
+
+```sh
+brew install redis
+brew services start redis
+```
+
+#### DB setup
+
 Setup DB:
 
 ```sh
@@ -126,10 +140,13 @@ _If you have issues at this step, see this [PostgreSQL Setup](https://github.com
 
 #### Mailcatcher
 
+This is done outside of the Gemfile because it is an
+external tool used outside of the app environment.
+The `--with-cflags="-Wno-error=implicit-function-declaration"` flag
+was added to avoid the error [described here](https://github.com/sj26/mailcatcher/issues/430).
+
 ```sh
-# This is done outside of the Gemfile because it is an
-# external tool used outside of the app environment.
-gem install mailcatcher
+gem install mailcatcher -- --with-cflags="-Wno-error=implicit-function-declaration"
 ```
 
 #### Webpack
@@ -159,15 +176,6 @@ bundle install # if necessary
 bundle exec rails s # or `yarn run dev:rails`
 # If testing email sending functionality, start mailcatcher
 mailcatcher # This will run on localhost:1080
-```
-
-#### Redis
-
-You'll need `redis` in order for `sidekiq` to work.
-
-```sh
-brew install redis
-brew services start redis
 ```
 
 #### Ports in use
