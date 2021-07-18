@@ -19,7 +19,7 @@ class LockboxActionsController < ApplicationController
   end
 
   def update_params
-    params.require(:lockbox_action).permit(:status)
+    params.require(:lockbox_action).permit(:status, :delete_date, :delete_user)
   end
 
   def require_ownership

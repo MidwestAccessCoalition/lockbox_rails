@@ -137,7 +137,7 @@ class LockboxPartner < ApplicationRecord
   end
 
   def last_reconciled_at
-    lockbox_actions.where(action_type: LockboxAction::RECONCILE)
+    lockbox_actions.where(action_type: LockboxAction::RECONCILE, status: LockboxAction::COMPLETED)
                    .order(eff_date: :desc)
                    .first
                    &.eff_date

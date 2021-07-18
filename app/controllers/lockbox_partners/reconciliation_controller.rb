@@ -19,6 +19,10 @@ class LockboxPartners::ReconciliationController < ApplicationController
     end
   end
 
+  def delete
+    @reconciliation = LockboxAction.find(params[:id])
+  end
+
   private
 
   def set_lockbox_partner

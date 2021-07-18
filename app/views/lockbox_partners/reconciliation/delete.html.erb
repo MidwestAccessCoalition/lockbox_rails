@@ -1,0 +1,26 @@
+<%= render partial: 'lockbox_partners/header', locals: { lockbox_partner: @lockbox_partner } %>
+<%= form_for @reconciliation, html: { class: "form delete-reconciliation-form" } do |f| %>
+  <%= link_to lockbox_partner_path(@lockbox_partner) do |link| %>
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> View All Activity
+  <% end %>
+  <div class="support-request-container">
+    <h2>Delete Reconciliation</h2>
+    <div class="row support-request-details">
+      <div class="col-12 col-md-6">
+        <strong>Delete Date</strong>
+        <p><%= @reconciliation&.eff_date %></p>
+      </div>
+      <div class="col-12 col-md-6">
+        <strong>Amount</strong>
+        <p>$<%= @reconciliation&.canceled_amount %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab">
+    <%= link_to "Delete Reconciliation", lockbox_action_path(@reconciliation, {lockbox_action: {status: :canceled, delete_date: DateTime.current, delete_user: current_user.id}}), method: :put, class: "btn btn-danger" %>
+  </div>
+
+<% end %>
+
+<%= javascript_pack_tag 'forms', 'data-turbolinks-track': 'reload' %>
