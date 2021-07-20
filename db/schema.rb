@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_013524) do
+ActiveRecord::Schema.define(version: 2021_07_02_172911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,16 @@ ActiveRecord::Schema.define(version: 2021_06_23_013524) do
     t.string "zip_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "piggybank_organizations", force: :cascade do |t|
+    t.bigint "piggybank_id"
+    t.bigint "organization_id"
+    t.string "role"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_piggybank_organizations_on_organization_id"
+    t.index ["piggybank_id"], name: "index_piggybank_organizations_on_piggybank_id"
   end
 
   create_table "piggybanks", force: :cascade do |t|
@@ -158,6 +168,8 @@ ActiveRecord::Schema.define(version: 2021_06_23_013524) do
   end
 
   add_foreign_key "lockbox_transactions", "lockbox_actions"
+  add_foreign_key "piggybank_organizations", "organizations"
+  add_foreign_key "piggybank_organizations", "piggybanks"
   add_foreign_key "support_requests", "lockbox_partners"
   add_foreign_key "tracking_infos", "lockbox_actions"
   add_foreign_key "users", "users", column: "invited_by_id"
