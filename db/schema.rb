@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2021_07_02_172911) do
     t.string "phone_number"
     t.string "street_address"
     t.string "city"
+    t.string "state"
     t.string "zip_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
