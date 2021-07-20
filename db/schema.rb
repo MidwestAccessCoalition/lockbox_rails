@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_223939) do
+ActiveRecord::Schema.define(version: 2021_07_02_172911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,35 @@ ActiveRecord::Schema.define(version: 2021_01_17_223939) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "street_address"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "piggybank_organizations", force: :cascade do |t|
+    t.bigint "piggybank_id"
+    t.bigint "organization_id"
+    t.string "role"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_piggybank_organizations_on_organization_id"
+    t.index ["piggybank_id"], name: "index_piggybank_organizations_on_piggybank_id"
+  end
+
+  create_table "piggybanks", force: :cascade do |t|
+    t.string "name"
+    t.integer "minimum_acceptable_balance_cents"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "support_requests", force: :cascade do |t|
     t.string "client_ref_id"
     t.string "name_or_alias"
@@ -115,11 +144,13 @@ ActiveRecord::Schema.define(version: 2021_01_17_223939) do
     t.string "authy_id"
     t.datetime "last_sign_in_with_authy"
     t.boolean "authy_enabled", default: false
+    t.bigint "organization_id"
     t.index ["authy_id"], name: "index_users_on_authy_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["lockbox_partner_id"], name: "index_users_on_lockbox_partner_id"
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
@@ -136,6 +167,8 @@ ActiveRecord::Schema.define(version: 2021_01_17_223939) do
   end
 
   add_foreign_key "lockbox_transactions", "lockbox_actions"
+  add_foreign_key "piggybank_organizations", "organizations"
+  add_foreign_key "piggybank_organizations", "piggybanks"
   add_foreign_key "support_requests", "lockbox_partners"
   add_foreign_key "tracking_infos", "lockbox_actions"
   add_foreign_key "users", "users", column: "invited_by_id"
